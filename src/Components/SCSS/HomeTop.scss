@@ -1,0 +1,92 @@
+$main: rgb(174, 48, 48);
+
+.home-top {
+  height: 58rem;
+  background: url("./Media/HomePageBGImageTop.jpg");
+  background-size: 100% 100%;
+  font-family: "Griffy";
+  animation: homePageAnime 0.5s;
+  animation-iteration-count: infinite;
+  animation-duration: 10s;
+  animation-fill-mode: both;
+  transition: background 4s ease;
+
+  .container {
+    padding-top: 13rem;
+    color: $main;
+    h1 {
+      font-size: 3rem;
+      color: white;
+    }
+    h2 {
+      font-size: 5rem;
+      color: white;
+      span {
+        color: $main;
+        font-size: 8rem;
+      }
+    }
+    h3 {
+      font-size: 4rem;
+      color: white;
+      span {
+        color: $main;
+      }
+      font{
+        font-size: 7rem;
+      }
+    }
+    button{
+        margin-top: 3rem;
+        padding:1rem 2rem;
+        font-size: 1.5rem;
+        border: 2px solid $main;
+        background: none;
+        color: $main;
+    }
+    button:hover{
+        font-size: 1.8rem;
+       font-family: 'Dancing Script', cursive;
+       transform: scale(1.06);
+       transition: all .4s;
+       box-shadow: 0px 0px 50px $main;
+       background: rgb(255, 255, 255);
+    }
+  }
+}
+
+@keyframes homePageAnime {
+  0% {
+    background: url("./Media/HomePageBGImageTop.jpg");
+  }
+  10% {
+    background: url("./Media/HomePageBGImageTop1.jpg");
+  }
+  20% {
+    background: url("./Media/HomePageBGImageTop2.jpg");
+  }
+  30% {
+    background: url("./Media/HomePageBGImageTop3.jpg");
+  }
+  40% {
+    background: url("./Media/HomePageBGImageTop4.jpg");
+  }
+  50% {
+    background: url("./Media/HomePageBGImageTop5.jpg");
+  }
+  60% {
+    background: url("./Media/HomePageBGImageTop6.jpg");
+  }
+  70% {
+    background: url("./Media/HomePageBGImageTop7.jpg");
+  }
+  80% {
+    background: url("./Media/HomePageBGImageTop8.jpg");
+  }
+  90% {
+    background: url("./Media/HomePageBGImageTop9.jpg");
+  }
+  100% {
+    background: url("./Media/HomePageBGImageTop.jpg");
+  }
+}

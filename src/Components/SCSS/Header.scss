@@ -1,0 +1,54 @@
+$main: red;
+
+::placeholder {
+  color: $main !important;
+}
+.MainHeader {
+// font-family: 'Dancing Script', cursive;
+// font-family: 'Raleway', sans-serif;
+// font-family: 'Griffy';
+// font-family: 'Maven Pro';
+// font-family: 'Kalam';
+font-family: 'Edu TAS Beginner', cursive;
+
+  background: #000000d1;
+  transition: .3s all;
+  .container-fluid {
+    .d-flex {
+      a {
+        img {
+          width: 190px;
+          height: 80px;
+          position: relative;
+          left: -1.4rem;
+        }
+      }
+      form {
+        input {
+          background: none;
+          border-radius: 0;
+          border: 1px solid $main;
+          box-shadow: none;
+          color: white;
+        }
+      }
+      .text-end {
+        button {
+          font-size: 900 !important;
+          border-radius: 0;
+          border: 1px solid $main;
+          color: $main;
+        }
+        button:hover {
+          color: white;
+          background: $main;
+        }
+        .btn-danger {
+          color: white;
+          background: $main;
+        }
+      }
+    }
+  }
+}
+

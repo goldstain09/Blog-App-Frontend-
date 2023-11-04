@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
+import Home from "./Components/Home";
 
 export default function Router() {
   return (
     <>
-    <h1>RouterProvider</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
