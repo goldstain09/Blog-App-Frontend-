@@ -1,0 +1,226 @@
+$main: red;
+// font-family: 'Raleway', sans-serif;
+// font-family: 'Griffy';
+// font-family: 'Maven Pro';
+// font-family: 'Kalam';
+// font-family: "Edu TAS Beginner", cursive;
+.Founderr {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+  h1 {
+    text-shadow: 2px 2px 3px rgba(255, 0, 0, 0.554);
+    font-size: 3rem;
+    position: relative;
+    left: 9rem;
+    top: 8rem;
+    color: rgb(0, 0, 0);
+    font-family: "Dancing Script", cursive;
+  }
+  .row {
+    .col-lg-6:first-child {
+      text-align: end;
+      padding-right: 3rem;
+      img {
+        width: 60%;
+        border-radius: 50000px;
+      }
+    }
+    .col-lg-6:last-child {
+      padding-top: 7.5rem;
+      h2 {
+        color: black;
+        font-family: "Raleway", sans-serif;
+      }
+      h4 {
+        font-family: "Edu TAS Beginner", cursive;
+        color: grey;
+      }
+      > div {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1.2rem;
+        a {
+          text-decoration: none;
+          color: rgba(26, 26, 26, 0.781);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1400px) {
+  .Founderr {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+    h1 {
+      font-size: 3rem;
+      left: 6rem;
+      top: 8rem;
+    }
+    .row {
+      .col-lg-6:first-child {
+        padding-right: 3rem;
+        img {
+          width: 60%;
+        }
+      }
+      .col-lg-6:last-child {
+        padding-top: 5.9rem;
+
+        > div {
+          margin-top: 2rem;
+          gap: 1.2rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .Founderr {
+    padding-top: 0rem;
+    padding-bottom: 3.6rem;
+    h1 {
+      font-size: 2.76rem;
+      left: 3.9rem;
+      top: 6rem;
+    }
+    .row {
+      .col-lg-6:first-child {
+        padding-right: 2rem;
+        img {
+          width: 60%;
+        }
+      }
+      .col-lg-6:last-child {
+        padding-top: 4.7rem;
+
+        > div {
+          margin-top: 1rem;
+          gap: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .Founderr {
+    padding-bottom: 3rem;
+    h1 {
+      font-size: 2rem;
+      left: 2.5rem;
+      top: 5rem;
+    }
+    .row {
+      .col-lg-6:first-child {
+        padding-right: 2rem;
+        img {
+          width: 60%;
+        }
+      }
+      .col-lg-6:last-child {
+        padding-top: 2.6rem;
+
+        > div {
+          margin-top: 1rem;
+          gap: 0.7rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Founderr {
+    padding-bottom: 3rem;
+    h1 {
+      font-size: 2rem;
+      left: 2.5rem;
+      top: 5rem;
+    }
+    .row {
+      .col-lg-6:first-child {
+        padding-right: 2rem;
+        text-align: center;
+        img {
+          width: 60%;
+        }
+      }
+      .col-lg-6:last-child {
+        text-align: center!important;
+        justify-content: center!important;
+        padding-top: 2.6rem;
+
+        > div {
+          margin-top: 1rem;
+          gap: 0.7rem;
+          width:99%;
+          padding-left: 38%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .Founderr {
+    width: 90%;
+    padding-bottom: 3rem;
+    h1 {
+      font-size: 1.5rem;
+      left: 1rem;
+      top: 4rem;
+    }
+    .row {
+      .col-lg-6:first-child {
+        padding-right: 0;
+        text-align: center;
+        img {
+          width: 60%;
+        }
+      }
+      .col-lg-6:last-child {
+        text-align: center!important;
+        justify-content: center!important;
+        padding-top: 2.6rem;
+
+        > div {
+          margin-top: 1rem;
+          gap: 0.7rem;
+          width: 99%;
+          padding-left: 36%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .Founderr {
+    width: 90%;
+    padding-bottom: 2rem;
+    h1 {
+      font-size: 1.2rem;
+      left: 0rem;
+      top: 4rem;
+    }
+    .row {
+      .col-lg-6:first-child {
+        img {
+          width: 60%;
+        }
+      }
+      .col-lg-6:last-child {
+        padding-top: 2rem;
+
+        > div {
+          margin-top: 1rem;
+          gap: 0.7rem;
+          width: 99%;
+          padding-left: 31%;
+        }
+      }
+    }
+  }
+}

@@ -3,16 +3,22 @@ $main: red;
 ::placeholder {
   color: $main !important;
 }
-.MainHeader {
 // font-family: 'Dancing Script', cursive;
 // font-family: 'Raleway', sans-serif;
 // font-family: 'Griffy';
 // font-family: 'Maven Pro';
 // font-family: 'Kalam';
-font-family: 'Edu TAS Beginner', cursive;
+.MobileScreenMainHeader {
+  display: none;
+}
+.HeaderNavbarCanvas{
+  display: none;
+}
+.MainHeader {
+  font-family: "Edu TAS Beginner", cursive;
 
   background: #000000d1;
-  transition: .3s all;
+  transition: 0.3s all;
   .container-fluid {
     .d-flex {
       a {
@@ -21,6 +27,7 @@ font-family: 'Edu TAS Beginner', cursive;
           height: 80px;
           position: relative;
           left: -1.4rem;
+          filter: drop-shadow(3px 3px 5px rgb(255, 255, 255));
         }
       }
       form {
@@ -52,3 +59,167 @@ font-family: 'Edu TAS Beginner', cursive;
   }
 }
 
+@media (max-width: 992px) {
+  .MainHeader {
+    .container-fluid {
+      > .d-flex {
+        a {
+          align-items: start;
+          width: 20%;
+          img {
+            width: 190px;
+            height: 80px;
+            left: -1.4rem;
+          }
+        }
+        nav {
+          display: none !important;
+        }
+        form {
+          width: 35%;
+          input {
+            margin-top: 1rem;
+          }
+        }
+        .text-end {
+          position: relative;
+          right: -6rem;
+          width: 20%;
+          // button {
+
+          // }
+          .btn-danger {
+            color: white;
+            background: $main;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .MainHeader {
+    display: none;
+  }
+  .MobileScreenMainHeader {
+    display: block;
+    .container-fluid {
+      .row {
+        .col-2 {
+          img {
+            width: 100px!important;
+            position: relative;
+            left: -1rem;
+            filter: drop-shadow(3px 3px 5px rgb(255, 255, 255));
+          }
+          button {
+            background: none;
+            margin-top: 0rem;
+            border: none;
+            font-size: 2.4rem;
+            color: white !important;
+            box-shadow: none;
+          }
+        }
+        .col-10{
+          margin-top: 1rem;
+          margin-left: 8%;
+          input{
+            background: none;
+            border-radius: 0;
+            border: 1px solid $main;
+            box-shadow: none;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  .HeaderNavbarCanvas{
+    display: block;
+    background: #0000009d;
+    backdrop-filter: blur(9px);
+    .offcanvas-header{
+      .offcanvas-title{
+        img{
+          position: relative;
+          left: -1rem;
+          width: 120px;
+          filter: drop-shadow(3px 3px 5px rgb(255, 255, 255));
+        }
+      }
+      button{
+        color: white!important;
+        background: none;
+        box-shadow: none;
+        font-size: 1.5rem;
+        border: none;
+      }
+    }
+    .offcanvas-body{
+      button {
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 1rem;
+        border-radius: 0;
+        border: 1px solid $main;
+        color: $main;
+      }
+      button:hover {
+        color: white;
+        background: $main;
+      }
+      .btn-danger {
+        color: white;
+        background: $main;
+      }
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .MobileScreenMainHeader {
+    .container-fluid {
+      .row {
+        .col-2 {
+          img {
+            width: 80px!important;
+            left: -1rem;
+          }
+          button {
+            position: relative;
+            left: -1rem;
+            margin-top: 0rem;
+            font-size: 1.3rem;
+          }
+        }
+        .col-10{
+          margin-top: .5rem;
+          width: 94%;
+          margin-left: 3%;
+        }
+      }
+    }
+  }
+  .HeaderNavbarCanvas{
+    .offcanvas-header{
+      .offcanvas-title{
+        img{
+          left: -1rem;
+          width: 80px;
+        }
+      }
+      button{
+        font-size: 1.2rem;
+      }
+    }
+    .offcanvas-body{
+      button {
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 1rem;
+      }
+    }
+  }
+}

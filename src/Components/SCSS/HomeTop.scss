@@ -32,25 +32,25 @@ $main: rgb(174, 48, 48);
       span {
         color: $main;
       }
-      font{
+      font {
         font-size: 7rem;
       }
     }
-    button{
-        margin-top: 3rem;
-        padding:1rem 2rem;
-        font-size: 1.5rem;
-        border: 2px solid $main;
-        background: none;
-        color: $main;
+    button {
+      margin-top: 3rem;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      border: 2px solid $main;
+      background: none;
+      color: $main;
     }
-    button:hover{
-        font-size: 1.8rem;
-       font-family: 'Dancing Script', cursive;
-       transform: scale(1.06);
-       transition: all .4s;
-       box-shadow: 0px 0px 50px $main;
-       background: rgb(255, 255, 255);
+    button:hover {
+      font-size: 1.8rem;
+      font-family: "Dancing Script", cursive;
+      transform: scale(1.06);
+      transition: all 0.4s;
+      box-shadow: 0px 0px 50px $main;
+      background: rgb(255, 255, 255);
     }
   }
 }
@@ -88,5 +88,140 @@ $main: rgb(174, 48, 48);
   }
   100% {
     background: url("./Media/HomePageBGImageTop.jpg");
+  }
+}
+
+@media (max-width: 992px) {
+  .home-top {
+    height: 40rem;
+
+    .container {
+      padding-top: 10rem;
+      color: $main;
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 3.5rem;
+        span {
+          font-size: 5.5rem;
+        }
+      }
+      h3 {
+        font-size: 3.5rem;
+        font {
+          font-size: 6rem;
+        }
+      }
+      button {
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+      }
+      button:hover {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .home-top {
+    height: 33rem;
+
+    .container {
+      padding-top: 11rem;
+      color: $main;
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 2.4rem;
+        span {
+          font-size: 4rem;
+        }
+      }
+      h3 {
+        font-size: 2.5rem;
+        font {
+          font-size: 3.8rem;
+        }
+      }
+      button {
+        margin-top: 1.3rem;
+        padding: .5rem 1.1rem;
+        font-size: 1rem;
+      }
+      button:hover {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .home-top {
+    height: 27rem;
+
+    .container {
+      padding-top: 10rem;
+      color: $main;
+      h1 {
+        font-size: 1.2rem;
+      }
+      h2 {
+        font-size: 2rem;
+        span {
+          font-size: 2.9rem;
+        }
+      }
+      h3 {
+        font-size: 2rem;
+        font {
+          font-size: 2.8rem;
+        }
+      }
+      button {
+        margin-top: 1rem;
+        padding: .5rem 1rem;
+        font-size: .9rem;
+      }
+      button:hover {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .home-top {
+    height: 25rem;
+
+    .container {
+      padding-top: 8rem;
+      h1 {
+        font-size: 1rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+        span {
+          font-size: 2rem;
+        }
+      }
+      h3 {
+        font-size: 1.5rem;
+        font {
+          font-size: 2rem;
+        }
+      }
+      button {
+        margin-top: .5rem;
+        padding: .5rem 1rem;
+        font-size: .8rem;
+      }
+      button:hover {
+        font-size: .9rem;
+      }
+    }
   }
 }

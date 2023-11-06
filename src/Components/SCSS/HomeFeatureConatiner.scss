@@ -1,13 +1,23 @@
 $main: red;
 
 .home-feature-container {
-  height: 58rem;
+  height: 35rem;
   background: url("./Media/HomePageCardsBGImage.jpg");
-  .container {
+  
+  .container{
+    .HeadingDiv{
+      position: relative;
+      top: -6.5rem;
+      img{
+        width: 50%;
+        // backdrop-filter:;
+        filter: drop-shadow(10px 10px 5px rgb(0, 0, 0));
+      }
+    }
   }
 }
 
-.OurBenefits {
+.Features {
   border: none;
   width: 32%;
   margin-left: 1%;
@@ -59,7 +69,7 @@ $main: red;
   }
 }
 
-.OurBenefits:hover {
+.Features:hover {
   transform: scale(1.05);
   transition: all 0.6s;
   border: 1px solid black;
@@ -102,7 +112,20 @@ $main: red;
 }
 
 @media (max-width: 1200px) {
-  .OurBenefits {
+  
+.home-feature-container {
+  height: 35rem;
+  
+  .container{
+    .HeadingDiv{
+      top: -5rem;
+      img{
+        width: 52%;
+      }
+    }
+  }
+}
+  .Features {
     width: 32%;
     margin-left: 1%;
     margin-top: 4rem;
@@ -145,7 +168,7 @@ $main: red;
     }
   }
 
-  .OurBenefits:hover {
+  .Features:hover {
     transform: scale(1.05);
     height: calc(100% - 50%) !important;
 
@@ -156,10 +179,22 @@ $main: red;
 }
 
 @media (max-width: 992px) {
-  .OurBenefits {
+  .home-feature-container {
+    height: 25rem;
+    
+    .container{
+      .HeadingDiv{
+        top: -5rem;
+        img{
+          width: 70%;
+        }
+      }
+    }
+  }
+  .Features {
     width: 32%;
     margin-left: 1%;
-    margin-top: 4rem;
+    margin-top: 0rem;
     margin-bottom: 3rem;
     -webkit-clip-path: polygon(
       0% 0%,
@@ -199,7 +234,7 @@ $main: red;
     }
   }
 
-  .OurBenefits:hover {
+  .Features:hover {
     transform: scale(1.05);
     height: calc(100% - 50%) !important;
 
@@ -210,7 +245,19 @@ $main: red;
 }
 
 @media (max-width: 768px) {
-  .OurBenefits {
+  .home-feature-container {
+    height: fit-content;
+    
+    .container{
+      .HeadingDiv{
+        top: -3.8rem;
+        img{
+          width: 70%;
+        }
+      }
+    }
+  }
+  .Features {
     width: 90%;
     margin-left: 5%;
     margin-top: 2rem;
@@ -252,7 +299,7 @@ $main: red;
       }
     }
   }
-  .OurBenefits:hover {
+  .Features:hover {
     transform: scale(1.05);
     height: calc(100% - 50%) !important;
 
@@ -263,7 +310,19 @@ $main: red;
 }
 
 @media (max-width: 576px) {
-  .OurBenefits {
+  .home-feature-container {
+    height: fit-content;
+    
+    .container{
+      .HeadingDiv{
+        top: -3.2rem;
+        img{
+          width: 20rem;
+        }
+      }
+    }
+  }
+  .Features {
     width: 95%;
     margin-left: 2.5%;
     margin-top: 1rem;
@@ -304,7 +363,7 @@ $main: red;
       }
     }
   }
-  .OurBenefits:hover {
+  .Features:hover {
     transform: scale(1.05);
     height: calc(100% - 50%) !important;
 
@@ -315,7 +374,19 @@ $main: red;
 }
 
 @media (max-width: 394px) {
-  .OurBenefits {
+  .home-feature-container {
+    height: fit-content;
+    
+    .container{
+      .HeadingDiv{
+        top: -1.7rem;
+        img{
+          width: 12rem;
+        }
+      }
+    }
+  }
+  .Features {
     width: 98%;
     margin-left: 1%;
     margin-top: 0.8remrem;
@@ -354,7 +425,7 @@ $main: red;
       }
     }
   }
-  .OurBenefits:hover {
+  .Features:hover {
     transform: scale(1.05);
     height: calc(100% - 50%) !important;
 
