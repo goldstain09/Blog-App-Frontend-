@@ -141,6 +141,62 @@ export default function Header() {
           <button type="button" className="btn btn-danger">
             Sign-up
           </button>
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >
+                  Categories
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  <a className="nav-link active" aria-current="page" href="#">
+                    ALL BLOGS
+                  </a>
+
+                  <a className="nav-link" href="#">
+                    FASHION BLOGS
+                  </a>
+
+                  <a className="nav-link" href="#">
+                    PERSONAL BLOGS
+                  </a>
+
+                  <a className="nav-link" href="#">
+                    LIFESTYLE BLOGS
+                  </a>
+
+                  <a className="nav-link" href="#">
+                    SPORT BLOGS
+                  </a>
+
+                  <a className="nav-link" href="#">
+                    FITNESS BLOGS
+                  </a>
+
+                  <a className="nav-link" href="#">
+                    MARKETING BLOGS
+                  </a>
+
+                  <a className="nav-link" href="#">
+                    PARENTING BLOGS
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -103,6 +103,8 @@ $main: red;
     display: none;
   }
   .MobileScreenMainHeader {
+    background: #000000d1;
+    transition: 0.3s all;
     display: block;
     .container-fluid {
       .row {
@@ -174,6 +176,40 @@ $main: red;
         color: white;
         background: $main;
       }
+      // accordian categories
+      .accordion{
+        padding-top: 2rem;
+        .accordion-item{
+          background: none;
+          .accordion-header{
+            background: none;
+            .accordion-button{
+              background: none;
+              color: white;
+              box-shadow: none;
+            }
+            .accordion-button:hover{
+              box-shadow: 0px 0px 20px red;
+            }
+          }
+          .accordion-collapse{
+            padding: 1rem;
+            .accordion-body{
+              a{
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                text-align: center;
+                color: white;
+              }
+              a:hover{
+                background: #000;
+                color: $main;
+              }
+            }
+          }
+        }
+      }
+
     }
   }
 }

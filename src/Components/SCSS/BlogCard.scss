@@ -1,0 +1,225 @@
+$main: red;
+
+.BlogCard {
+  width: 30%;
+  margin: 1rem 1.5%;
+  background: none;
+  border-radius: 0;
+  .dropdown {
+    .dropdown-menu {
+      border-radius: 0;
+      background-color: rgba(0, 0, 0, 0.628);
+      > li {
+        a {
+          transition: all 0.4s;
+          color: white;
+        }
+        a:hover {
+          color: white;
+          background: #000;
+        }
+      }
+    }
+  }
+  > .row {
+    padding: 0.5rem 0.5rem;
+    .col-2 {
+      width: 15%;
+      img {
+        border-radius: 60px;
+        width: 100%;
+      }
+    }
+    .col-9 {
+      h5 {
+        margin-top: 0.39rem;
+        font-family: "Dancing Script", cursive;
+        color: white;
+      }
+    }
+    .col-1 {
+      button {
+        border: none;
+        background: none;
+        color: white;
+      }
+    }
+  }
+  img {
+    border-radius: 0;
+  }
+  .card-body {
+    padding: 1rem 0;
+    h5 {
+      margin-top: 1rem;
+      font-family: "Raleway", ssans-serif;
+      color: white;
+    }
+    p {
+      font-family: "Dancing Script", cursive;
+      color: white;
+    }
+    a {
+      font-family: "Edu TAS Beginner", cursive;
+      background: none;
+      border: solid 1px $main;
+    }
+    a:hover {
+      background: $main;
+      color: white;
+    }
+    div {
+      .col-6 {
+        button {
+          color: white;
+          background: none;
+          border: none;
+          margin-right: 0.4rem;
+        }
+        .liked {
+          color: $main;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .BlogCard {
+    width: 47%;
+    margin: 1rem 1.5%;
+    > .row {
+      padding: 0.5rem 0.5rem;
+      .col-2 {
+        width: 15%;
+        img {
+          width: 100%;
+        }
+      }
+      .col-9 {
+        h5 {
+          margin-top: 0.2rem;
+        }
+      }
+    }
+
+    .card-body {
+      padding: 1rem 0;
+      h5 {
+        margin-top: 1rem;
+      }
+      div {
+        .col-6 {
+          button {
+            margin-right: 0.3rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .BlogCard {
+    width: 80%;
+    margin: 1rem 10%;
+    > .row {
+      padding: 0.5rem 0.5rem;
+      .col-2 {
+        width: 15%;
+        img {
+          width: 100%;
+        }
+      }
+      .col-9 {
+        h5 {
+          margin-top: 0.45rem;
+        }
+      }
+    }
+
+    .card-body {
+      padding: 1rem 0;
+      h5 {
+        margin-top: 1rem;
+      }
+      div {
+        .col-6 {
+          button {
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .BlogCard {
+    width: 90%;
+    margin: 1rem 5%;
+    > .row {
+      padding: 0.5rem 0.5rem;
+      .col-2 {
+        width: 15%;
+        img {
+          width: 100%;
+        }
+      }
+      .col-9 {
+        h5 {
+          margin-top: 0.45rem;
+        }
+      }
+    }
+    .card-body {
+      padding: 1rem 0;
+      h5 {
+        margin-top: 1rem;
+      }
+      div {
+        .col-6 {
+          button {
+            margin-right: 0.3rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .BlogCard {
+    width: 98%;
+    margin: 1rem 1%;
+    > .row {
+      width: 98%;
+      padding: 0.5rem 0.5rem;
+      .col-2 {
+        width: 15%;
+        img {
+          width: 1.4rem;
+        }
+      }
+      .col-9 {
+        width: 70%;
+        h5 {
+          margin-top: 0.15rem;
+        }
+      }
+    }
+    .card-body {
+      padding: 1rem 0;
+      h5 {
+        margin-top: 1rem;
+      }
+      div {
+        .col-6 {
+          button {
+            margin-right: 0.3rem;
+          }
+        }
+      }
+    }
+  }
+}
