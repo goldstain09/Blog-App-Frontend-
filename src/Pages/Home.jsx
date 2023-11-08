@@ -5,9 +5,7 @@ import "./SCSS/Home.scss";
 import HomeTop from "../Components/HomeTop";
 import HomeFeatureConatiner from "../Components/HomeFeatureConatiner";
 import HomeFounder from "../Components/HomeFounder";
-import CategoryHeader from "../Components/CategoryHeader";
-import BlogCard from "../Components/BlogCard";
-import HomePageBlog from "./HomePageBlog";
+import HomePageBlogs from "./HomePageBlogs";
 
 export default function Home() {
   const [nott, setnott] = useState(false);
@@ -23,7 +21,7 @@ export default function Home() {
         </>
       ) : (
         <>
-        <HomePageBlog />
+        <HomePageBlogs />
         </>
       )}
 

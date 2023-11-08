@@ -1,0 +1,139 @@
+.comment {
+  margin-top: 2rem;
+  .dropdown {
+    .dropdown-menu {
+      width: 40%;
+      border-radius: 0;
+      background-color: rgb(255, 0, 0);
+      > li {
+        a {
+          transition: all 0.4s;
+          color: white;
+        }
+        a:hover {
+          color: white;
+          background: #000;
+        }
+      }
+    }
+  }
+
+  .commenterDp {
+    img {
+      border-radius: 50px;
+      width: 100%;
+    }
+  }
+  .commenterName {
+    h5 {
+      color: white;
+      font-family: "Dancing Script", cursive;
+      font-family: "Raleway", sans-serif;
+      font-weight: 200;
+    }
+  }
+  .likeBtn {
+    button {
+      border: none;
+      background: none;
+      color: white;
+      .bi-suit-heart-fill {
+        color: red;
+      }
+    }
+  }
+  .col-10 {
+    padding: 0.3rem 0.3rem;
+    p {
+      color: white;
+      font-size: 0.8rem;
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 1550px) {
+  .comment {
+    margin-top: 2rem;
+    .commenterDp {
+      img {
+        width: 1.4rem;
+      }
+    }
+    .commenterName {
+      h5 {
+        margin-top: 0.2rem;
+        color: white;
+      }
+    }
+    .likeBtn {
+      button {
+        border: none;
+      }
+    }
+    .col-10 {
+      p {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .comment {
+    margin-top: 2rem;
+    .commenterDp {
+      width: 2rem;
+      margin-right: 1rem;
+      img {
+        width: 2rem;
+      }
+    }
+    .commenterName {
+      h5 {
+        margin-top: 0.25rem;
+        color: white;
+      }
+    }
+    .likeBtn {
+      width: 23%;
+      text-align: end !important;
+      button {
+        border: none;
+      }
+    }
+    .col-10 {
+      p {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .comment {
+    margin-top: 2rem;
+    .commenterDp {
+      width: 1.5rem;
+      margin-right: 1rem;
+      img {
+        width: 1.5rem;
+      }
+    }
+    .commenterName {
+      h5 {
+        margin-top: 0.25rem;
+        color: white;
+      }
+    }
+    .likeBtn {
+      width: 10%;
+    }
+    .col-10 {
+      p {
+        margin-left: 0.5rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
