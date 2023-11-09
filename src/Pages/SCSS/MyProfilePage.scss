@@ -1,0 +1,533 @@
+$main: red;
+
+.MyProfilePage {
+  background: #000;
+  height: fit-content;
+  > .row {
+    .col-xl-4 {
+      text-align: center;
+      padding: 5rem 0;
+      img {
+        width: 40%;
+        border-radius: 11111px;
+      }
+    }
+    .col-xl-8 {
+      text-align: left;
+      > .usernameAndEditBtnContainer {
+        padding-top: 5rem;
+        .col-7 {
+          .username {
+            color: white;
+            font-family: "Kalam";
+          }
+        }
+        .col-5 {
+          text-align: center;
+          button {
+            font-family: "Raleway", sans-serif;
+            background: grey;
+            border: darkgrey;
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 10px;
+          }
+        }
+      }
+      > .postFollowersAndFollowingContainer {
+        padding-top: 2rem;
+        .col-4 {
+          h4 {
+            color: white;
+            font-family: "Raleway", sans-serif;
+            font-weight: 200;
+            span {
+              font-weight: 800;
+            }
+          }
+        }
+      }
+      > .NameAndBio {
+        padding-top: 2rem;
+        .col-12 {
+          h2 {
+            color: white;
+            font-family: "Raleway", sans-serif;
+            font-weight: 300;
+          }
+          pre {
+            font-family: "Kalam";
+            padding-top: 1rem;
+            color: white;
+          }
+        }
+      }
+    }
+
+    > .postetcNavbar {
+      padding: 2rem 0;
+      gap: 5rem;
+      .nav-item {
+        transition: all 0.3s;
+        .nav-link {
+          text-decoration: none;
+          font-family: "Maven Pro";
+          color: rgb(161, 161, 161);
+        }
+      }
+      .nav-item:hover {
+        transform: scale3d(1.1, 1.1, 1.1);
+        .nav-link {
+          color: rgb(255, 255, 255);
+          i {
+            color: skyblue;
+          }
+          .bi-bookmark-check {
+            color: grey;
+          }
+          .bi-heart {
+            color: $main;
+          }
+          .bi-postcard-heart {
+            color: rgb(224, 146, 159);
+          }
+        }
+      }
+    }
+  }
+  .PostContainer {
+    padding: 3rem 0;
+    .row {
+      gap: 1.3%;
+      .col-xl-3 {
+        overflow: hidden;
+        width: 24%;
+        height: 20rem;
+        img {
+          width: 120%;
+          height: 100%;
+          margin-top: -10%;
+          margin-left: -20%;
+        }
+        > div {
+          display: none;
+          text-align: center;
+          position: relative;
+          top: -45%;
+          h5 {
+            display: inline;
+            color: white;
+          }
+        }
+      }
+      .col-xl-3:hover {
+        transition: all 0.3s;
+        > div {
+          display: block;
+        }
+        img {
+          transition: all 0.3s;
+          filter: brightness(0.2);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .MyProfilePage {
+    > .row {
+      .col-xl-4 {
+        padding: 3rem 0;
+        img {
+          width: 60%;
+        }
+      }
+      .col-xl-8 {
+        > .usernameAndEditBtnContainer {
+          padding-top: 3rem;
+
+          .col-5 {
+            button {
+              padding: 0.3rem 0.7rem;
+            }
+          }
+        }
+        > .postFollowersAndFollowingContainer {
+          padding-top: 1.3rem;
+        }
+        > .NameAndBio {
+          padding-top: 1.4rem;
+        }
+      }
+
+      > .postetcNavbar {
+        padding: 1.5rem 0;
+        gap: 4rem;
+      }
+    }
+    .PostContainer {
+      .row {
+        gap: 1.3%;
+        .col-xl-3 {
+          width: 24%;
+          height: 15rem;
+          img {
+            width: 120%;
+            height: 100%;
+            margin-top: -10%;
+            margin-left: -20%;
+          }
+          > div {
+            top: -50% !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .MyProfilePage {
+    > .row {
+      .col-xl-4 {
+        padding: 3rem 0;
+        img {
+          width: 40%;
+        }
+      }
+      .col-xl-8 {
+        > .usernameAndEditBtnContainer {
+          padding-top: 1rem;
+          text-align: left;
+
+          .col-5 {
+            text-align: right !important;
+            button {
+              padding: 0.3rem 0.7rem;
+            }
+          }
+        }
+        > .postFollowersAndFollowingContainer {
+          padding-top: 1.9rem;
+          text-align: center;
+          .col-4:first-child {
+            text-align: left;
+          }
+          .col-4:first-child {
+            text-align: left;
+          }
+          .col-4:last-child {
+            text-align: right;
+          }
+        }
+        > .NameAndBio {
+          padding-top: 4rem;
+          .col-12:first-child {
+            width: 50%;
+            text-align: left;
+          }
+          .col-12:last-child {
+            width: 50%;
+            text-align: right;
+          }
+        }
+      }
+
+      > .postetcNavbar {
+        padding: 3rem 0;
+        gap: 4rem;
+      }
+    }
+    .PostContainer {
+      .row {
+        gap: 1.3%;
+        .col-xl-3 {
+          width: 32%;
+          height: 15rem;
+          img {
+            width: 120%;
+            height: 100%;
+            margin-top: -10%;
+            margin-left: -20%;
+          }
+          > div {
+            top: -50% !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .MyProfilePage {
+    > .row {
+      .col-xl-4 {
+        padding: 3rem 0;
+        img {
+          width: 40%;
+        }
+      }
+      .col-xl-8 {
+        > .usernameAndEditBtnContainer {
+          padding-top: 1rem;
+          text-align: left;
+
+          .col-5 {
+            text-align: right !important;
+            button {
+              padding: 0.3rem 0.7rem;
+            }
+          }
+        }
+        > .postFollowersAndFollowingContainer {
+          padding-top: 1.9rem;
+          text-align: center;
+          .col-4:first-child {
+            text-align: left;
+          }
+          .col-4:first-child {
+            text-align: left;
+          }
+          .col-4:last-child {
+            text-align: right;
+          }
+        }
+        > .NameAndBio {
+          padding-top: 4rem;
+          .col-12:first-child {
+            width: 50%;
+            text-align: left;
+          }
+          .col-12:last-child {
+            width: 50%;
+            text-align: right;
+          }
+        }
+      }
+
+      > .postetcNavbar {
+        padding: 2rem 0;
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+    }
+    .PostContainer {
+      .row {
+        gap: 1.3%;
+        .col-xl-3 {
+          width: 32%;
+          height: 11rem;
+          img {
+            width: 120%;
+            height: 100%;
+            margin-top: -10%;
+            margin-left: -20%;
+          }
+          > div {
+            top: -50% !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .MyProfilePage {
+    > .row {
+      .col-xl-4 {
+        padding: 3rem 0;
+        img {
+          width: 50%;
+        }
+      }
+      .col-xl-8 {
+        > .usernameAndEditBtnContainer {
+          padding-top: 1rem;
+          text-align: left;
+          .col-7 {
+            h3 {
+              font-size: 1.2rem;
+            }
+          }
+          .col-5 {
+            text-align: right !important;
+            button {
+              font-size: 0.8rem;
+              padding: 0.2rem 0.7rem;
+            }
+          }
+        }
+        > .postFollowersAndFollowingContainer {
+          padding-top: 1.9rem;
+          text-align: center;
+          .col-4 {
+            h4 {
+              font-size: 1rem;
+            }
+          }
+        }
+        > .NameAndBio {
+          padding-top: 2rem;
+          .col-12:first-child {
+            width: 100%;
+            text-align: left;
+            h2{
+                font-size: 1.3rem;
+                word-wrap: break-word;
+            }
+          }
+          .col-12:last-child {
+            width: 100%;
+            text-align: left;
+          }
+        }
+      }
+
+      > .postetcNavbar {
+        padding: 0rem 0;
+        padding-top: 3rem;
+        gap: 0rem;
+        text-align: center;
+        .nav-item {
+          width: 50%;
+        }
+      }
+    }
+    .PostContainer {
+      .row {
+        gap: 0;
+        .col-xl-3 {
+          width: 70%;
+          margin-left: 15%;
+          margin-top: 0.5rem;
+          height: 20rem;
+          img {
+            width: 120%;
+            height: 100%;
+            margin-top: -10%;
+            margin-left: -20%;
+          }
+          > div {
+            top: -50% !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .MyProfilePage {
+    > .row {
+      .col-xl-4 {
+        padding: 3rem 0;
+        img {
+          width: 70%;
+        }
+      }
+      .col-xl-8 {
+        > .usernameAndEditBtnContainer {
+          padding-top: 1rem;
+          text-align: left;
+          .col-7 {
+            h3 {
+              font-size: 1rem;
+            }
+          }
+          .col-5 {
+            text-align: right !important;
+            button {
+              font-size: 0.75rem;
+              padding: 0.1rem 0.4rem;
+              border-radius: 4px;
+            }
+          }
+        }
+        > .postFollowersAndFollowingContainer {
+          padding-top: 1.3rem;
+          text-align: center;
+          .col-4 {
+            h4 {
+              font-size: .8rem;
+            }
+          }
+        }
+        > .NameAndBio {
+          padding-top: 1.4rem;
+          .col-12:first-child {
+            h2{
+                font-size: 1.1rem;
+            }
+          }
+        }
+      }
+
+      > .postetcNavbar {
+        padding: 0rem 0;
+        padding-top: 1rem;
+        gap: 0rem;
+        text-align: center;
+        .nav-item {
+          width: 50%;
+        }
+      }
+    }
+    .PostContainer {
+      .row {
+        gap: 0;
+        .col-xl-3 {
+          width: 95%;
+          margin-left: 4%;
+          margin-top: 0.5rem;
+          height: 17rem;
+          img {
+            width: 120%;
+            height: 100%;
+            margin-top: -10%;
+            margin-left: -20%;
+          }
+          > div {
+            top: -50% !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width:262px) {
+    .postFollowersAndFollowingContainer {
+        padding-top: 1rem;
+        text-align: left!important;
+        .col-4 {
+            text-align: left!important;
+            width: 80%;
+          h4 {
+            font-size: .7rem;
+          }
+        }
+      }
+      .PostContainer {
+        .row {
+       
+          .col-xl-3 {
+            width: 70%;
+            margin-left: 15%;
+            margin-top: 0.5rem;
+            height: 15rem;
+            img {
+              width: 120%;
+              height: 100%;
+              margin-top: -10%;
+              margin-left: -20%;
+            }
+            > div {
+              top: -50% !important;
+            }
+          }
+        }
+      }
+}

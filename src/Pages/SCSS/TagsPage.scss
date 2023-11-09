@@ -1,0 +1,33 @@
+$main: red;
+.TagPage {
+  background: #000;
+  height: fit-content;
+  padding: 5rem 0;
+  .container {
+    h1 {
+      font-family: "Edu TAS Beginner", cursive;
+      color: white;
+      i {
+        color: skyblue;
+      }
+    }
+    h6 {
+      font-family: "Raleway", sans-serif;
+      margin-top: 3rem;
+      color: rgba(255, 255, 255, 0.631);
+      margin-bottom: 4rem;
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .TagPage {
+    padding: 3rem 0;
+    .container {
+      h6 {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}

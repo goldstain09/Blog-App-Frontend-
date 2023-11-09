@@ -66,7 +66,7 @@ export default function Header() {
               <input
                 type="search"
                 className="form-control form-control-dark"
-                placeholder="Search..."
+                placeholder="Search for blogs, tags, & categories..."
                 aria-label="Search"
               />
             </form>

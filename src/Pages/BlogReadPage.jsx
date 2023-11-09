@@ -122,6 +122,38 @@ export default function BlogReadPage() {
                   Ducimus cupiditate atque doloremque nostrum quae delectus,
                 </p>
               </div>
+              <div className="col-12">
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Lifestyle
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Styles
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Colors
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Stars
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Shooting
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Regular
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>PhotoShoots
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Sky
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Digital
+                </div>
+                <div className="tags">
+                <i class="bi bi-tags-fill"> </i>Cameras
+                </div>
+              </div>
             </div>
 
             <div className="row BlogLikeAndSaveBtnContainer">

@@ -87,6 +87,23 @@ $main: red;
             color: white;
           }
         }
+        >.col-12{
+          margin: 2rem 0;
+          display: flex;
+          gap: .5rem;
+          flex-wrap: wrap;
+          .tags{
+            padding: .2rem .4rem;
+            border: none;
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            color: white;
+            width: fit-content!important;
+            i{
+              color: skyblue;
+            }
+          }
+        }
       }
       > h4 {
         color: white;
