@@ -1,0 +1,725 @@
+$main: red;
+
+.MyBlogPost {
+  background: url("./Media/HomePageBGImageTop.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  height: fit-content;
+  padding: 8rem 0;
+  width: 100%;
+  > .row {
+    margin: 0rem;
+
+    .col-xxl-8 {
+      > .row {
+        width: 100%;
+        .ImageContainer {
+          text-align: center;
+          .categoryy {
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            background: $main;
+            width: fit-content;
+            transition: all 0.4s;
+          }
+          .categoryy:hover {
+            box-shadow: 0px 0px 15px white;
+          }
+          h1 {
+            padding: 1.5rem 0;
+            color: white;
+            font-weight: 400;
+            word-wrap: break-word;
+            font-family: "Raleway", sans-serif;
+          }
+          p {
+            margin-top: 1rem;
+            color: grey;
+            font-family: "Kalam";
+          }
+          img {
+            width: 70%;
+          }
+        }
+        .text-container {
+          p {
+            padding-top: 3rem;
+            width: 80%;
+            margin-left: 10%;
+            text-align: justify;
+            color: white;
+            word-wrap: break-word;
+            font-family: "Kalam";
+          }
+        }
+      }
+    }
+    .col-xl-4 {
+      > .row {
+        > .dp {
+          img {
+            width: 1.8rem;
+            border-radius: 50px;
+          }
+        }
+        > .name {
+          h4 {
+            color: white;
+            margin-top: 0.1rem;
+            font-family: "Dancing Script", cursive;
+          }
+        }
+        > .btnn {
+          button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.7rem;
+          }
+        }
+
+        .col-11 {
+          p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            font-family: "Raleway", sans-serif;
+            color: white;
+          }
+        }
+        >.col-12{
+          margin: 2rem 0;
+          display: flex;
+          gap: .5rem;
+          flex-wrap: wrap;
+          .tags{
+            padding: .2rem .4rem;
+            border: none;
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            color: white;
+            width: fit-content!important;
+            i{
+              color: skyblue;
+            }
+          }
+        }
+      }
+      > h4 {
+        color: white;
+        margin-top: 2rem;
+      }
+      ::placeholder {
+        color: white !important;
+      }
+      > .BlogLikeAndSaveBtnContainer {
+        padding: 1rem 0;
+        button {
+          background: none;
+          border: none;
+          color: white;
+          font-size: 2rem;
+          outline: none;
+          .bi-suit-heart-fill {
+            color: $main;
+          }
+        }
+      }
+      > .PostACommentSection {
+        margin-top: 2rem;
+        .col-9 {
+          input {
+            width: 95%;
+            padding: 0.3rem 1rem;
+            background: none;
+            box-shadow: none;
+            outline: none;
+            border: none;
+            border-bottom: 1px solid $main;
+            color: white;
+          }
+        }
+        .col-3 {
+          button {
+            background: none;
+            border: solid 1px $main;
+            border-radius: 0;
+            color: white;
+            padding: 0.3rem 1rem;
+          }
+          button:hover {
+            background: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1400px) {
+  .MyBlogPost {
+    padding: 8rem 0;
+    width: 100%;
+    > .row {
+      margin: 0rem;
+
+      .col-xxl-8 {
+        > .row {
+          width: 100%;
+          .ImageContainer {
+            .categoryy {
+              padding: 1rem 2rem;
+            }
+            h1 {
+              padding: 1.5rem 0;
+              width: 80%;
+              margin-left: 10%;
+              font-size: 1.9rem;
+            }
+            p {
+              margin-top: 1rem;
+            }
+            img {
+              width: 70%;
+            }
+          }
+          .text-container {
+            padding-top: 1rem;
+            p {
+              width: 80%;
+              margin-left: 10%;
+            }
+          }
+        }
+      }
+      .col-xl-4 {
+        > .row {
+          > .dp {
+            img {
+              width: 1.5rem;
+            }
+          }
+          > .name {
+            h4 {
+              margin-top: 0.1rem;
+            }
+          }
+          > .btnn {
+            button {
+              font-size: 1.7rem;
+            }
+          }
+
+          .col-11 {
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        > h4 {
+          margin-top: 2rem;
+        }
+
+        > .BlogLikeAndSaveBtnContainer {
+          padding: 1rem 0;
+          button {
+            font-size: 1.5rem;
+          }
+        }
+        > .PostACommentSection {
+          margin-top: 2rem;
+          .col-9 {
+            input {
+              width: 95%;
+              padding: 0.3rem 1rem;
+            }
+          }
+          .col-3 {
+            button {
+              padding: 0.3rem 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .MyBlogPost {
+    padding: 8rem 0;
+    width: 100%;
+    > .row {
+
+      .col-xxl-8 {
+        > .row {
+          .ImageContainer {
+            .categoryy {
+              padding: 1rem 2rem;
+            }
+            h1 {
+              padding: 1.5rem 0;
+              width: 80%;
+              word-wrap: break-word;
+              margin-left: 10%;
+              font-size: 1.5rem;
+            }
+            p {
+              margin-top: 1rem;
+            }
+            img {
+              width: 90%;
+            }
+          }
+          .text-container {
+            padding-top: 1rem;
+            p {
+              width: 80%;
+              margin-left: 10%;
+            }
+          }
+        }
+      }
+      .col-xl-4 {
+        > .row {
+          > .dp {
+            img {
+              width: 1.5rem;
+            }
+          }
+          > .name {
+            h4 {
+              margin-top: 0.1rem;
+            }
+          }
+          > .btnn {
+            button {
+              font-size: 1.7rem;
+            }
+          }
+
+          .col-11 {
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        > h4 {
+          margin-top: 2rem;
+        }
+
+        > .BlogLikeAndSaveBtnContainer {
+          padding: .5rem 0;
+          button {
+            font-size: 1.5rem;
+          }
+        }
+        > .PostACommentSection {
+          margin-top: 2rem;
+          .col-9 {
+            input {
+              width: 95%;
+              padding: 0.3rem 1rem;
+            }
+          }
+          .col-3 {
+            button {
+              padding: 0.3rem 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .MyBlogPost {
+    padding: 8rem 0;
+    > .row {
+
+      .col-xxl-8 {
+        > .row {
+          .ImageContainer {
+            .categoryy {
+              padding: 1rem 2rem;
+            }
+            h1 {
+              padding: 1.5rem 0;
+              width: 80%;
+              word-wrap: break-word;
+              margin-left: 10%;
+              font-size: 1.3rem;
+            }
+            p {
+              margin-top: 1rem;
+            }
+            img {
+              width: 70%;
+            }
+          }
+          .text-container {
+            padding-top: 1rem;
+            p {
+              width: 80%;
+              margin-left: 10%;
+            }
+          }
+        }
+      }
+      .col-xl-4 {
+        margin-top: 4rem;
+        > .row {
+          > .dp {
+            width: 6%;
+            img {
+              width: 2.5rem;
+            }
+          }
+          > .name {
+            width: 80%;
+            h4 {
+              margin-top: 0.5rem;
+            }
+          }
+          > .btnn {
+            width: 14%;
+            text-align: end;
+            button {
+              font-size: 1.7rem;
+            }
+          }
+
+          .col-11 {
+            margin-top: 1rem;
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        > h4 {
+          margin-top: 2rem;
+        }
+
+        > .BlogLikeAndSaveBtnContainer {
+          padding: .5rem 0;
+          button {
+            font-size: 1.5rem;
+          }
+          .text-center{
+            text-align: end!important;
+          }
+        }
+        > .PostACommentSection {
+          margin-top: 2rem;
+          .col-9 {
+            width: 86%;
+            input {
+              width: 98%;
+              padding: 0.3rem 1rem;
+            }
+          }
+          .col-3 {
+            width: 10%;
+            button {
+              padding: 0.3rem 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .MyBlogPost {
+    padding: 9.2rem 0;
+    > .row {
+
+      .col-xxl-8 {
+        > .row {
+          .ImageContainer {
+            .categoryy {
+              padding: .5rem 1.5rem;
+            }
+            h1 {
+              padding: 1rem 0;
+              width: 90%;
+              margin-left: 5%;
+              font-size: 1.1rem;
+            }
+            p {
+              margin-top: 1rem;
+            }
+            img {
+              width: 80%;
+            }
+          }
+          .text-container {
+            padding-top: 1rem;
+            p {
+              width: 80%;
+              margin-left: 10%;
+            }
+          }
+        }
+      }
+      .col-xl-4 {
+        margin-top: 4rem;
+        > .row {
+          > .dp {
+            width: 6%;
+            img {
+              width: 1.6rem;
+            }
+          }
+          > .name {
+            width: 80%;
+            h4 {
+              margin-top: 0.1rem;
+            }
+          }
+          > .btnn {
+            width: 14%;
+            text-align: end;
+            button {
+              font-size: 1.5rem;
+            }
+          }
+
+          .col-11 {
+            margin-top: 1rem;
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        > h4 {
+          margin-top: 2rem;
+        }
+
+        > .BlogLikeAndSaveBtnContainer {
+          padding: .5rem 0;
+          button {
+            font-size: 1.5rem;
+          }
+          .text-center{
+            text-align: end!important;
+          }
+        }
+        > .PostACommentSection {
+          margin-top: 2rem;
+          .col-9 {
+            width: 65%;
+            input {
+              width: 98%;
+              padding: 0.3rem 1rem;
+            }
+          }
+          .col-3 {
+            width: 10%;
+            button {
+              padding: 0.3rem 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .MyBlogPost {
+    padding: 9.2rem 0;
+    > .row {
+
+      .col-xxl-8 {
+        > .row {
+          .ImageContainer {
+            .categoryy {
+              padding: .5rem 1.5rem;
+            }
+            h1 {
+              padding: 1rem 0;
+              width: 100%;
+              margin-left: 0%;
+              font-size: 1.1rem;
+            }
+            p {
+              margin-top: 1rem;
+            }
+            img {
+              width: 100%;
+              margin-left: 2.5%;
+            }
+          }
+          .text-container {
+            padding-top: 1rem;
+            p {
+              width: 80%;
+              margin-left: 10%;
+            }
+          }
+        }
+      }
+      .col-xl-4 {
+        margin-top: 4rem;
+        > .row {
+          > .dp {
+            width: 6%;
+            img {
+              width: 1.3rem;
+            }
+          }
+          > .name {
+            width: 80%;
+            h4 {
+              margin-top: 0.1rem;
+            }
+          }
+          > .btnn {
+            width: 10%;
+            text-align: end;
+            button {
+              font-size: 1.5rem;
+            }
+          }
+
+          .col-11 {
+            margin-top: 1rem;
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        > h4 {
+          margin-top: 2rem;
+        }
+
+        > .BlogLikeAndSaveBtnContainer {
+          padding: .5rem 0;
+          button {
+            font-size: 1.5rem;
+          }
+          .text-center{
+            text-align: end!important;
+          }
+        }
+        > .PostACommentSection {
+          margin-top: 2rem;
+          .col-9 {
+            width: 65%;
+            input {
+              width: 98%;
+              padding: 0.3rem 1rem;
+            }
+          }
+          .col-3 {
+            width: 10%;
+            button {
+              padding: 0.3rem 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .MyBlogPost {
+    padding: 7.6rem 0;
+    > .row {
+
+      .col-xxl-8 {
+        > .row {
+          .ImageContainer {
+            .categoryy {
+              padding: .5rem 1.5rem;
+            }
+            h1 {
+              padding: 1rem 0;
+              width: 100%;
+              margin-left: 0%;
+              font-size: 1.1rem;
+            }
+            p {
+              margin-top: 1rem;
+            }
+            img {
+              width: 100%;
+              margin-left: 2.8%;
+            }
+          }
+          .text-container {
+            padding-top: 0rem;
+            p {
+              width: 97%;
+              margin-left: 5%;
+            }
+          }
+        }
+      }
+      .col-xl-4 {
+        margin-top: 4rem;
+        > .row {
+          > .dp {
+            width: 10%;
+            img {
+              width: 1.5rem;
+            }
+          }
+          > .name {
+            width: 70%;
+            h4 {
+              margin-top: 0.1rem;
+            }
+          }
+          > .btnn {
+            width: 10%;
+            text-align: end;
+            button {
+              font-size: 1.5rem;
+            }
+          }
+
+          .col-11 {
+            margin-top: 1rem;
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        > h4 {
+          margin-top: 2rem;
+        }
+
+        > .BlogLikeAndSaveBtnContainer {
+          padding: .5rem 0;
+          button {
+            font-size: 1.3rem;
+          }
+          .text-center{
+            text-align: end!important;
+          }
+        }
+        > .PostACommentSection {
+          margin-top: 2rem;
+          .col-9 {
+            width: 60%;
+            input {
+              width: 98%;
+              padding: 0.1rem .7rem;
+            }
+          }
+          .col-3 {
+            width: 10%;
+            button {
+              padding: 0.1rem .7rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

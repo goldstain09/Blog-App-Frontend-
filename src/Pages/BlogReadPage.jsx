@@ -186,11 +186,11 @@ export default function BlogReadPage() {
 
             <h4 className="h4">Comments</h4>
 
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
+            <Comment commentOwner={true} />
+            <Comment commentOwner={false} />
+            <Comment commentOwner={false} />
+            <Comment commentOwner={false} />
+            <Comment commentOwner={false} />
           </div>
         </div>
       </div>

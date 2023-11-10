@@ -1,6 +1,6 @@
 $main: red;
 
-.MyProfilePage {
+.BloggerProfilePage{
   background: #000;
   height: fit-content;
   > .row {
@@ -14,7 +14,7 @@ $main: red;
     }
     .col-xl-8 {
       text-align: left;
-      > .usernameAndEditBtnContainer {
+      > .usernameAndFollowBtnContainer {
         padding-top: 5rem;
         .col-7 {
           .username {
@@ -26,8 +26,8 @@ $main: red;
           text-align: center;
           button {
             font-family: "Raleway", sans-serif;
-            background: grey;
-            border: darkgrey;
+            background: rgb(255, 0, 0);
+            border: rgb(255, 0, 0);
             color: white;
             padding: 0.3rem 0.7rem;
             border-radius: 10px;
@@ -81,12 +81,6 @@ $main: red;
           color: rgb(255, 255, 255);
           i {
             color: skyblue;
-          }
-          .bi-bookmark-check {
-            color: grey;
-          }
-          .bi-heart {
-            color: $main;
           }
           .bi-postcard-heart {
             color: rgb(224, 146, 159);
@@ -177,7 +171,7 @@ $main: red;
 }
 
 @media (max-width: 1200px) {
-  .MyProfilePage {
+  .BloggerProfilePage{
     > .row {
       .col-xl-4 {
         padding: 3rem 0;
@@ -186,7 +180,7 @@ $main: red;
         }
       }
       .col-xl-8 {
-        > .usernameAndEditBtnContainer {
+        > .usernameAndFollowBtnContainer {
           padding-top: 3rem;
 
           .col-5 {
@@ -248,7 +242,7 @@ $main: red;
 }
 
 @media (max-width: 992px) {
-  .MyProfilePage {
+  .BloggerProfilePage{
     > .row {
       .col-xl-4 {
         padding: 3rem 0;
@@ -257,7 +251,7 @@ $main: red;
         }
       }
       .col-xl-8 {
-        > .usernameAndEditBtnContainer {
+        > .usernameAndFollowBtnContainer {
           padding-top: 1rem;
           text-align: left;
 
@@ -339,7 +333,7 @@ $main: red;
 }
 
 @media (max-width: 768px) {
-  .MyProfilePage {
+  .BloggerProfilePage{
     > .row {
       .col-xl-4 {
         padding: 3rem 0;
@@ -348,7 +342,7 @@ $main: red;
         }
       }
       .col-xl-8 {
-        > .usernameAndEditBtnContainer {
+        > .usernameAndFollowBtnContainer {
           padding-top: 1rem;
           text-align: left;
 
@@ -434,7 +428,7 @@ $main: red;
 }
 
 @media (max-width: 576px) {
-  .MyProfilePage {
+  .BloggerProfilePage{
     overflow-x: hidden;
     > .row {
       .col-xl-4 {
@@ -444,7 +438,7 @@ $main: red;
         }
       }
       .col-xl-8 {
-        > .usernameAndEditBtnContainer {
+        > .usernameAndFollowBtnContainer {
           padding-top: 1rem;
           text-align: left;
           .col-7 {
@@ -546,7 +540,7 @@ $main: red;
 }
 
 @media (max-width: 394px) {
-  .MyProfilePage {
+  .BloggerProfilePage{
     > .row {
       .col-xl-4 {
         padding: 3rem 0;
@@ -555,7 +549,7 @@ $main: red;
         }
       }
       .col-xl-8 {
-        > .usernameAndEditBtnContainer {
+        > .usernameAndFollowBtnContainer {
           padding-top: 1rem;
           text-align: left;
           .col-7 {

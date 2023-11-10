@@ -1,3 +1,16 @@
+.delete {
+  text-align: center;
+  .col-12 {
+    button {
+      background: none;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      color: red;
+      width: 80%;
+    }
+  }
+}
 .comment {
   margin-top: 2rem;
   .dropdown {
@@ -105,6 +118,13 @@
     .col-10 {
       p {
         font-size: 0.8rem;
+      }
+    }
+  }
+  .delete {
+    .col-12 {
+      button {
+        width: 100%;
       }
     }
   }

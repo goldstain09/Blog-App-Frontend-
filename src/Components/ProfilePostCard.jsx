@@ -9,11 +9,11 @@ export default function ProfilePostCard() {
         <img src={founder} alt="Post" />
         <div>
           <h5 className="h5">
-            35 <i class="bi bi-heart"></i>
+            35 <i className="bi bi-heart"></i>
           </h5>
           &emsp;
           <h5 className="h5">
-            35 <i class="bi bi-chat"></i>
+            35 <i className="bi bi-chat"></i>
           </h5>
         </div>
       </div>
