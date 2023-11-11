@@ -6,9 +6,13 @@ import ff from "./SCSS/Media/HomePageBGImageTop.jpg";
 import ProfilePostCard from "../Components/ProfilePostCard";
 import ProfileTagsUsedCard from "../Components/ProfileTagsUsedCard";
 import BlogCard from "../Components/BlogCard";
+import Modal from "../Components/Modal";
 
 export default function MyProfilePage() {
   const [WhatToShow, setWhatToShow] = useState("myPosts");
+
+  const [followers,setFollowers] = useState([]);
+  const [following,setFollowing] = useState([]);
   useEffect(() => {
     const myPosts = document.getElementById("myPosts");
     const tagsUsed = document.getElementById("tagsUsed");
@@ -91,12 +95,32 @@ export default function MyProfilePage() {
                 </h4>
               </div>
               <div className="col-4">
-                <h4 className="h4">
+                <h4
+                  className="h4"
+                  title="Comment"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#Modall"
+                  onClick={()=>{
+                    setFollowers(["followers","followers","followers"]);
+                    setFollowing([]);
+                  }}
+                >
                   <span>24</span>&nbsp;Followers
                 </h4>
               </div>
               <div className="col-4">
-                <h4 className="h4">
+                <h4
+                  className="h4"
+                  title="Comment"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#Modall"
+                  onClick={()=>{
+                    setFollowers([]);
+                    setFollowing(["following","following","following"]);
+                  }}
+                >
                   <span>24</span>&nbsp;Following
                 </h4>
               </div>
@@ -127,7 +151,7 @@ export default function MyProfilePage() {
                   setWhatToShow("myPosts");
                 }}
               >
-                <i className="bi bi-postcard-heart"></i> Your Posts
+                <i class="bi bi-grid-3x3"></i> Your Posts
               </a>
             </li>
             <li className="nav-item">
@@ -322,6 +346,7 @@ export default function MyProfilePage() {
           </div>
         )}
       </div>
+      <Modal CommentSection={[]} followers={followers} following={following} />
     </>
   );
 }

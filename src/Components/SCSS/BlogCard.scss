@@ -84,6 +84,69 @@ $main: red;
   }
 }
 
+.commentSectionModal {
+  background: #000000b8;
+  backdrop-filter: blur(10px);
+  .modal-dialog {
+    .modal-content {
+      background: none;
+      height: 45rem;
+      overflow: hidden;
+      .modal-header {
+        .modal-title {
+          overflow-x: hidden;
+          color: white;
+        }
+        button {
+          background: none;
+          border: none;
+          color: white;
+          outline: none;
+          box-shadow: none;
+        }
+      }
+      .modal-body {
+        overflow-x: hidden;
+      }
+      .modal-footer {
+        padding-top: 1rem;
+        .row {
+          width: 100%;
+
+          .col-10 {
+            ::placeholder {
+              color: white !important;
+            }
+            input {
+              width: 100%;
+              border: none;
+              background: none;
+              border-bottom: 1px solid $main;
+              box-shadow: none;
+              outline: none;
+              padding: 0.3rem 0.4rem;
+              color: white;
+            }
+          }
+          .col-2 {
+            button {
+              background: none;
+              border: 1px solid $main;
+              color: $main;
+            }
+            button:hover {
+              background: $main;
+              color: white;
+              border: black 1px solid;
+              color: black;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 992px) {
   .BlogCard {
     width: 47%;
@@ -217,6 +280,28 @@ $main: red;
         .col-6 {
           button {
             margin-right: 0.3rem;
+          }
+        }
+      }
+    }
+  }
+
+  .commentSectionModal {
+    .modal-dialog {
+      .modal-content {
+        .modal-footer {
+          .row {
+            .col-10 {
+              width: 68%;
+              input {
+                padding: 0.3rem 0.4rem;
+              }
+            }
+            .col-2 {
+              button {
+                padding: 0.3rem 0.4rem;
+              }
+            }
           }
         }
       }

@@ -1,6 +1,8 @@
 import React from "react";
 import "./SCSS/BlogCard.scss";
 import founder from "../Media/Founder.jpg";
+import Comment from "./Comment";
+import Modal from "./Modal";
 
 export default function BlogCard() {
   return (
@@ -41,7 +43,6 @@ export default function BlogCard() {
             </ul>
           </div>
         </div>
-        {/* Dropdown */}
 
         {/* ----------------------------------------------------- */}
         <img src={founder} className="card-img-top" alt="..." />
@@ -54,7 +55,12 @@ export default function BlogCard() {
               <button className="liked" title="Unlike">
                 <i className="bi bi-suit-heart-fill"></i>
               </button>
-              <button title="Comment">
+              <button
+                title="Comment"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#Modall"
+              >
                 <i className="bi bi-chat"></i>
               </button>
             </div>
@@ -77,6 +83,10 @@ export default function BlogCard() {
           </a>
         </div>
       </div>
+
+      {/* comment section modal */}
+      <Modal CommentSection={["sdfsd",'asdasd']} followers={[]} following={[]}/>
+
     </>
   );
 }

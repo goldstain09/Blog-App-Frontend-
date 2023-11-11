@@ -89,7 +89,7 @@ export default function BloggerProfilePage() {
                   setWhatToShow("myPosts");
                 }}
               >
-                <i className="bi bi-postcard-heart"></i> Your Posts
+                <i className="bi bi-grid-3x3"></i> Your Posts
               </a>
             </li>
             <li className="nav-item">

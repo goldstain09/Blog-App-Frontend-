@@ -92,13 +92,13 @@ export default function Header() {
             <div className="col-8"></div>
             <div className="col-2">
               <button
-                class="btn btn-primary"
+                className="btn btn-primary"
                 type="button"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasExample"
                 aria-controls="offcanvasExample"
               >
-                <i class="bi bi-app-indicator"></i>
+                <i className="bi bi-app-indicator"></i>
               </button>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function Header() {
             data-bs-dismiss="offcanvas"
             aria-label="Close"
           >
-            <i class="bi bi-arrow-90deg-left"></i>
+            <i className="bi bi-arrow-90deg-left"></i>
           </button>
         </div>
         <div className="offcanvas-body">
@@ -141,11 +141,11 @@ export default function Header() {
           <button type="button" className="btn btn-danger">
             Sign-up
           </button>
-          <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingOne">
+          <div className="accordion accordion-flush" id="accordionFlushExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="flush-headingOne">
                 <button
-                  class="accordion-button collapsed"
+                  className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#flush-collapseOne"
@@ -157,11 +157,11 @@ export default function Header() {
               </h2>
               <div
                 id="flush-collapseOne"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="flush-headingOne"
                 data-bs-parent="#accordionFlushExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   <a className="nav-link active" aria-current="page" href="#">
                     ALL BLOGS
                   </a>

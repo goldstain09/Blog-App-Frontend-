@@ -1,3 +1,22 @@
 body{
     background: #000;
 }
+
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 0, 0);
+    border-radius: 56px;
+}
+::-webkit-scrollbar-track {
+    background-color:none; 
+}
+::-webkit-scrollbar-corner {
+    background-color: none; 
+}
+::-webkit-scrollbar-button {
+    display: none;
+}

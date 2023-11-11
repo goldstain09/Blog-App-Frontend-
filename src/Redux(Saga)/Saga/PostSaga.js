@@ -1,7 +1,7 @@
 import { takeLatest } from "redux-saga/effects";
 
-function* userSaga() {
+function* postSaga() {
   yield takeLatest();
 }
 
-export { userSaga };
+export { postSaga };
