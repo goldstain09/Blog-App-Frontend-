@@ -17,7 +17,7 @@ export default function Modal({ CommentSection, followers, following }) {
     <div
       className="modal fade commentSectionModal"
       id="Modall"
-      tabindex="-1"
+      tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
@@ -38,7 +38,7 @@ export default function Modal({ CommentSection, followers, following }) {
           </div>
           <div className="modal-body">
             {CommentSection.length > 0
-              ? CommentSection.map((item, index) => <Comment />)
+              ? CommentSection.map((item, index) => <Comment key={index} />)
               : dataToShow.length > 0 &&
                 dataToShow.map((item, index) => <div key={index}>{item}</div>)}
           </div>

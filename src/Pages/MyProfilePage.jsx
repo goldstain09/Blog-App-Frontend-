@@ -7,12 +7,50 @@ import ProfilePostCard from "../Components/ProfilePostCard";
 import ProfileTagsUsedCard from "../Components/ProfileTagsUsedCard";
 import BlogCard from "../Components/BlogCard";
 import Modal from "../Components/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 
 export default function MyProfilePage() {
-  const [WhatToShow, setWhatToShow] = useState("myPosts");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const UserDataFromResponse = useSelector(
+    (state) => state.userReducer.UserDataFromResponse
+  );
+  const authorised = useSelector(
+    (state) => state.userReducer.authorised
+  );
+  // user authorisation
+  useEffect(()=>{
+    if(authorised.hasOwnProperty('authorised')){
+      if(authorised.authorised === false){
+        navigate("/signup");
+        // alert (your token is expired please login)!
+      }
+    }
+  },[authorised])
 
-  const [followers,setFollowers] = useState([]);
-  const [following,setFollowing] = useState([]);
+  // setting user data
+  const [datashow, setDatashow] = useState(false);
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    if (UserDataFromResponse.hasOwnProperty("data")) {
+      setDatashow(true);
+      setUserData(UserDataFromResponse.data);
+    } else {
+      const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
+      if (tokenInfo.hasOwnProperty("validity")) {
+        dispatch(verifyUserAuthStart(tokenInfo.token));
+      } else {
+        navigate("/signup");
+      }
+    }
+  }, [UserDataFromResponse]);
+
+  // for profile nav [NavLink is for routes butt i want small nav so that's why i did this!];
+  const [WhatToShow, setWhatToShow] = useState("myPosts");
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
   useEffect(() => {
     const myPosts = document.getElementById("myPosts");
     const tagsUsed = document.getElementById("tagsUsed");
@@ -77,12 +115,16 @@ export default function MyProfilePage() {
       <div className="container-fluid MyProfilePage">
         <div className="row d-flex">
           <div className="col col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-            <img src={founder} alt="Profile Picture" />
+            {datashow && (
+              <img src={userData.profilePicture} alt="Profile Picture" />
+            )}
           </div>
           <div className="col col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <div className="row d-flex usernameAndEditBtnContainer">
               <div className="col-7">
-                <h3 className="h3 username">itz__sam__09</h3>
+                {datashow && (
+                  <h3 className="h3 username">{userData.userName}</h3>
+                )}
               </div>
               <div className="col-5">
                 <button>Edit Profile</button>
@@ -90,9 +132,11 @@ export default function MyProfilePage() {
             </div>
             <div className="row d-flex postFollowersAndFollowingContainer">
               <div className="col-4">
-                <h4 className="h4">
-                  <span>24</span>&nbsp;Posts
-                </h4>
+                {datashow && (
+                  <h4 className="h4">
+                    <span>{userData.myPosts.length}</span>&nbsp;Posts
+                  </h4>
+                )}
               </div>
               <div className="col-4">
                 <h4
@@ -101,12 +145,16 @@ export default function MyProfilePage() {
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target="#Modall"
-                  onClick={()=>{
-                    setFollowers(["followers","followers","followers"]);
+                  onClick={() => {
+                    setFollowers(["followers", "followers", "followers"]);
                     setFollowing([]);
                   }}
                 >
-                  <span>24</span>&nbsp;Followers
+                  {datashow && (
+                    <>
+                      <span>{userData.Followers.length}</span>&nbsp;Followers
+                    </>
+                  )}
                 </h4>
               </div>
               <div className="col-4">
@@ -116,25 +164,25 @@ export default function MyProfilePage() {
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target="#Modall"
-                  onClick={()=>{
+                  onClick={() => {
                     setFollowers([]);
-                    setFollowing(["following","following","following"]);
+                    setFollowing(["following", "following", "following"]);
                   }}
                 >
-                  <span>24</span>&nbsp;Following
+                  {datashow && (
+                    <>
+                      <span>{userData.Followings.length}</span>&nbsp;Following
+                    </>
+                  )}
                 </h4>
               </div>
             </div>
             <div className="row NameAndBio">
               <div className="col-12">
-                <h2 className="h2">Sujal Rajputcvbvcbvcbvcbcvb</h2>
+                {datashow && <h2 className="h2">{userData.Name}</h2>}
               </div>
               <div className="col-12">
-                <pre>
-                  LifeStyle <br />
-                  Web Developer <br />
-                  Sometimes life got'ta fghgfhgfhgfhgfhhard....!
-                </pre>
+                <pre>{datashow && userData.Biography}</pre>
               </div>
             </div>
           </div>
@@ -151,7 +199,7 @@ export default function MyProfilePage() {
                   setWhatToShow("myPosts");
                 }}
               >
-                <i class="bi bi-grid-3x3"></i> Your Posts
+                <i className="bi bi-grid-3x3"></i> Your Posts
               </a>
             </li>
             <li className="nav-item">

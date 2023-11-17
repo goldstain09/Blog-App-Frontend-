@@ -14,16 +14,11 @@ $main: red;
     }
     .row {
       padding-top: 4rem;
-      .col-6 {
+      .col-7 {
         ::placeholder {
           color: white !important;
         }
-        .form-control-label{
-          color: white;
-          padding: .3rem .7rem;
-        }
-        input,
-        textarea {
+        input {
           margin-bottom: 2rem;
           background: none;
           color: white;
@@ -32,7 +27,6 @@ $main: red;
           border: none;
           border-bottom: 2px solid white;
           border-radius: 0;
-          resize: none;
         }
       }
       .col-12 {
@@ -63,11 +57,10 @@ $main: red;
 
       .row {
         padding-top: 4rem;
-        .col-6 {
+        .col-7 {
             width: 80%;
             margin-left: 10%;
-          input,
-          textarea {
+          input {
             margin-bottom: 2rem;
           }
         }
@@ -90,11 +83,10 @@ $main: red;
 
       .row {
         padding-top: 2rem;
-        .col-6 {
+        .col-7 {
             width: 90%;
             margin-left: 5%;
-          input,
-          textarea {
+          input {
             margin-bottom: 2rem;
           }
         }
@@ -117,11 +109,10 @@ $main: red;
 
       .row {
         padding-top: 2rem;
-        .col-6 {
+        .col-7 {
             width: 96%;
             margin-left: 2%;
-          input,
-          textarea {
+          input {
             margin-bottom: 2rem;
           }
         }
