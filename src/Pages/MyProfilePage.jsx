@@ -17,32 +17,37 @@ export default function MyProfilePage() {
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
-  const authorised = useSelector(
-    (state) => state.userReducer.authorised
-  );
+  const authorised = useSelector((state) => state.userReducer.authorised);
   // user authorisation
-  useEffect(()=>{
-    if(authorised.hasOwnProperty('authorised')){
-      if(authorised.authorised === false){
-        navigate("/signup");
+  useEffect(() => {
+    if (authorised.hasOwnProperty("authorised")) {
+      if (authorised.authorised === false) {
+        navigate("/login");
         // alert (your token is expired please login)!
       }
     }
-  },[authorised])
+  }, [authorised]);
 
   // setting user data
   const [datashow, setDatashow] = useState(false);
   const [userData, setUserData] = useState({});
   useEffect(() => {
-    if (UserDataFromResponse.hasOwnProperty("data")) {
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
       setDatashow(true);
-      setUserData(UserDataFromResponse.data);
+      setUserData(UserDataFromResponse);
+      localStorage.setItem(
+        "blogApp",
+        JSON.stringify({
+          token: UserDataFromResponse.jwToken,
+          validity: "15 minutes",
+        })
+      );
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
       if (tokenInfo.hasOwnProperty("validity")) {
         dispatch(verifyUserAuthStart(tokenInfo.token));
       } else {
-        navigate("/signup");
+        navigate("/login");
       }
     }
   }, [UserDataFromResponse]);

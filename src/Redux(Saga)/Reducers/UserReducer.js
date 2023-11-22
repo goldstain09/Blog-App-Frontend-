@@ -3,6 +3,9 @@ import {
   CREATE_USER_ACCOUNT_ERROR,
   CREATE_USER_ACCOUNT_START,
   CREATE_USER_ACCOUNT_SUCCESS,
+  LOGIN_USER_ACCOUNT_ERROR,
+  LOGIN_USER_ACCOUNT_START,
+  LOGIN_USER_ACCOUNT_SUCCESS,
   NOT_AUTHORISED,
   VERIFY_USER_AUTH_ERROR,
   VERIFY_USER_AUTH_START,
@@ -15,6 +18,8 @@ const initialState = {
   createUserError: "",
   verifyUserLoading: false,
   verifyUserError: "",
+  loginUserLoading: false,
+  loginUserError: "",
 
   authorised: {},
 };
@@ -74,6 +79,27 @@ const userReducer = (state = initialState, action) => {
         ...state,
         verifyUserLoading: false,
         verifyUserError: action.payload,
+      };
+
+    // login user
+    case LOGIN_USER_ACCOUNT_START:
+      return {
+        ...state,
+        loginUserError: "",
+        loginUserLoading: true,
+      };
+    case LOGIN_USER_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        loginUserError: "",
+        loginUserLoading: false,
+        UserDataFromResponse: action.payload,
+      };
+    case LOGIN_USER_ACCOUNT_ERROR:
+      return {
+        ...state,
+        loginUserError: action.payload,
+        loginUserLoading: false,
       };
 
     default:

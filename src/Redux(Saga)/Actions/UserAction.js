@@ -6,6 +6,9 @@ import {
   CREATE_USER_ACCOUNT_ERROR,
   CREATE_USER_ACCOUNT_START,
   CREATE_USER_ACCOUNT_SUCCESS,
+  LOGIN_USER_ACCOUNT_ERROR,
+  LOGIN_USER_ACCOUNT_START,
+  LOGIN_USER_ACCOUNT_SUCCESS,
   NOT_AUTHORISED,
   VERIFY_USER_AUTH_ERROR,
   VERIFY_USER_AUTH_START,
@@ -42,10 +45,24 @@ export const verifyUserAuthError = (error) => ({
 
 // authorise or not!!
 export const authorised = (data) => ({
-  type:AUTHORISED,
-  payload:data
-})
+  type: AUTHORISED,
+  payload: data,
+});
 export const notAuthorised = (data) => ({
-  type:NOT_AUTHORISED,
-  payload:data
-})
+  type: NOT_AUTHORISED,
+  payload: data,
+});
+
+// user login
+export const loginUserAccountStart = (data) => ({
+  type: LOGIN_USER_ACCOUNT_START,
+  payload: data,
+});
+export const loginUserAccountSuccess = (data) => ({
+  type: LOGIN_USER_ACCOUNT_SUCCESS,
+  payload: data,
+});
+export const loginUserAccountError = (data) => ({
+  type: LOGIN_USER_ACCOUNT_ERROR,
+  payload: data,
+});

@@ -1,10 +1,10 @@
 $main: rgb(174, 48, 48);
-
+// fornt-family: 'Griffy';
 .home-top {
   height: 58rem;
   background: url("./Media/HomePageBGImageTop.jpg");
   background-size: 100% 100%;
-  font-family: "Griffy";
+  font-family: "Edu TAS Beginner", cursive;
   animation: homePageAnime 0.5s;
   animation-iteration-count: infinite;
   animation-duration: 3s;
@@ -35,16 +35,17 @@ $main: rgb(174, 48, 48);
       font {
         font-size: 7rem;
       }
+      margin-bottom: 3rem;
     }
-    button {
-      margin-top: 3rem;
+    a {
       padding: 1rem 2rem;
+      text-decoration: none;
       font-size: 1.5rem;
       border: 2px solid $main;
       background: none;
       color: $main;
     }
-    button:hover {
+    a:hover {
       font-size: 1.8rem;
       font-family: "Dancing Script", cursive;
       transform: scale(1.06);
@@ -112,13 +113,13 @@ $main: rgb(174, 48, 48);
         font {
           font-size: 6rem;
         }
+        margin-bottom: 2.9rem;
       }
-      button {
-        margin-top: 2rem;
+      a {
         padding: 1rem 2rem;
         font-size: 1.2rem;
       }
-      button:hover {
+      a:hover {
         font-size: 1.5rem;
       }
     }
@@ -146,13 +147,13 @@ $main: rgb(174, 48, 48);
         font {
           font-size: 3.8rem;
         }
+        margin-bottom: 1.7rem;
       }
-      button {
-        margin-top: 1.3rem;
-        padding: .5rem 1.1rem;
+      a {
+        padding: 0.5rem 1.1rem;
         font-size: 1rem;
       }
-      button:hover {
+      a:hover {
         font-size: 1.2rem;
       }
     }
@@ -180,13 +181,13 @@ $main: rgb(174, 48, 48);
         font {
           font-size: 2.8rem;
         }
+        margin-bottom: 1.5rem;
       }
-      button {
-        margin-top: 1rem;
-        padding: .5rem 1rem;
-        font-size: .9rem;
+      a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
       }
-      button:hover {
+      a:hover {
         font-size: 1rem;
       }
     }
@@ -213,14 +214,14 @@ $main: rgb(174, 48, 48);
         font {
           font-size: 2rem;
         }
+        margin-bottom: 1.2rem;
       }
-      button {
-        margin-top: .5rem;
-        padding: .5rem 1rem;
-        font-size: .8rem;
+      a {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
       }
-      button:hover {
-        font-size: .9rem;
+      a:hover {
+        font-size: 0.9rem;
       }
     }
   }

@@ -31,3 +31,17 @@ export const verifyUserAuth = async (token) => {
     );
   }
 };
+
+export const loginUserAccount = async (data) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/v1/UserApi/loginUser",
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw Error(
+      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
+    );
+  }
+};

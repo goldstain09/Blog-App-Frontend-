@@ -5,7 +5,7 @@ import {
   createUserAccountStart,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 // import storage from '../Utils/Firebase.Storage';
 
@@ -16,28 +16,26 @@ export default function SignupPage() {
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
-  const authorised = useSelector(
-    (state) => state.userReducer.authorised
-  );
+  const authorised = useSelector((state) => state.userReducer.authorised);
   // user authorisation
-  useEffect(()=>{
-    if(authorised.hasOwnProperty('authorised')){
-      if(authorised.authorised === false){
-        // alert (your token is expired please login)!
-      }else{
+  useEffect(() => {
+    if (authorised.hasOwnProperty("authorised")) {
+      if (authorised.authorised) {
         navigate("/myProfile");
+      } else {
+        // alert (your token is expired please login)!
       }
     }
-  },[authorised])
+  }, [authorised]);
   useEffect(() => {
     //if user is already signedUp!
-    if (UserDataFromResponse.hasOwnProperty("data")) {
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
       navigate("/myProfile");
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
       if (tokenInfo.hasOwnProperty("validity")) {
         dispatch(verifyUserAuthStart(tokenInfo.token));
-      } 
+      }
     }
   }, [UserDataFromResponse]);
 
@@ -98,23 +96,21 @@ export default function SignupPage() {
   // handling error of userName is already in use...!!
   const [userNameAlreadyInUse, setUserNameAlreadyInUse] = useState(false);
   useEffect(() => {
-    if (UserDataFromResponse.hasOwnProperty("userCreated")) {
-      if (UserDataFromResponse.userCreated) {
-        // if true here's code execute---(means account is created!)
-        localStorage.setItem(
-          "blogApp",
-          JSON.stringify({
-            token: UserDataFromResponse.data.jwToken,
-            validity: "1 hour",
-          })
-        );
-        setFormData(initialFormData);
-        setPassword("");
-        navigate("/myProfile");
-      } else {
-        if (UserDataFromResponse.hasOwnProperty("userNameIsUnique")) {
-          setUserNameAlreadyInUse(true);
-        }
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
+      //---(means account is created!)
+      localStorage.setItem(
+        "blogApp",
+        JSON.stringify({
+          token: UserDataFromResponse.jwToken,
+          validity: "15 minutes",
+        })
+      );
+      setFormData(initialFormData);
+      setPassword("");
+      navigate("/myProfile");
+    } else {
+      if (UserDataFromResponse.hasOwnProperty("userNameIsUnique")) {
+        setUserNameAlreadyInUse(true);
       }
     }
   }, [UserDataFromResponse]);
@@ -204,6 +200,16 @@ export default function SignupPage() {
             </div>
             <div className="col-12 text-center">
               <button type="submit">Create Account</button>
+            </div>
+          </div>
+          <div className="row d-flex justify-content-center">
+            <div className="col-12">
+              <h6 className="h6 text-center text-light">
+                Already have account?{" "}
+                <Link className="text-danger" to={"/login"}>
+                  Login
+                </Link>
+              </h6>
             </div>
           </div>
         </form>

@@ -1,13 +1,20 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, take, takeLatest } from "redux-saga/effects";
 import {
   CREATE_USER_ACCOUNT_START,
+  LOGIN_USER_ACCOUNT_START,
   VERIFY_USER_AUTH_START,
 } from "../Constants/UserConstants";
-import { createUserAccount, verifyUserAuth } from "../Service";
+import {
+  createUserAccount,
+  loginUserAccount,
+  verifyUserAuth,
+} from "../Service";
 import {
   authorised,
   createUserAccountError,
   createUserAccountSuccess,
+  loginUserAccountError,
+  loginUserAccountSuccess,
   notAuthorised,
   verifyUserAuthError,
   verifyUserAuthSuccess,
@@ -19,7 +26,7 @@ function* createUserSaga({ payload }) {
     if (Response.hasOwnProperty("userCreated")) {
       switch (Response.userCreated) {
         case true:
-          yield put(createUserAccountSuccess(Response));
+          yield put(createUserAccountSuccess(Response.data));
           yield put(authorised(true));
           break;
         case false:
@@ -51,7 +58,7 @@ function* verifyUserAuthSaga({ payload }) {
       if (Response.hasOwnProperty("verification")) {
         switch (Response.verification) {
           case true:
-            yield put(verifyUserAuthSuccess(Response));
+            yield put(verifyUserAuthSuccess(Response.data));
             yield put(authorised(true));
             break;
           case false:
@@ -71,9 +78,40 @@ function* verifyUserAuthSaga({ payload }) {
   }
 }
 
+function* loginUserAccountSaga({ payload }) {
+  try {
+    const Response = yield loginUserAccount(payload);
+    if (Response.hasOwnProperty("userLoginSuccess")) {
+      switch (Response.userLoginSuccess) {
+        case true:
+          yield put(loginUserAccountSuccess(Response.data));
+          yield put(authorised(true));
+          break;
+        case false:
+          if (Response.hasOwnProperty("PasswordIsWrong")) {
+            yield put(loginUserAccountSuccess(Response));
+            // yield put(notAuthorised(false));
+          } else if (Response.hasOwnProperty("userNameIsWrong")) {
+            yield put(loginUserAccountSuccess(Response));
+            // yield put(notAuthorised(false));
+          } else {
+            yield put(notAuthorised(false));
+            throw Error(Response.errorMessage);
+          }
+          break;
+        default:
+          throw Error("Unable to Login at the moment!");
+      }
+    }
+  } catch (error) {
+    yield put(loginUserAccountError(error.message));
+  }
+}
+
 function* userSaga() {
   yield takeLatest(CREATE_USER_ACCOUNT_START, createUserSaga);
   yield takeLatest(VERIFY_USER_AUTH_START, verifyUserAuthSaga);
+  yield takeLatest(LOGIN_USER_ACCOUNT_START, loginUserAccountSaga);
 }
 
 export { userSaga };
