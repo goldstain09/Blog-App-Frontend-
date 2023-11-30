@@ -1,0 +1,203 @@
+.editPage {
+  background: url("./Media/HomePageBGImageTop.jpg");
+  background-size: 100% 100%;
+  height: fit-content;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+  .container {
+    h1 {
+      margin-bottom: 4rem;
+      font-family: "Maven Pro";
+    }
+    .row {
+      .col-6 {
+        ::placeholder {
+          color: white !important;
+        }
+        label {
+          width: 80%;
+          margin-left: 10%;
+        }
+        input,textarea {
+          width: 80%;
+          margin-left: 10%;
+          padding: 0.4rem 0.7rem;
+          margin-bottom: 1rem;
+          background: none;
+          outline: none;
+          border: 1px solid rgba(255, 255, 255, 0.464);
+          box-shadow: none;
+          border-radius: 10px;
+          resize: none;
+        }
+        .ppDiv{
+          width: 80%;
+          margin-left: 10%;
+          justify-content: center;
+          .col-6{
+            #dp{
+              width: 250px;
+              height: 250px;
+              border-radius: 550px;
+            }
+          }
+          .col-4{
+            text-align: end;
+            padding: 5.8rem 0 0 0;
+            #dpDeleteBTn{
+              color: red;
+              background: none;
+              border: none;
+              box-shadow: none;
+              font-size: 2rem;
+            }
+            #dpDeleteBTn:hover{
+              background: red;
+              color: white;
+              transition: all .3s;
+            }
+          }
+        }
+      }
+      .col-12 {
+        margin-top: 4rem;
+        button {
+          padding: 0.4rem 0.5rem;
+          background: none;
+          border: 1px solid red;
+          border-radius: 10px;
+        }
+        button:hover {
+          background: red;
+          box-shadow: 0px 0px 60px red;
+        }
+      }
+    }
+  }
+}
+@media (max-width:1200px) {
+  .ppDiv{
+    .col-6{
+      #dp{
+        width: 200px!important;
+        height: 200px!important;
+      }
+    }
+    .col-4{
+      padding: 4.6rem 0 0 0!important;
+      #dpDeleteBTn{
+        font-size: 1.5rem!important;
+      }
+    }
+  }
+
+}
+@media (max-width:992px) {
+  .ppDiv{
+    .col-6{
+      #dp{
+        width: 150px!important;
+        height: 150px!important;
+      }
+    }
+    .col-4{
+      padding: 3.4rem 0 0 0!important;
+      #dpDeleteBTn{
+        font-size: 1.2rem!important;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .editPage {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    .container {
+      h1 {
+        margin-bottom: 3rem;
+      }
+      .row {
+        .col-6 {
+          width: 100%;
+          input {
+            width: 80%;
+            margin-left: 10%;
+            padding: 0.4rem 0.7rem;
+            margin-bottom: 1rem;
+          }
+          .ppDiv{
+            .col-6{
+              width: 50%;
+              #dp{
+                width: 150px!important;
+                height: 150px!important;
+              }
+            }
+            .col-4{
+              padding: 3.5rem 0 0 0!important;
+              #dpDeleteBTn{
+                font-size: 1.6rem!important;
+              }
+            }
+          }
+        }
+
+        .col-12 {
+          margin-top: 4rem;
+          button {
+            padding: 0.4rem 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 394px) {
+  .editPage {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+    .container {
+      h1 {
+        margin-bottom: 2rem;
+      }
+      .row {
+        .col-6 {
+          width: 100%;
+          label {
+            width: 96%;
+            margin-left: 2%;
+          }
+          input {
+            width: 96%;
+            margin-left: 2%;
+            padding: 0.4rem 0.7rem;
+            margin-bottom: 1rem;
+          }
+          .ppDiv{
+            justify-content: start!important;
+            .col-6{
+              width: 50%;
+              #dp{
+                width: 100px!important;
+                height: 100px!important;
+              }
+            }
+            .col-4{
+              padding: 2.2rem 0 0 2rem!important;
+              #dpDeleteBTn{
+                font-size: 1.2rem!important;
+              }
+            }
+          }
+        }
+        .col-12 {
+          margin-top: 3rem;
+          button {
+            padding: 0.4rem 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}

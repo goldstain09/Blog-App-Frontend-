@@ -6,6 +6,9 @@ import {
   CREATE_USER_ACCOUNT_ERROR,
   CREATE_USER_ACCOUNT_START,
   CREATE_USER_ACCOUNT_SUCCESS,
+  EDIT_USER_ACCOUNT_ERROR,
+  EDIT_USER_ACCOUNT_START,
+  EDIT_USER_ACCOUNT_SUCCESS,
   LOGIN_USER_ACCOUNT_ERROR,
   LOGIN_USER_ACCOUNT_START,
   LOGIN_USER_ACCOUNT_SUCCESS,
@@ -64,5 +67,19 @@ export const loginUserAccountSuccess = (data) => ({
 });
 export const loginUserAccountError = (data) => ({
   type: LOGIN_USER_ACCOUNT_ERROR,
+  payload: data,
+});
+
+// edit or update
+export const editUserAccountStart = (data) => ({
+  type: EDIT_USER_ACCOUNT_START,
+  payload: data,
+});
+export const editUserAccountSuccess = (data) => ({
+  type: EDIT_USER_ACCOUNT_SUCCESS,
+  payload: data,
+});
+export const editUserAccountError = (data) => ({
+  type: EDIT_USER_ACCOUNT_ERROR,
   payload: data,
 });

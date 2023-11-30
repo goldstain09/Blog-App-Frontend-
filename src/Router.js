@@ -9,6 +9,7 @@ import CategoryPage from "./Pages/CategoryPage";
 import MyPost from "./Pages/MyPost";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
+import EditProfilePage from "./Pages/EditProfilePage";
 
 export default function Router() {
   return (
@@ -24,6 +25,7 @@ export default function Router() {
           <Route path="/blog" element={<BlogReadPage />} />
           <Route path="/tagPage" element={<TagsPage />} />
           <Route path="/categoryPage" element={<CategoryPage />} />
+          <Route path="/editProfile" element={<EditProfilePage />} />
         </Routes>
       </BrowserRouter>
     </>

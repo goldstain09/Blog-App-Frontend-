@@ -32,8 +32,10 @@ export default function LoginPage() {
       navigate("/myProfile");
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
-      if (tokenInfo.hasOwnProperty("validity")) {
-        dispatch(verifyUserAuthStart(tokenInfo.token));
+      if(tokenInfo){
+        if (tokenInfo.hasOwnProperty("validity")) {
+          dispatch(verifyUserAuthStart(tokenInfo.token));
+        }
       }
     }
   }, [UserDataFromResponse]);

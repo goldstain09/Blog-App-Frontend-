@@ -44,8 +44,12 @@ export default function MyProfilePage() {
       );
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
-      if (tokenInfo.hasOwnProperty("validity")) {
-        dispatch(verifyUserAuthStart(tokenInfo.token));
+      if (tokenInfo) {
+        if (tokenInfo.hasOwnProperty("validity")) {
+          dispatch(verifyUserAuthStart(tokenInfo.token));
+        } else {
+          navigate("/login");
+        }
       } else {
         navigate("/login");
       }
@@ -132,7 +136,13 @@ export default function MyProfilePage() {
                 )}
               </div>
               <div className="col-5">
-                <button>Edit Profile</button>
+                <button
+                  onClick={() => {
+                    navigate("/editProfile");
+                  }}
+                >
+                  Edit Profile
+                </button>
               </div>
             </div>
             <div className="row d-flex postFollowersAndFollowingContainer">

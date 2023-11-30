@@ -3,6 +3,9 @@ import {
   CREATE_USER_ACCOUNT_ERROR,
   CREATE_USER_ACCOUNT_START,
   CREATE_USER_ACCOUNT_SUCCESS,
+  EDIT_USER_ACCOUNT_ERROR,
+  EDIT_USER_ACCOUNT_START,
+  EDIT_USER_ACCOUNT_SUCCESS,
   LOGIN_USER_ACCOUNT_ERROR,
   LOGIN_USER_ACCOUNT_START,
   LOGIN_USER_ACCOUNT_SUCCESS,
@@ -20,8 +23,10 @@ const initialState = {
   verifyUserError: "",
   loginUserLoading: false,
   loginUserError: "",
+  editUserLoading: false,
+  editUserError: "",
 
-  authorised: {},
+  authorised: { authorised: false },
 };
 
 const userReducer = (state = initialState, action) => {
@@ -100,6 +105,27 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loginUserError: action.payload,
         loginUserLoading: false,
+      };
+
+    // edit user
+    case EDIT_USER_ACCOUNT_START:
+      return {
+        ...state,
+        editUserLoading: true,
+        editUserError: "",
+      };
+    case EDIT_USER_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        UserDataFromResponse: action.payload,
+        editUserError: "",
+        editUserLoading: false,
+      };
+    case EDIT_USER_ACCOUNT_ERROR:
+      return {
+        ...state,
+        editUserLoading: false,
+        editUserError: action.payload,
       };
 
     default:

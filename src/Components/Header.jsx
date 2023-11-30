@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
 import "./SCSS/Header.scss";
 import Logo from "../Media/Logo.png";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const authorised = useSelector(
+    (state) => state.userReducer.authorised.authorised
+  );
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 25) {
@@ -61,23 +67,50 @@ export default function Header() {
                 </a>
               </li> */}
             </ul>
-
-            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input
-                type="search"
-                className="form-control form-control-dark"
-                placeholder="Search for blogs, tags, & categories..."
-                aria-label="Search"
-              />
-            </form>
+            {authorised && (
+              <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input
+                  type="search"
+                  className="form-control form-control-dark"
+                  placeholder="Search for blogs, tags, & categories..."
+                  aria-label="Search"
+                />
+              </form>
+            )}
 
             <div className="text-end">
-              <button type="button" className="btn btn-outline-danger me-2">
-                Login
-              </button>
-              <button type="button" className="btn btn-danger">
-                Sign-up
-              </button>
+              {authorised ? (
+                <button
+                  type="button"
+                  className="btn btn-outline-danger me-2"
+                  onClick={() => {
+                    navigate("/myProfile");
+                  }}
+                >
+                  Profile
+                </button>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger me-2"
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => {
+                      navigate("/signup");
+                    }}
+                  >
+                    Sign-up
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -86,7 +119,7 @@ export default function Header() {
       <header className="MobileScreenMainHeader fixed-top" id="MbMainHeader">
         <div className="container-fluid">
           <div className="row d-flex">
-            <a href="" className="col-2">
+            <a href="#" className="col-2">
               <img src={Logo} alt="Logo" />
             </a>
             <div className="col-8"></div>

@@ -6,8 +6,7 @@ import {
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
 import { Link, useNavigate } from "react-router-dom";
-// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-// import storage from '../Utils/Firebase.Storage';
+
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -33,8 +32,10 @@ export default function SignupPage() {
       navigate("/myProfile");
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
-      if (tokenInfo.hasOwnProperty("validity")) {
-        dispatch(verifyUserAuthStart(tokenInfo.token));
+      if (tokenInfo) {
+        if (tokenInfo.hasOwnProperty("validity")) {
+          dispatch(verifyUserAuthStart(tokenInfo.token));
+        }
       }
     }
   }, [UserDataFromResponse]);
@@ -217,67 +218,3 @@ export default function SignupPage() {
     </>
   );
 }
-
-{
-  /* <div className="col-6">
-<textarea
-  type="text"
-  rows={4}
-  className=" form-control"
-  placeholder="Type your Biography"
-/>
-</div> */
-}
-{
-  /* <div className="col-6">
-              <label className="form-control-label">Profile Picture</label>
-              <input
-                type="file"
-                accept="image/*"
-                className=" form-control"
-                placeholder="Profile Picture"
-                // onChange={(event) => {
-                //   // setFile(event.target.files[0]);
-                // }}
-              />
-            </div> */
-}
-
-//   <div className="col-6">
-//   <input
-//     type="email"
-//     className=" form-control"
-//     placeholder="Email"
-//   />
-// </div>
-
-// const image_Change = async (event) => {
-//   // setImage(event.target.files[0]);
-
-//   // its for replacing a profile picture and used for change the dp
-//   const folderPath = 'profilePictures/1699953721315___Screenshot 2023-06-23 123139.png';
-//   const fileName = `${Date.now()}___${event.target.files[0].name}`;
-//   const filePath = `${folderPath}/${fileName}`;
-//   const storageRef = ref(storage, folderPath);
-
-//   // its for uploading a new profile picture
-//   // const folderPath = 'profilePictures';
-//   // const fileName = `${Date.now()}___${event.target.files[0].name}`;
-//   // const filePath = `${folderPath}/${fileName}`;
-//   // const storageRef = ref(storage, filePath);
-
-//   try {
-//     // Upload the file to the specified folder path
-//     await uploadBytes(storageRef, event.target.files[0]);
-
-//     // Get the download URL of the uploaded file
-//     const url = await getDownloadURL(storageRef);
-
-//     // Set the image URL state or save it to your database
-//     // setImageUrl(url);
-//     console.log(url);
-//   } catch (error) {
-//     console.error('Error uploading image:', error);
-//     // Handle errors as needed
-//   }
-// };

@@ -1,11 +1,13 @@
 import { put, take, takeLatest } from "redux-saga/effects";
 import {
   CREATE_USER_ACCOUNT_START,
+  EDIT_USER_ACCOUNT_START,
   LOGIN_USER_ACCOUNT_START,
   VERIFY_USER_AUTH_START,
 } from "../Constants/UserConstants";
 import {
   createUserAccount,
+  editUserAccount,
   loginUserAccount,
   verifyUserAuth,
 } from "../Service";
@@ -13,6 +15,8 @@ import {
   authorised,
   createUserAccountError,
   createUserAccountSuccess,
+  editUserAccountError,
+  editUserAccountSuccess,
   loginUserAccountError,
   loginUserAccountSuccess,
   notAuthorised,
@@ -108,10 +112,33 @@ function* loginUserAccountSaga({ payload }) {
   }
 }
 
+function* editUserAccountSaga({ payload }) {
+  try {
+    const Response = yield editUserAccount(payload);
+    if (Response.hasOwnProperty("userUpdated")) {
+      switch (Response.userUpdated) {
+        case true:
+          yield put(editUserAccountSuccess(Response.data));
+          yield put(authorised(true));
+          break;
+
+        case false:
+          yield put(notAuthorised(false));
+          throw Error(Response.errorMessage);
+        default:
+          throw Error("Unable to Update at the moment!");
+      }
+    }
+  } catch (error) {
+    yield put(editUserAccountError(error.message));
+  }
+}
+
 function* userSaga() {
   yield takeLatest(CREATE_USER_ACCOUNT_START, createUserSaga);
   yield takeLatest(VERIFY_USER_AUTH_START, verifyUserAuthSaga);
   yield takeLatest(LOGIN_USER_ACCOUNT_START, loginUserAccountSaga);
+  yield takeLatest(EDIT_USER_ACCOUNT_START, editUserAccountSaga);
 }
 
 export { userSaga };

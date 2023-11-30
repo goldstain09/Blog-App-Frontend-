@@ -15,32 +15,32 @@ export default function Home() {
   const [nottAuthorised, setNottAuthorised] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
-  const authorised = useSelector(
-    (state) => state.userReducer.authorised
-  );
+  const authorised = useSelector((state) => state.userReducer.authorised);
   // user authorisation
-  useEffect(()=>{
-    if(authorised.hasOwnProperty('authorised')){
-      if(authorised.authorised === false){
-         setNottAuthorised(true);
+  useEffect(() => {
+    if (authorised.hasOwnProperty("authorised")) {
+      if (authorised.authorised === false) {
+        setNottAuthorised(true);
         // alert (your token is expired please login)!
-      }else{
+      } else {
         setNottAuthorised(false);
       }
     }
-  },[authorised])
+  }, [authorised]);
   useEffect(() => {
-    if (UserDataFromResponse.hasOwnProperty("data")) {
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
-      if (tokenInfo.hasOwnProperty("validity")) {
-        dispatch(verifyUserAuthStart(tokenInfo.token));
-      }else{
-        setNottAuthorised(true);
+      if (tokenInfo) {
+        if (tokenInfo.hasOwnProperty("validity")) {
+          dispatch(verifyUserAuthStart(tokenInfo.token));
+        } else {
+          setNottAuthorised(true);
+        }
       }
     }
   }, [UserDataFromResponse]);
@@ -55,7 +55,7 @@ export default function Home() {
         </>
       ) : (
         <>
-        <HomePageBlogs />
+          <HomePageBlogs />
         </>
       )}
 
