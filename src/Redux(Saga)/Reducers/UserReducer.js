@@ -1,4 +1,7 @@
 import {
+  ADD_USER_EMAIL_ERROR,
+  ADD_USER_EMAIL_START,
+  ADD_USER_EMAIL_SUCCESS,
   AUTHORISED,
   CREATE_USER_ACCOUNT_ERROR,
   CREATE_USER_ACCOUNT_START,
@@ -25,6 +28,8 @@ const initialState = {
   loginUserError: "",
   editUserLoading: false,
   editUserError: "",
+  addUserEmailLoading: false,
+  addUserEmailError: "",
 
   authorised: { authorised: false },
 };
@@ -128,6 +133,26 @@ const userReducer = (state = initialState, action) => {
         editUserError: action.payload,
       };
 
+    // add user email
+    case ADD_USER_EMAIL_START:
+      return {
+        ...state,
+        addUserEmailError: "",
+        addUserEmailLoading: true,
+      };
+    case ADD_USER_EMAIL_SUCCESS:
+      return {
+        ...state,
+        addUserEmailError: "",
+        addUserEmailLoading: false,
+        UserDataFromResponse: action.payload,
+      };
+    case ADD_USER_EMAIL_ERROR:
+      return {
+        ...state,
+        addUserEmailError: action.payload,
+        addUserEmailLoading: false,
+      };
     default:
       return state;
   }

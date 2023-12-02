@@ -64,3 +64,21 @@ export const editUserAccount = async (data) => {
     );
   }
 };
+export const addUserEmail = async (data) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:8080/v1/UserApi/addUserEmail",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw Error(
+      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
+    );
+  }
+};

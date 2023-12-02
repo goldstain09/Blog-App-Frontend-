@@ -8,7 +8,8 @@ $main: red;
       text-align: center;
       padding: 5rem 0;
       img {
-        width: 40%;
+        width: 300px;
+        height: 300px;
         border-radius: 11111px;
       }
     }
@@ -88,7 +89,7 @@ $main: red;
           .bi-heart {
             color: $main;
           }
-          .bi-grid-3x3{
+          .bi-grid-3x3 {
             color: rgb(224, 146, 159);
           }
         }
@@ -146,7 +147,7 @@ $main: red;
           height: 100%;
           margin-top: -10%;
           margin-left: -20%;
-          filter: brightness(.8);
+          filter: brightness(0.8);
         }
         > div {
           display: none;
@@ -182,7 +183,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 60%;
+          width: 250px;
+          height: 250px;
         }
       }
       .col-xl-8 {
@@ -253,7 +255,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 40%;
+          width: 300px;
+          height: 300px;
         }
       }
       .col-xl-8 {
@@ -344,7 +347,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 40%;
+          width: 260px;
+          height: 260px; 
         }
       }
       .col-xl-8 {
@@ -423,7 +427,7 @@ $main: red;
           }
           > div {
             top: -85% !important;
-            h5{
+            h5 {
               font-size: 1rem;
             }
           }
@@ -440,7 +444,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 50%;
+          width: 230px;
+          height: 230px; 
         }
       }
       .col-xl-8 {
@@ -503,7 +508,7 @@ $main: red;
           width: 33.3%;
           margin-left: 0%;
           margin-top: 0.5rem;
-          height:9rem;
+          height: 9rem;
           img {
             width: 120%;
             height: 100%;
@@ -512,7 +517,7 @@ $main: red;
           }
           > div {
             top: -60% !important;
-            h5{
+            h5 {
               font-size: 1rem;
             }
           }
@@ -535,8 +540,8 @@ $main: red;
           }
           > div {
             top: -80% !important;
-            h5{
-              font-size: .5rem;
+            h5 {
+              font-size: 0.5rem;
             }
           }
         }
@@ -551,7 +556,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 70%;
+          width: 200px;
+          height: 200px; 
         }
       }
       .col-xl-8 {
@@ -619,8 +625,8 @@ $main: red;
           > div {
             top: -80% !important;
             line-height: 10px;
-            h5{
-              font-size: .7rem;
+            h5 {
+              font-size: 0.7rem;
               display: block;
             }
           }
@@ -644,9 +650,9 @@ $main: red;
           }
           > div {
             top: -90% !important;
-            line-height: 10px!important;
-            h5{
-              font-size: .5rem;
+            line-height: 10px !important;
+            h5 {
+              font-size: 0.5rem;
             }
           }
         }

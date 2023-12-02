@@ -1,17 +1,21 @@
 import { put, take, takeLatest } from "redux-saga/effects";
 import {
+  ADD_USER_EMAIL_START,
   CREATE_USER_ACCOUNT_START,
   EDIT_USER_ACCOUNT_START,
   LOGIN_USER_ACCOUNT_START,
   VERIFY_USER_AUTH_START,
 } from "../Constants/UserConstants";
 import {
+  addUserEmail,
   createUserAccount,
   editUserAccount,
   loginUserAccount,
   verifyUserAuth,
 } from "../Service";
 import {
+  addUserEmailError,
+  addUserEmailSuccess,
   authorised,
   createUserAccountError,
   createUserAccountSuccess,
@@ -134,11 +138,35 @@ function* editUserAccountSaga({ payload }) {
   }
 }
 
+function* addUserEmailSaga({ payload }) {
+  try {
+    const Response = yield addUserEmail(payload);
+    if (Response.hasOwnProperty("emailUpdated")) {
+      switch (Response.emailUpdated) {
+        case true:
+          yield put(addUserEmailSuccess(Response.data));
+          yield put(authorised(true));
+          break;
+        case false:
+          yield put(notAuthorised(false));
+          throw Error(Response.errorMessage);
+        default:
+          throw Error("Something went wrong!");
+      }
+    } else {
+      throw Error("Something went wrong!");
+    }
+  } catch (error) {
+    yield put(addUserEmailError(error.message));
+  }
+}
+
 function* userSaga() {
   yield takeLatest(CREATE_USER_ACCOUNT_START, createUserSaga);
   yield takeLatest(VERIFY_USER_AUTH_START, verifyUserAuthSaga);
   yield takeLatest(LOGIN_USER_ACCOUNT_START, loginUserAccountSaga);
   yield takeLatest(EDIT_USER_ACCOUNT_START, editUserAccountSaga);
+  yield takeLatest(ADD_USER_EMAIL_START, addUserEmailSaga);
 }
 
 export { userSaga };

@@ -1,0 +1,87 @@
+.emailModal{
+    padding-top: 5rem;
+    >.emailInputContainer{
+        .col-9{
+            ::placeholder{
+                color: rgb(255, 255, 255)!important;
+            }
+            input{
+                background: none;
+                border: none;
+                border-bottom: 1px solid red;
+                padding: .3rem .4rem;         
+                outline: none;
+                box-shadow: none;
+            }
+        }
+        .col-3{
+            button{
+                padding: .3rem .4rem;
+                background: none;
+                border: red solid 1px;
+                outline: none;
+                box-shadow: none;
+            }
+            button:hover{
+                background: red;
+                color: white;
+                transition: all .4s;
+            }
+        }
+    }
+    >.otpInputContainer{
+        padding-top: 7rem;        
+        .col-12{
+            text-align: center;
+            input{
+                background: none;
+                border: none;
+                border-bottom: red solid 1px;
+                padding: .4rem .6rem;
+                outline: none;
+                box-shadow: none;
+            }
+            button{
+                margin-top: 2rem;
+                padding: .3rem .6rem;
+                background: none;
+                border: 1px solid red;
+                outline: none;
+                box-shadow: none;
+            }
+            button:hover{
+                background: red;
+                transition: all .3s;
+            }
+        }
+    }
+}
+
+
+
+@media (max-width:394px) {
+    .emailModal{
+        padding-top: 3rem;
+        >.emailInputContainer{
+            .col-9{
+                width: 100%;
+            }
+            .col-3{
+                width: 100%;
+                text-align: center;
+                margin-top: 2rem;
+                button{
+                    width: 70%!important;
+                    padding: .3rem .4rem;
+                    background: none;
+                    border: red solid 1px;
+                }
+                button:hover{
+                    background: red;
+                    color: white;
+                    transition: all .4s;
+                }
+            }
+        }
+    }
+}

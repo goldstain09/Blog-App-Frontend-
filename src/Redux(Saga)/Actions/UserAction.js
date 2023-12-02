@@ -1,4 +1,7 @@
 import {
+  ADD_USER_EMAIL_ERROR,
+  ADD_USER_EMAIL_START,
+  ADD_USER_EMAIL_SUCCESS,
   AUTHORISED,
   AUTHORISED_ERROR,
   AUTHORISED_START,
@@ -81,5 +84,19 @@ export const editUserAccountSuccess = (data) => ({
 });
 export const editUserAccountError = (data) => ({
   type: EDIT_USER_ACCOUNT_ERROR,
+  payload: data,
+});
+
+// ADD USER EMAIL
+export const addUserEmailStart = (data) => ({
+  type: ADD_USER_EMAIL_START,
+  payload: data,
+});
+export const addUserEmailSuccess = (data) => ({
+  type: ADD_USER_EMAIL_SUCCESS,
+  payload: data,
+});
+export const addUserEmailError = (data) => ({
+  type: ADD_USER_EMAIL_ERROR,
   payload: data,
 });

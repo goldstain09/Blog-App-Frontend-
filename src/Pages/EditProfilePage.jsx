@@ -11,6 +11,7 @@ import {
 import storage from "../Utils/Firebase.Storage";
 import axios from "axios";
 import { editUserAccountStart } from "../Redux(Saga)/Actions/UserAction";
+import AddEmailModal from "../Components/AddEmailModal";
 
 export default function EditProfilePage() {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ export default function EditProfilePage() {
   const [userNameAvailable, setUserNameAvailable] = useState(false);
   const [userNameNotAvailable, setUserNameNotAvailable] = useState(false); // asigning double becoz of some UX and looks of showing available or not!!
   const [showCheckBtn, setShowCheckBtn] = useState(false);
+  const [userNameAvailableCheck, setUserNameAvailableCheck] = useState(false);
 
   //empty errors
   const [emptyNameError, setEmptyNameError] = useState(false);
@@ -89,7 +91,7 @@ export default function EditProfilePage() {
             dispatch(editUserAccountStart(formData));
           }
         } else {
-          setUserNameNotAvailable(true);
+          setUserNameAvailableCheck(true);
         }
       } else {
         setEmptyUserNameError(true);
@@ -101,7 +103,6 @@ export default function EditProfilePage() {
 
   // handling update completion
   useEffect(() => {
-    console.log(UserDataFromResponse);
     if (UserDataFromResponse.hasOwnProperty("updated")) {
       delete UserDataFromResponse.updated;
       localStorage.setItem(
@@ -130,14 +131,18 @@ export default function EditProfilePage() {
                 name="Name"
                 required
                 onChange={(e) => {
+                  setEmptyNameError(false);
                   setFormData({
                     ...formData,
                     Name: e.target.value,
                   });
                 }}
               />
+              {emptyNameError && (
+                <p className="text-danger">Please enter your name!</p>
+              )}
             </div>
-            <div className="col-6">
+            <div className="col-6 pb-3">
               <input
                 type="text"
                 placeholder="Username"
@@ -145,61 +150,73 @@ export default function EditProfilePage() {
                 name="userName"
                 required
                 onChange={async (e) => {
+                  setUserNameAvailableCheck(false);
+                  setEmptyUserNameError(false);
                   setFormData({
                     ...formData,
                     userName: e.target.value,
                   });
                   if (e.target.value === UserDataFromResponse.userName) {
                     setShowCheckBtn(false);
+                    setUserNameNotAvailable(false);
+                    setUserNameAvailable(false);
                   } else {
                     setShowCheckBtn(true);
-                    setUserNameAvailable(false);
                     setUserNameNotAvailable(false);
+                    setUserNameAvailable(false);
                   }
                 }}
               />
               {showCheckBtn && (
                 <button
+                  id="checkBtn"
                   onClick={async (e) => {
                     e.preventDefault();
+                    setUserNameAvailableCheck(false);
                     if (userName === UserDataFromResponse.userName) {
                       setUserNameAvailable(true);
                       setUserNameNotAvailable(false);
                     } else {
-                      const response = await axios.get(
-                        `http://localhost:8080/v1/UserApi/checkUserNameAvailableOrNOT/${userName}`
-                      );
-                      console.log(response);
-                      if (response.data.hasOwnProperty("someErrorOccured")) {
-                        alert("someError");
-                      } else if (response.data === true) {
-                        setUserNameAvailable(true);
-                        setUserNameNotAvailable(false);
-                        setShowCheckBtn(false);
+                      if (userName !== "") {
+                        const response = await axios.get(
+                          `http://localhost:8080/v1/UserApi/checkUserNameAvailableOrNOT/${userName}`
+                        );
+                        if (response.data.hasOwnProperty("someErrorOccured")) {
+                          alert("someError");
+                        } else if (response.data === true) {
+                          setUserNameAvailable(true);
+                          setUserNameNotAvailable(false);
+                          setShowCheckBtn(false);
+                        } else {
+                          setUserNameAvailable(false);
+                          setUserNameNotAvailable(true);
+                          setShowCheckBtn(false);
+                        }
                       } else {
-                        setUserNameAvailable(false);
-                        setUserNameNotAvailable(true);
+                        setEmptyUserNameError(true);
                         setShowCheckBtn(false);
                       }
                     }
                   }}
                 >
-                  check
+                  <i class="bi bi-arrow-clockwise"></i>{" "}
                 </button>
               )}
-              {userNameAvailable && (
-                <>
-                  <p className="text-success">Available</p>
-                </>
+              {userNameAvailableCheck && (
+                <p className="text-danger">
+                  Please check availablity first of this username!
+                </p>
               )}
+              {emptyUserNameError && (
+                <p className="text-danger">Please enter an username!</p>
+              )}
+              {userNameAvailable && <p className="text-success">Available!</p>}
               {userNameNotAvailable && (
-                <>
-                  <p className="text-danger">Not Available</p>
-                </>
+                <p className="text-danger">Not Available!</p>
               )}
             </div>
             <div className="col-6">
-              <label>Profile Picture</label>
+              <label className="py-1">Profile Picture</label>
               {profilePicture === defaultProfilePicture ? (
                 <input
                   accept="image/*"
@@ -264,7 +281,7 @@ export default function EditProfilePage() {
                 </div>
               )}
             </div>
-            <div className="col-6">
+            <div className="col-6 mt-3">
               <label htmlFor="bio">Biography</label>
               <textarea
                 id="bio"
@@ -288,15 +305,36 @@ export default function EditProfilePage() {
             </div>
           </div>
         </form>
-        <form className="container mt-5 px-5">
-          <h1
-            className="h5 text-danger"
-            style={{ textDecoration: "underline", cursor: "pointer" }}
-          >
-            Add your email to your profile!
-          </h1>
-        </form>
+        <div className="container mt-5 px-5">
+          {UserDataFromResponse.hasOwnProperty("Email") &&
+          UserDataFromResponse.Email !== "" ? (
+            <>
+              <h6 className="h6 text-light">Your Email!</h6>
+              <div className="row">
+                <div className="col-12">
+                  <h3 className="h4 d-inline text-light">
+                    {UserDataFromResponse.Email}
+                  </h3>
+                  <button className="btn btn-outline-danger mx-4">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <h1
+              className="h5 text-danger"
+              style={{ textDecoration: "underline", cursor: "pointer" }}
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#EmailModal"
+            >
+              Add your email to your profile!
+            </h1>
+          )}
+        </div>
       </div>
+      <AddEmailModal />
     </>
   );
 }
