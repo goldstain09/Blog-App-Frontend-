@@ -1,0 +1,17 @@
+
+
+@media (max-width:394px) {
+    .confirmationModalheading{
+        font-size: 1rem;
+    }
+    .confirmationModal{
+        .row{
+            .col-6{
+                button{
+                    font-size: .7rem;
+                    margin-top: 2rem!important;
+                }
+            }
+        }
+    }
+}

@@ -3,7 +3,10 @@ import "./SCSS/AddEmailModal.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserEmailStart } from "../Redux(Saga)/Actions/UserAction";
+import {
+  addUserEmailStart,
+  notAuthorised,
+} from "../Redux(Saga)/Actions/UserAction";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as bootstrap from "bootstrap/dist/js/bootstrap.bundle";
 
@@ -46,26 +49,30 @@ export default function AddEmailModal() {
           }
         );
         if (response) {
-          if (response.data.hasOwnProperty("OtpSent")) {
-            setOtpSendingLoading(false);
-            if (response.data.OtpSent) {
-              setMessage(response.data.message);
-              setOtp(response.data.otpInfo.otp);
-              localStorage.setItem(
-                "blogApp",
-                JSON.stringify({
-                  token: response.data.jwToken,
-                  validity: "15 minutes",
-                })
-              );
-              setShowOtpInput(true);
-              setShowErrorBtn(false);
-            } else {
-              setMessage(response.data.message);
-              seterrorMessage(response.data.errorMessage);
-              setShowErrorBtn(true);
-              setShowOtpInput(false);
-              // navigate('/myProfile');
+          if (response.data.hasOwnProperty("Unauthorized")) {
+            dispatch(notAuthorised(false));
+          } else {
+            if (response.data.hasOwnProperty("OtpSent")) {
+              setOtpSendingLoading(false);
+              if (response.data.OtpSent) {
+                setMessage(response.data.message);
+                setOtp(response.data.otpInfo.otp);
+                localStorage.setItem(
+                  "blogApp",
+                  JSON.stringify({
+                    token: response.data.jwToken,
+                    validity: "15 minutes",
+                  })
+                );
+                setShowOtpInput(true);
+                setShowErrorBtn(false);
+              } else {
+                setMessage(response.data.message);
+                seterrorMessage(response.data.errorMessage);
+                setShowErrorBtn(true);
+                setShowOtpInput(false);
+                // navigate('/myProfile');
+              }
             }
           }
         } else {
@@ -130,7 +137,12 @@ export default function AddEmailModal() {
         aria-hidden="true"
       >
         <div className="modal-dialog">
-          <div className="modal-content">
+          <div
+            className="modal-content"
+            style={{
+              height: "fit-content",
+            }}
+          >
             <div className="modal-header">
               <h5 className="modal-title h5" id="exampleModalLabel">
                 Add your Email!
@@ -156,6 +168,17 @@ export default function AddEmailModal() {
                         data-bs-dismiss="modal"
                         aria-label="Close"
                         className="btn btn-outline-danger"
+                        onClick={() => {
+                          setaddedSuccessfully(false);
+                          setEmail("");
+                          setOtpInputValue("");
+                          setMessage("");
+                          seterrorMessage("");
+                          setOtp("");
+                          setOtpSendingLoading(false);
+                          setShowOtpInput(false);
+                          setShowErrorBtn(false);
+                        }}
                       >
                         Back
                       </button>

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginUserAccountStart,
+  notAuthorised,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
 
@@ -15,6 +16,14 @@ export default function LoginPage() {
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
+  useEffect(() => {
+    // it's for if user account was deleted and he is on edit page thenn info from state or store is mandatory to remove!!
+    if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
+      if (UserDataFromResponse.accountDeleted) {
+        dispatch(notAuthorised(false));
+      }
+    }
+  }, [UserDataFromResponse]);
 
   // user Authorization
   useEffect(() => {
@@ -32,7 +41,7 @@ export default function LoginPage() {
       navigate("/myProfile");
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
-      if(tokenInfo){
+      if (tokenInfo) {
         if (tokenInfo.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(tokenInfo.token));
         }
@@ -96,7 +105,6 @@ export default function LoginPage() {
       setFormData(initialFormData);
       navigate("/myProfile");
     } else if (UserDataFromResponse.hasOwnProperty("PasswordIsWrong")) {
-      console.log("sdfsdf");
       setInvalidPassword(true);
     } else if (UserDataFromResponse.hasOwnProperty("userNameIsWrong")) {
       setInvalidUserName(true);

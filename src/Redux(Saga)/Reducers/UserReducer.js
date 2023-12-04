@@ -3,16 +3,31 @@ import {
   ADD_USER_EMAIL_START,
   ADD_USER_EMAIL_SUCCESS,
   AUTHORISED,
+  CHANGE_PASSWORD_ERROR,
+  CHANGE_PASSWORD_START,
+  CHANGE_PASSWORD_SUCCESS,
+  CHECK_PASSWORD_FOR_DELETE_ACCOUNT_ERROR,
+  CHECK_PASSWORD_FOR_DELETE_ACCOUNT_START,
+  CHECK_PASSWORD_FOR_DELETE_ACCOUNT_SUCCESS,
   CREATE_USER_ACCOUNT_ERROR,
   CREATE_USER_ACCOUNT_START,
   CREATE_USER_ACCOUNT_SUCCESS,
+  DELETE_USER_ACCOUNT_ERROR,
+  DELETE_USER_ACCOUNT_START,
+  DELETE_USER_ACCOUNT_SUCCESS,
   EDIT_USER_ACCOUNT_ERROR,
   EDIT_USER_ACCOUNT_START,
   EDIT_USER_ACCOUNT_SUCCESS,
+  FORGET_CHANGE_PASSWORD_ERROR,
+  FORGET_CHANGE_PASSWORD_START,
+  FORGET_CHANGE_PASSWORD_SUCCESS,
   LOGIN_USER_ACCOUNT_ERROR,
   LOGIN_USER_ACCOUNT_START,
   LOGIN_USER_ACCOUNT_SUCCESS,
   NOT_AUTHORISED,
+  REMOVE_USER_EMAIL_ERROR,
+  REMOVE_USER_EMAIL_START,
+  REMOVE_USER_EMAIL_SUCCESS,
   VERIFY_USER_AUTH_ERROR,
   VERIFY_USER_AUTH_START,
   VERIFY_USER_AUTH_SUCCESS,
@@ -30,6 +45,16 @@ const initialState = {
   editUserError: "",
   addUserEmailLoading: false,
   addUserEmailError: "",
+  removeUserEmailLoading: false,
+  removeUserEmailError: "",
+  changePasswordLoading: false,
+  changePasswordError: "",
+  forgetchangePasswordLoading: false,
+  forgetchangePasswordError: "",
+  checkPasswordForDeleteAccountLoading: false,
+  checkPasswordForDeleteAccountError: "",
+  deleteUserAccountLoading: false,
+  deleteUserAccountError: "",
 
   authorised: { authorised: false },
 };
@@ -152,6 +177,111 @@ const userReducer = (state = initialState, action) => {
         ...state,
         addUserEmailError: action.payload,
         addUserEmailLoading: false,
+      };
+
+    // remove user email
+    case REMOVE_USER_EMAIL_START:
+      return {
+        ...state,
+        removeUserEmailError: "",
+        removeUserEmailLoading: true,
+      };
+    case REMOVE_USER_EMAIL_SUCCESS:
+      return {
+        ...state,
+        removeUserEmailError: "",
+        removeUserEmailLoading: false,
+        UserDataFromResponse: action.payload,
+      };
+    case REMOVE_USER_EMAIL_ERROR:
+      return {
+        ...state,
+        removeUserEmailError: action.payload,
+        removeUserEmailLoading: false,
+      };
+
+    // change Password
+    case CHANGE_PASSWORD_START:
+      return {
+        ...state,
+        changePasswordLoading: true,
+        changePasswordError: "",
+      };
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        changePasswordError: "",
+        changePasswordLoading: false,
+        UserDataFromResponse: action.payload,
+      };
+    case CHANGE_PASSWORD_ERROR:
+      return {
+        ...state,
+        changePasswordError: action.payload,
+        changePasswordLoading: false,
+      };
+
+    // forget change pasword
+    case FORGET_CHANGE_PASSWORD_START:
+      return {
+        ...state,
+        forgetchangePasswordError: "",
+        forgetchangePasswordLoading: true,
+      };
+    case FORGET_CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        forgetchangePasswordError: "",
+        forgetchangePasswordLoading: false,
+        UserDataFromResponse: action.payload,
+      };
+    case FORGET_CHANGE_PASSWORD_ERROR:
+      return {
+        ...state,
+        forgetchangePasswordError: action.payload,
+        forgetchangePasswordLoading: false,
+      };
+
+    // check Password for delete account
+    case CHECK_PASSWORD_FOR_DELETE_ACCOUNT_START:
+      return {
+        ...state,
+        checkPasswordForDeleteAccountError: "",
+        checkPasswordForDeleteAccountLoading: true,
+      };
+    case CHECK_PASSWORD_FOR_DELETE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        checkPasswordForDeleteAccountError: "",
+        checkPasswordForDeleteAccountLoading: false,
+        UserDataFromResponse: action.payload,
+      };
+    case CHECK_PASSWORD_FOR_DELETE_ACCOUNT_ERROR:
+      return {
+        ...state,
+        checkPasswordForDeleteAccountLoading: false,
+        checkPasswordForDeleteAccountError: action.payload,
+      };
+
+    // delete account
+    case DELETE_USER_ACCOUNT_START:
+      return {
+        ...state,
+        deleteUserAccountError: "",
+        deleteUserAccountLoading: true,
+      };
+    case DELETE_USER_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        deleteUserAccountError: "",
+        deleteUserAccountLoading: false,
+        UserDataFromResponse: action.payload,
+      };
+    case DELETE_USER_ACCOUNT_ERROR:
+      return {
+        ...state,
+        deleteUserAccountError: action.payload,
+        deleteUserAccountLoading: false,
       };
     default:
       return state;

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import founder from "../Media/Founder.jpg";
 
+
+// this card is used for Showing saved liked and tagsused Posts!!! but name is same !!
 export default function ProfileTagsUsedCard({ Saved, Liked, tagsUsed }) {
   const [whatToShow, setWhatToShow] = useState([]);
   useEffect(() => {

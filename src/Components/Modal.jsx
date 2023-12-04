@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Comment from "./Comment";
 
+// this modal is used for showing comment section followers and also following!!
 export default function Modal({ CommentSection, followers, following }) {
   const [dataToShow, setDataToShow] = useState([]);
 

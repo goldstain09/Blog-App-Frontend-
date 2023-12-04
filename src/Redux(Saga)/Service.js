@@ -64,6 +64,7 @@ export const editUserAccount = async (data) => {
     );
   }
 };
+
 export const addUserEmail = async (data) => {
   try {
     const response = await axios.put(
@@ -80,5 +81,92 @@ export const addUserEmail = async (data) => {
     throw Error(
       `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
     );
+  }
+};
+
+export const removeUserEmail = async (token) => {
+  try {
+    // console.log(token);
+    const response = await axios.put(
+      "http://localhost:8080/v1/UserApi/removeUserEmail",
+      {}, // in put type rqst if u didn't want to send any data then u can't use second arg. for headers ---
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw Error(
+      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
+    );
+  }
+};
+
+export const changePassword = async (data) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:8080/v1/UserApi/changeUserPassword",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw Error("sorry-----------");
+  }
+};
+
+export const forgetChangePassword = async (data) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:8080/v1/UserApi/forgetChangeUserPassword",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw Error("sorry-----------");
+  }
+};
+
+export const checkPasswordForDeleteAccount = async (data) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:8080/v1/UserApi/checkPasswordForDeleteAccount",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw Error("sorry-----------");
+  }
+};
+
+export const deleteUserAccount = async (token) => {
+  try {
+    const response = await axios.delete(
+      "http://localhost:8080/v1/UserApi/deleteUserAccount",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw Error("sorry-----------");
   }
 };

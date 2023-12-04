@@ -3,10 +3,10 @@ import "./SCSS/SignupPage.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createUserAccountStart,
+  notAuthorised,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
 import { Link, useNavigate } from "react-router-dom";
-
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -15,6 +15,15 @@ export default function SignupPage() {
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
+  useEffect(() => {
+    // it's for if user account was deleted and he is on edit page thenn info from state or store is mandatory to remove!!
+    if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
+      if (UserDataFromResponse.accountDeleted) {
+        dispatch(notAuthorised(false));
+      }
+    }
+  }, [UserDataFromResponse]);
+
   const authorised = useSelector((state) => state.userReducer.authorised);
   // user authorisation
   useEffect(() => {

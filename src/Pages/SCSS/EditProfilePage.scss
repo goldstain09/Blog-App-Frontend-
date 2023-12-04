@@ -18,7 +18,8 @@
           width: 80%;
           margin-left: 10%;
         }
-        input,textarea {
+        input,
+        textarea {
           width: 80%;
           margin-left: 10%;
           padding: 0.4rem 0.7rem;
@@ -30,43 +31,43 @@
           border-radius: 10px;
           resize: none;
         }
-        #checkBtn{
+        #checkBtn {
           background: none;
           color: white;
-          border:none;
+          border: none;
           outline: none;
           box-shadow: none;
           font-size: 1.4rem;
         }
-        >p{
+        > p {
           width: 80%;
           margin-left: 10%;
         }
-        .ppDiv{
+        .ppDiv {
           width: 80%;
           margin-left: 10%;
           justify-content: center;
-          .col-6{
-            #dp{
+          .col-6 {
+            #dp {
               width: 250px;
               height: 250px;
               border-radius: 550px;
             }
           }
-          .col-4{
+          .col-4 {
             text-align: end;
             padding: 5.8rem 0 0 0;
-            #dpDeleteBTn{
+            #dpDeleteBTn {
               color: red;
               background: none;
               border: none;
               box-shadow: none;
               font-size: 2rem;
             }
-            #dpDeleteBTn:hover{
+            #dpDeleteBTn:hover {
               background: red;
               color: white;
-              transition: all .3s;
+              transition: all 0.3s;
             }
           }
         }
@@ -86,40 +87,75 @@
       }
     }
   }
-}
-@media (max-width:1200px) {
-  .ppDiv{
-    .col-6{
-      #dp{
-        width: 200px!important;
-        height: 200px!important;
+  .PasswordSetting,
+  .DeleteAccountSetting {
+    .col-2 {
+      width: 40%;
+      button {
+        border-radius: 10px;
+        color: white;
       }
-    }
-    .col-4{
-      padding: 4.6rem 0 0 0!important;
-      #dpDeleteBTn{
-        font-size: 1.5rem!important;
+      button:hover {
+        background: red;
+      }
+      #forgetBtn {
+        margin-top: 1rem;
+        background: none;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        text-decoration: underline;
+        color: red;
       }
     }
   }
 
+  
 }
-@media (max-width:992px) {
-  #checkBtn{
-    font-size: 1rem!important;
-  }
-  .ppDiv{
-    .col-6{
-      #dp{
-        width: 150px!important;
-        height: 150px!important;
+@media (max-width: 1200px) {
+  .ppDiv {
+    .col-6 {
+      #dp {
+        width: 200px !important;
+        height: 200px !important;
       }
     }
-    .col-4{
-      padding: 3.4rem 0 0 0!important;
-      #dpDeleteBTn{
-        font-size: 1.2rem!important;
+    .col-4 {
+      padding: 4.6rem 0 0 0 !important;
+      #dpDeleteBTn {
+        font-size: 1.5rem !important;
       }
+    }
+  }
+  .PasswordSetting,
+  .DeleteAccountSetting {
+    .col-2 {
+      width: 40%;
+    }
+  }
+}
+@media (max-width: 992px) {
+  #checkBtn {
+    font-size: 1rem !important;
+  }
+  .ppDiv {
+    .col-6 {
+      #dp {
+        width: 150px !important;
+        height: 150px !important;
+      }
+    }
+    .col-4 {
+      padding: 3.4rem 0 0 0 !important;
+      #dpDeleteBTn {
+        font-size: 1.2rem !important;
+      }
+    }
+  }
+  .PasswordSetting,
+  .DeleteAccountSetting {
+    .col-2 {
+      width: 70%!important;
     }
   }
 }
@@ -140,18 +176,18 @@
             padding: 0.4rem 0.7rem;
             margin-bottom: 1rem;
           }
-          .ppDiv{
-            .col-6{
+          .ppDiv {
+            .col-6 {
               width: 50%;
-              #dp{
-                width: 150px!important;
-                height: 150px!important;
+              #dp {
+                width: 150px !important;
+                height: 150px !important;
               }
             }
-            .col-4{
-              padding: 3.5rem 0 0 0!important;
-              #dpDeleteBTn{
-                font-size: 1.6rem!important;
+            .col-4 {
+              padding: 3.5rem 0 0 0 !important;
+              #dpDeleteBTn {
+                font-size: 1.6rem !important;
               }
             }
           }
@@ -165,13 +201,31 @@
         }
       }
     }
+    .emailSetting {
+      .col-12 {
+        h3 {
+          font-size: 1.2rem !important;
+        }
+        .btn {
+        }
+      }
+    }
+    .PasswordSetting,
+    .DeleteAccountSetting {
+      .col-2 {
+        width: 90%;
+        button {
+          font-size: 0.8rem;
+        }
+      }
+    }
   }
 }
 
 @media (max-width: 394px) {
-  #checkBtn{
+  #checkBtn {
     width: 100%;
-    text-align: center!important;
+    text-align: center !important;
   }
   .editPage {
     padding-top: 2rem;
@@ -193,19 +247,19 @@
             padding: 0.4rem 0.7rem;
             margin-bottom: 1rem;
           }
-          .ppDiv{
-            justify-content: start!important;
-            .col-6{
+          .ppDiv {
+            justify-content: start !important;
+            .col-6 {
               width: 50%;
-              #dp{
-                width: 100px!important;
-                height: 100px!important;
+              #dp {
+                width: 100px !important;
+                height: 100px !important;
               }
             }
-            .col-4{
-              padding: 2.2rem 0 0 2rem!important;
-              #dpDeleteBTn{
-                font-size: 1.2rem!important;
+            .col-4 {
+              padding: 2.2rem 0 0 2rem !important;
+              #dpDeleteBTn {
+                font-size: 1.2rem !important;
               }
             }
           }
@@ -215,6 +269,31 @@
           button {
             padding: 0.4rem 0.5rem;
           }
+        }
+      }
+    }
+    .emailSetting {
+      text-align: center;
+      .col-12 {
+        text-align: center;
+        h3 {
+          font-size: 1rem !important;
+          word-wrap: break-word;
+          width: 100%;
+        }
+        .btn {
+          margin-top: 0rem;
+          font-size: 0.7rem;
+        }
+      }
+    }
+    .PasswordSetting,
+    .DeleteAccountSetting {
+      .col-2 {
+        width: 100%!important;
+        text-align: center;
+        button {
+          font-size: 0.7rem;
         }
       }
     }

@@ -12,6 +12,10 @@ import storage from "../Utils/Firebase.Storage";
 import axios from "axios";
 import { editUserAccountStart } from "../Redux(Saga)/Actions/UserAction";
 import AddEmailModal from "../Components/AddEmailModal";
+import ConfirmationModal from "../Components/ConfirmationModal";
+import PasswordChangeModal from "../Components/PasswordChangeModal";
+import ForgetPasswordModal from "../Components/ForgetPasswordModal";
+import DeleteAccountModal from "../Components/DeleteAccountModal";
 
 export default function EditProfilePage() {
   const navigate = useNavigate();
@@ -181,16 +185,22 @@ export default function EditProfilePage() {
                         const response = await axios.get(
                           `http://localhost:8080/v1/UserApi/checkUserNameAvailableOrNOT/${userName}`
                         );
-                        if (response.data.hasOwnProperty("someErrorOccured")) {
-                          alert("someError");
-                        } else if (response.data === true) {
-                          setUserNameAvailable(true);
-                          setUserNameNotAvailable(false);
-                          setShowCheckBtn(false);
+                        if (response) {
+                          if (
+                            response.data.hasOwnProperty("someErrorOccured")
+                          ) {
+                            alert("someError");
+                          } else if (response.data === true) {
+                            setUserNameAvailable(true);
+                            setUserNameNotAvailable(false);
+                            setShowCheckBtn(false);
+                          } else {
+                            setUserNameAvailable(false);
+                            setUserNameNotAvailable(true);
+                            setShowCheckBtn(false);
+                          }
                         } else {
-                          setUserNameAvailable(false);
-                          setUserNameNotAvailable(true);
-                          setShowCheckBtn(false);
+                          alert("Network Issue! Please try again later!");
                         }
                       } else {
                         setEmptyUserNameError(true);
@@ -199,7 +209,7 @@ export default function EditProfilePage() {
                     }
                   }}
                 >
-                  <i class="bi bi-arrow-clockwise"></i>{" "}
+                  <i className="bi bi-arrow-clockwise"></i>{" "}
                 </button>
               )}
               {userNameAvailableCheck && (
@@ -275,7 +285,7 @@ export default function EditProfilePage() {
                         });
                       }}
                     >
-                      <i class="bi bi-trash3"></i>
+                      <i className="bi bi-trash3"></i>
                     </button>
                   </div>
                 </div>
@@ -305,36 +315,102 @@ export default function EditProfilePage() {
             </div>
           </div>
         </form>
-        <div className="container mt-5 px-5">
+        <div className="container emailSetting mt-5 py-5">
           {UserDataFromResponse.hasOwnProperty("Email") &&
           UserDataFromResponse.Email !== "" ? (
             <>
-              <h6 className="h6 text-light">Your Email!</h6>
-              <div className="row">
+              <h6 className="h6 text-light">Your Email:</h6>
+
+              <div className="col-12">
+                <h3
+                  className="h4 d-inline text-light"
+                  style={{ fontWeight: "200" }}
+                >
+                  {UserDataFromResponse.Email}
+                </h3>
+                <button
+                  className="btn btn-outline-danger text-light mx-4"
+                  data-bs-toggle="modal"
+                  data-bs-target="#confirmationModal"
+                  type="button"
+                >
+                  <i className="bi bi-trash3"></i>
+                </button>
+              </div>
+              <div className="row PasswordSetting">
                 <div className="col-12">
-                  <h3 className="h4 d-inline text-light">
-                    {UserDataFromResponse.Email}
-                  </h3>
-                  <button className="btn btn-outline-danger mx-4">
-                    <i class="bi bi-trash3"></i>
+                  <h6 className="h6 text-light">Password Setting:</h6>
+                </div>
+                <div className="col-2 mt-3">
+                  <button
+                    className="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#PasswordChangeModal"
+                    type="button"
+                  >
+                    Reset Password
+                  </button>
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#ForgetPasswordModal"
+                    type="button"
+                    id="forgetBtn"
+                  >
+                    Forget your password?
+                  </button>
+                </div>
+              </div>
+              <div className="row DeleteAccountSetting">
+                <div className="col-12">
+                  <h6 className="h6 text-light">Account:</h6>
+                </div>
+                <div className="col-2 mt-3">
+                  <button
+                    className="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#DeleteAccountModal"
+                    type="button"
+                  >
+                    Delete this Account
                   </button>
                 </div>
               </div>
             </>
           ) : (
-            <h1
-              className="h5 text-danger"
-              style={{ textDecoration: "underline", cursor: "pointer" }}
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#EmailModal"
-            >
-              Add your email to your profile!
-            </h1>
+            <>
+              <h1
+                className="h5 text-danger"
+                style={{ textDecoration: "underline", cursor: "pointer" }}
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#EmailModal"
+              >
+                Add your email to your profile!
+              </h1>
+              <div className="row DeleteAccountSetting">
+                <div className="col-12">
+                  <h6 className="h6 text-light">Account:</h6>
+                </div>
+                <div className="col-2 mt-3">
+                  <button
+                    className="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#DeleteAccountModal"
+                    type="button"
+                  >
+                    Delete this Account
+                  </button>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>
       <AddEmailModal />
+      <ConfirmationModal />
+      <PasswordChangeModal />
+      <ForgetPasswordModal />
+      <DeleteAccountModal />
     </>
   );
 }

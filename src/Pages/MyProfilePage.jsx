@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./SCSS/MyProfilePage.scss";
-import founder from "../Media/Founder.jpg";
-import founderr from "../Media/Logo.jpg";
-import ff from "./SCSS/Media/HomePageBGImageTop.jpg";
 import ProfilePostCard from "../Components/ProfilePostCard";
 import ProfileTagsUsedCard from "../Components/ProfileTagsUsedCard";
 import BlogCard from "../Components/BlogCard";
 import Modal from "../Components/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
+import {
+  notAuthorised,
+  verifyUserAuthStart,
+} from "../Redux(Saga)/Actions/UserAction";
 
 export default function MyProfilePage() {
   const navigate = useNavigate();
@@ -17,6 +17,15 @@ export default function MyProfilePage() {
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
+  useEffect(() => {
+    // it's for if user account was deleted and he is on edit page thenn info from state or store is mandatory to remove!!
+    if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
+      if (UserDataFromResponse.accountDeleted) {
+        dispatch(notAuthorised(false));
+      }
+    }
+  }, [UserDataFromResponse]);
+
   const authorised = useSelector((state) => state.userReducer.authorised);
   // user authorisation
   useEffect(() => {
