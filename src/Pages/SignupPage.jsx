@@ -16,29 +16,28 @@ export default function SignupPage() {
     (state) => state.userReducer.UserDataFromResponse
   );
   useEffect(() => {
-    // it's for if user account was deleted and he is on edit page thenn info from state or store is mandatory to remove!!
+    // it's for if user account was deleted and he is on edit or signup page thenn info from state or store is mandatory to remove!!
     if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
       if (UserDataFromResponse.accountDeleted) {
         dispatch(notAuthorised(false));
       }
     }
   }, [UserDataFromResponse]);
+// -----------------------------------------------------------------------------
 
   const authorised = useSelector((state) => state.userReducer.authorised);
   // user authorisation
   useEffect(() => {
     if (authorised.hasOwnProperty("authorised")) {
       if (authorised.authorised) {
-        navigate("/myProfile");
-      } else {
-        // alert (your token is expired please login)!
+        navigate("/");
       }
     }
   }, [authorised]);
   useEffect(() => {
     //if user is already signedUp!
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
-      navigate("/myProfile");
+      navigate("/");
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
       if (tokenInfo) {
@@ -48,6 +47,7 @@ export default function SignupPage() {
       }
     }
   }, [UserDataFromResponse]);
+// -----------------------------------------------------------------------------
 
   //initial form data
   const initialFormData = {
@@ -117,7 +117,7 @@ export default function SignupPage() {
       );
       setFormData(initialFormData);
       setPassword("");
-      navigate("/myProfile");
+      navigate("/");
     } else {
       if (UserDataFromResponse.hasOwnProperty("userNameIsUnique")) {
         setUserNameAlreadyInUse(true);

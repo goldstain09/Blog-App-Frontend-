@@ -10,6 +10,7 @@ import MyPost from "./Pages/MyPost";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
 import EditProfilePage from "./Pages/EditProfilePage";
+import AddPostPage from "./Pages/AddPostPage";
 
 export default function Router() {
   return (
@@ -19,13 +20,15 @@ export default function Router() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/editProfile" element={<EditProfilePage />} />
           <Route path="/myProfile" element={<MyProfilePage />} />
           <Route path="/myPost" element={<MyPost />} />
+          <Route path="/addPost" element={<AddPostPage />} />
+          <Route path="/editPost" element={<AddPostPage />} />
           <Route path="/bloggerProfile" element={<BloggerProfilePage />} />
           <Route path="/blog" element={<BlogReadPage />} />
           <Route path="/tagPage" element={<TagsPage />} />
           <Route path="/categoryPage" element={<CategoryPage />} />
-          <Route path="/editProfile" element={<EditProfilePage />} />
         </Routes>
       </BrowserRouter>
     </>

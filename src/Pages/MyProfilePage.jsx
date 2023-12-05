@@ -5,11 +5,8 @@ import ProfileTagsUsedCard from "../Components/ProfileTagsUsedCard";
 import BlogCard from "../Components/BlogCard";
 import Modal from "../Components/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  notAuthorised,
-  verifyUserAuthStart,
-} from "../Redux(Saga)/Actions/UserAction";
+import { Link, useNavigate } from "react-router-dom";
+import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 
 export default function MyProfilePage() {
   const navigate = useNavigate();
@@ -17,6 +14,9 @@ export default function MyProfilePage() {
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
+  // setting user data
+  const [datashow, setDatashow] = useState(false);
+  const [userData, setUserData] = useState({});
   useEffect(() => {
     // it's for if user account was deleted and he is on edit page thenn info from state or store is mandatory to remove!!
     if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
@@ -25,21 +25,8 @@ export default function MyProfilePage() {
       }
     }
   }, [UserDataFromResponse]);
+  // -----------------------------------------------------------------------------
 
-  const authorised = useSelector((state) => state.userReducer.authorised);
-  // user authorisation
-  useEffect(() => {
-    if (authorised.hasOwnProperty("authorised")) {
-      if (authorised.authorised === false) {
-        navigate("/login");
-        // alert (your token is expired please login)!
-      }
-    }
-  }, [authorised]);
-
-  // setting user data
-  const [datashow, setDatashow] = useState(false);
-  const [userData, setUserData] = useState({});
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
       setDatashow(true);
@@ -56,14 +43,14 @@ export default function MyProfilePage() {
       if (tokenInfo) {
         if (tokenInfo.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(tokenInfo.token));
-        } else {
-          navigate("/login");
         }
       } else {
+        // dispatch(notAuthorised(false));
         navigate("/login");
       }
     }
   }, [UserDataFromResponse]);
+  // -----------------------------------------------------------------------------
 
   // for profile nav [NavLink is for routes butt i want small nav so that's why i did this!];
   const [WhatToShow, setWhatToShow] = useState("myPosts");
@@ -130,6 +117,11 @@ export default function MyProfilePage() {
   }, [WhatToShow]);
   return (
     <>
+      <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+        <Link className="btn btn-outline-dark" to={"/"}>
+          <i class="bi bi-box-arrow-left"></i>
+        </Link>
+      </div>
       <div className="container-fluid MyProfilePage">
         <div className="row d-flex">
           <div className="col col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
@@ -145,6 +137,14 @@ export default function MyProfilePage() {
                 )}
               </div>
               <div className="col-5">
+                <button
+                  className="mx-1"
+                  onClick={() => {
+                    navigate("/addPost");
+                  }}
+                >
+                  Add Post
+                </button>
                 <button
                   onClick={() => {
                     navigate("/editProfile");

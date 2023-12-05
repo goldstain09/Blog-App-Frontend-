@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
-import BlogCard from "../Components/BlogCard";
-import "./SCSS/TagsPage.scss";
-import Footer from "../Components/Footer";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   notAuthorised,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
 
-export default function TagsPage() {
+export default function EditPostPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const UserDataFromResponse = useSelector(
@@ -37,26 +34,7 @@ export default function TagsPage() {
       }
     }
   }, [UserDataFromResponse]);
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
-  return (
-    <>
-      <div className="container-fluid TagPage">
-        <div className="container">
-          <h1>
-            <i class="bi bi-tags-fill"> </i>Lifestyle
-          </h1>
-          <h6 className="h6">Here's related posts to this tag...</h6>
-          <div className="row d-flex">
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
+  return <></>;
 }

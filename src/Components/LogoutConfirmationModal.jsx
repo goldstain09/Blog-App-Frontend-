@@ -1,17 +1,14 @@
 import React from "react";
-import { removeUserEmailStart } from "../Redux(Saga)/Actions/UserAction";
 import { useDispatch } from "react-redux";
-import "./SCSS/ConfirmationModal.scss";
+import { notAuthorised } from "../Redux(Saga)/Actions/UserAction";
 
-// this modal is used for all types of confirmations!
-export default function ConfirmationModal() {
-  const dispatch = useDispatch();
-
+export default function LogoutConfirmationModal() {
+    const dispatch = useDispatch();
   return (
     <>
       <div
         className="modal fade commentSectionModal" // gived same class in everymodal due to same theme and repeating css!
-        id="confirmationModal"
+        id="LogoutConfirmationModal"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -20,7 +17,7 @@ export default function ConfirmationModal() {
           <div
             className="modal-content"
             style={{
-              height: "fit-content",
+              height:"fit-content"
             }}
           >
             <div className="modal-header">
@@ -28,7 +25,7 @@ export default function ConfirmationModal() {
                 className="modal-title h5 confirmationModalheading"
                 id="exampleModalLabel"
               >
-                Please confirm to remove this email from your account!
+                Please confirm to Log out your account!
               </h5>
               <button
                 type="button"
@@ -55,13 +52,11 @@ export default function ConfirmationModal() {
                     aria-label="Close"
                     onClick={(e) => {
                       e.preventDefault();
-                      const jwToken = JSON.parse(
-                        localStorage.getItem("blogApp")
-                      );
-                      dispatch(removeUserEmailStart(jwToken.token));
+                      localStorage.removeItem("blogApp");
+                        dispatch(notAuthorised(false));
                     }}
                   >
-                    Yes, I' Confirm!
+                   <i class="bi bi-box-arrow-right"></i>  Yes, I' Confirm!
                   </button>
                 </div>
               </div>

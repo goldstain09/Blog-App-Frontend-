@@ -1,83 +1,83 @@
 $main: red;
 
 .BlogCard {
-  width: 30%;
-  margin: 1rem 1.5%;
-  background: none;
-  border-radius: 0;
+  width: 30%!important;
+  margin: 1rem 1.5%!important;
+  background: none!important;
+  border-radius: 0!important;
   .dropdown {
     .dropdown-menu {
-      border-radius: 0;
-      background-color: rgba(0, 0, 0, 0.628);
+      border-radius: 0!important;
+      background-color: rgba(0, 0, 0, 0.628)!important;
       > li {
         a {
-          transition: all 0.4s;
-          color: white;
+          transition: all 0.4s!important;
+          color: white!important;
         }
         a:hover {
-          color: white;
-          background: #000;
+          color: white!important;
+          background: #000!important;
         }
       }
     }
   }
   > .row {
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem 0.5rem!important;
     .col-2 {
-      width: 15%;
+      width: 15%!important;
       img {
-        border-radius: 60px;
-        width: 100%;
+        border-radius: 60px!important;
+        width: 100%!important;
       }
     }
     .col-9 {
       h5 {
-        margin-top: 0.39rem;
-        font-family: "Dancing Script", cursive;
-        color: white;
+        margin-top: 0.39rem!important;
+        font-family: "Dancing Script", cursive!important;
+        color: white!important;
       }
     }
     .col-1 {
       button {
-        border: none;
-        background: none;
-        color: white;
+        border: none!important;
+        background: none!important;
+        color: white!important;
       }
     }
   }
   img {
-    border-radius: 0;
+    border-radius: 0!important;
   }
   .card-body {
-    padding: 1rem 0;
+    padding: 1rem 0!important;
     h5 {
-      margin-top: 1rem;
-      font-family: "Raleway", ssans-serif;
-      color: white;
+      margin-top: 1rem!important;
+      font-family: "Raleway", ssans-serif!important;
+      color: white!important;
     }
     p {
-      font-family: "Dancing Script", cursive;
-      color: white;
+      font-family: "Dancing Script", cursive!important;
+      color: white!important;
     }
     a {
-      font-family: "Edu TAS Beginner", cursive;
-      background: none;
-      border: solid 1px $main;
+      font-family: "Edu TAS Beginner", cursive!important;
+      background: none!important;
+      border: solid 1px $main!important;
     }
     a:hover {
-      background: $main;
-      color: white;
+      background: $main!important;
+      color: white!important;
     }
     div {
       .col-6 {
         button {
-          color: white;
-          background: none;
-          border: none;
-          margin-right: 0.4rem;
+          color: white!important;
+          background: none!important;
+          border: none!important;
+          margin-right: 0.4rem!important;
         }
         .liked {
-          color: $main;
+          color: $main!important;
         }
       }
     }
@@ -85,60 +85,60 @@ $main: red;
 }
 
 .commentSectionModal {
-  background: #000000b8;
-  backdrop-filter: blur(10px);
+  background: #000000b8!important;
+  backdrop-filter: blur(10px)!important;
   .modal-dialog {
     .modal-content {
-      background: none;
+      background: none!important;
       height: 45rem;
-      overflow: hidden;
+      overflow: hidden!important;
       .modal-header {
         .modal-title {
-          overflow-x: hidden;
-          color: white;
+          overflow-x: hidden!important;
+          color: white!important;
         }
         button {
-          background: none;
-          border: none;
-          color: white;
-          outline: none;
-          box-shadow: none;
+          background: none!important;
+          border: none!important;
+          color: white!important;
+          outline: none!important;
+          box-shadow: none!important;
         }
       }
       .modal-body {
-        overflow-x: hidden;
+        overflow-x: hidden!important;
       }
       .modal-footer {
-        padding-top: 1rem;
+        padding-top: 1rem!important;
         .row {
-          width: 100%;
+          width: 100%!important;
 
           .col-10 {
             ::placeholder {
               color: white !important;
             }
             input {
-              width: 100%;
-              border: none;
-              background: none;
-              border-bottom: 1px solid $main;
-              box-shadow: none;
-              outline: none;
-              padding: 0.3rem 0.4rem;
-              color: white;
+              width: 100%!important;
+              border: none!important;
+              background: none!important;
+              border-bottom: 1px solid $main!important;
+              box-shadow: none!important;
+              outline: none!important;
+              padding: 0.3rem 0.4rem!important;
+              color: white!important;
             }
           }
           .col-2 {
             button {
-              background: none;
-              border: 1px solid $main;
-              color: $main;
+              background: none!important;
+              border: 1px solid $main!important;
+              color: $main!important;
             }
             button:hover {
-              background: $main;
-              color: white;
-              border: black 1px solid;
-              color: black;
+              background: $main!important;
+              color: white!important;
+              border: black 1px solid!important;
+              color: black!important;
             }
           }
         }
@@ -149,32 +149,32 @@ $main: red;
 
 @media (max-width: 992px) {
   .BlogCard {
-    width: 47%;
-    margin: 1rem 1.5%;
+    width: 47%!important;
+    margin: 1rem 1.5%!important;
     > .row {
-      padding: 0.5rem 0.5rem;
+      padding: 0.5rem 0.5rem!important;
       .col-2 {
-        width: 15%;
+        width: 15%!important;
         img {
-          width: 100%;
+          width: 100%!important;
         }
       }
       .col-9 {
         h5 {
-          margin-top: 0.2rem;
+          margin-top: 0.2rem!important;
         }
       }
     }
 
     .card-body {
-      padding: 1rem 0;
+      padding: 1rem 0!important;
       h5 {
-        margin-top: 1rem;
+        margin-top: 1rem!important;
       }
       div {
         .col-6 {
           button {
-            margin-right: 0.3rem;
+            margin-right: 0.3rem!important;
           }
         }
       }
@@ -184,32 +184,32 @@ $main: red;
 
 @media (max-width: 768px) {
   .BlogCard {
-    width: 80%;
-    margin: 1rem 10%;
+    width: 80%!important;
+    margin: 1rem 10%!important;
     > .row {
-      padding: 0.5rem 0.5rem;
+      padding: 0.5rem 0.5rem!important;
       .col-2 {
-        width: 15%;
+        width: 15%!important;
         img {
-          width: 100%;
+          width: 100%!important;
         }
       }
       .col-9 {
         h5 {
-          margin-top: 0.45rem;
+          margin-top: 0.45rem!important;
         }
       }
     }
 
     .card-body {
-      padding: 1rem 0;
+      padding: 1rem 0!important;
       h5 {
-        margin-top: 1rem;
+        margin-top: 1rem!important;
       }
       div {
         .col-6 {
           button {
-            margin-right: 0.5rem;
+            margin-right: 0.5rem!important;
           }
         }
       }
@@ -219,31 +219,31 @@ $main: red;
 
 @media (max-width: 576px) {
   .BlogCard {
-    width: 90%;
-    margin: 1rem 5%;
+    width: 90%!important;
+    margin: 1rem 5%!important;
     > .row {
-      padding: 0.5rem 0.5rem;
+      padding: 0.5rem 0.5rem!important;
       .col-2 {
-        width: 15%;
+        width: 15%!important;
         img {
-          width: 100%;
+          width: 100%!important;
         }
       }
       .col-9 {
         h5 {
-          margin-top: 0.45rem;
+          margin-top: 0.45rem!important;
         }
       }
     }
     .card-body {
-      padding: 1rem 0;
+      padding: 1rem 0!important;
       h5 {
-        margin-top: 1rem;
+        margin-top: 1rem!important;
       }
       div {
         .col-6 {
           button {
-            margin-right: 0.3rem;
+            margin-right: 0.3rem!important;
           }
         }
       }
@@ -253,33 +253,33 @@ $main: red;
 
 @media (max-width: 394px) {
   .BlogCard {
-    width: 98%;
-    margin: 1rem 1%;
+    width: 98%!important;
+    margin: 1rem 1%!important;
     > .row {
-      width: 98%;
-      padding: 0.5rem 0.5rem;
+      width: 98%!important;
+      padding: 0.5rem 0.5rem!important;
       .col-2 {
-        width: 15%;
+        width: 15%!important;
         img {
-          width: 1.4rem;
+          width: 1.4rem!important;
         }
       }
       .col-9 {
-        width: 70%;
+        width: 70%!important;
         h5 {
-          margin-top: 0.15rem;
+          margin-top: 0.15rem!important;
         }
       }
     }
     .card-body {
-      padding: 1rem 0;
+      padding: 1rem 0!important;
       h5 {
-        margin-top: 1rem;
+        margin-top: 1rem!important;
       }
       div {
         .col-6 {
           button {
-            margin-right: 0.3rem;
+            margin-right: 0.3rem!important;
           }
         }
       }
@@ -292,14 +292,14 @@ $main: red;
         .modal-footer {
           .row {
             .col-10 {
-              width: 68%;
+              width: 68%!important;
               input {
-                padding: 0.3rem 0.4rem;
+                padding: 0.3rem 0.4rem!important;
               }
             }
             .col-2 {
               button {
-                padding: 0.3rem 0.4rem;
+                padding: 0.3rem 0.4rem!important;
               }
             }
           }

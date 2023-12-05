@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BlogCard from "../Components/BlogCard";
 import CategoryHeader from "../Components/CategoryHeader";
 import "./SCSS/HomePageBlog.scss";
 
 export default function HomePageBlog() {
+
+
+
   return (
     <>
       <CategoryHeader />

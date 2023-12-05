@@ -60,14 +60,11 @@ function* createUserSaga({ payload }) {
         case false:
           if (Response.hasOwnProperty("userNameIsUnique")) {
             yield put(createUserAccountSuccess(Response));
-          } else {
-            yield put(authorised(false));
-            throw Error("");
+          } else if (Response.hasOwnProperty("errorMessage")) {
+            yield put(notAuthorised(false));
+            throw Error(Response.errorMessage);
           }
           break;
-        default:
-          yield put(authorised(false));
-          throw Error("");
       }
     } else {
       throw Error("");
@@ -90,11 +87,13 @@ function* verifyUserAuthSaga({ payload }) {
             yield put(authorised(true));
             break;
           case false:
-            yield put(notAuthorised(false));
-            throw Error("");
-          default:
-            yield put(notAuthorised(false));
-            throw Error("");
+            if (Response.hasOwnProperty("errorMessage")) {
+              yield localStorage.removeItem("blogApp");
+              throw Error(Response.errorMessage);
+            } else {
+              yield localStorage.removeItem("blogApp");
+              yield put(notAuthorised(false));
+            }
         }
       } else {
         yield put(notAuthorised(false));
@@ -127,8 +126,6 @@ function* loginUserAccountSaga({ payload }) {
             throw Error(Response.errorMessage);
           }
           break;
-        default:
-          throw Error("Unable to Login at the moment!");
       }
     } else {
       throw Error("Something went wrong!");
@@ -152,10 +149,7 @@ function* editUserAccountSaga({ payload }) {
             break;
 
           case false:
-            yield put(notAuthorised(false));
             throw Error(Response.errorMessage);
-          default:
-            throw Error("Unable to Update at the moment!");
         }
       } else {
         throw Error("Something went wrong!");
@@ -179,10 +173,7 @@ function* addUserEmailSaga({ payload }) {
             yield put(authorised(true));
             break;
           case false:
-            yield put(notAuthorised(false));
             throw Error(Response.errorMessage);
-          default:
-            throw Error("Something went wrong!");
         }
       } else {
         throw Error("Something went wrong!");
@@ -214,10 +205,7 @@ function* removeUserEmailSaga({ payload }) {
             yield put(authorised(true));
             break;
           case false:
-            yield put(notAuthorised(false));
             throw Error(Response.errorMessage);
-          default:
-            throw Error("Something went wrong!");
         }
       } else {
         throw Error("Something went wrong!");
@@ -250,9 +238,6 @@ function* changePasswordSaga({ payload }) {
               throw Error(`Something went wrong! ${Response.errorMessage}`);
             }
             break;
-
-          default:
-            throw Error("Something went wrong!");
         }
       } else {
         throw Error("Something went wrong!");
@@ -277,8 +262,6 @@ function* forgetChangePasswordSaga({ payload }) {
             break;
           case false:
             throw Error(`Something went wrong! ${Response.errorMessage}`);
-          default:
-            throw Error("Something went wrong!");
         }
       } else {
         throw Error("Something went wrong!");

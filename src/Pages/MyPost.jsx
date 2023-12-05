@@ -1,16 +1,54 @@
-import React from 'react';
-import './SCSS/MyPost.scss';
-import Header from '../Components/Header';
-import founder from '../Media/Founder.jpg';
-import Footer from '../Components/Footer';
-import Comment from '../Components/Comment';
-
+import React, { useEffect } from "react";
+import "./SCSS/MyPost.scss";
+import Header from "../Components/Header";
+import founder from "../Media/Founder.jpg";
+import Footer from "../Components/Footer";
+import Comment from "../Components/Comment";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  notAuthorised,
+  verifyUserAuthStart,
+} from "../Redux(Saga)/Actions/UserAction";
 
 export default function MyPost() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const UserDataFromResponse = useSelector(
+    (state) => state.userReducer.UserDataFromResponse
+  );
+  // this useEffect is for authorization!
+  useEffect(() => {
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
+      localStorage.setItem(
+        "blogApp",
+        JSON.stringify({
+          validity: "15min",
+          token: UserDataFromResponse.jwToken,
+        })
+      );
+    } else {
+      const jwToken = JSON.parse(localStorage.getItem("blogApp"));
+      if (jwToken) {
+        if (jwToken.hasOwnProperty("validity")) {
+          dispatch(verifyUserAuthStart(jwToken.token));
+        }
+      } else {
+        dispatch(notAuthorised(false));
+        navigate("/login");
+      }
+    }
+  }, [UserDataFromResponse]);
+// -----------------------------------------------------------------------------
+
+
+
+
   const txt = "abcdefghijklmnopqrstuvwxvz";
+
   return (
     <>
-       <Header />
+      <Header />
       <div className="container-fluid MyBlogPost">
         <div className="row d-flex">
           <div className="col col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
@@ -110,7 +148,7 @@ export default function MyPost() {
               </div>
               <div className="col-1 btnn">
                 <button>
-                <i class="bi bi-pencil-square"></i>
+                  <i class="bi bi-pencil-square"></i>
                 </button>
               </div>
             </div>
@@ -124,34 +162,34 @@ export default function MyPost() {
               </div>
               <div className="col-12">
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Lifestyle
+                  <i class="bi bi-tags-fill"> </i>Lifestyle
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Styles
+                  <i class="bi bi-tags-fill"> </i>Styles
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Colors
+                  <i class="bi bi-tags-fill"> </i>Colors
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Stars
+                  <i class="bi bi-tags-fill"> </i>Stars
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Shooting
+                  <i class="bi bi-tags-fill"> </i>Shooting
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Regular
+                  <i class="bi bi-tags-fill"> </i>Regular
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>PhotoShoots
+                  <i class="bi bi-tags-fill"> </i>PhotoShoots
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Sky
+                  <i class="bi bi-tags-fill"> </i>Sky
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Digital
+                  <i class="bi bi-tags-fill"> </i>Digital
                 </div>
                 <div className="tags">
-                <i class="bi bi-tags-fill"> </i>Cameras
+                  <i class="bi bi-tags-fill"> </i>Cameras
                 </div>
               </div>
             </div>
@@ -186,15 +224,15 @@ export default function MyPost() {
 
             <h4 className="h4">Comments</h4>
 
-            <Comment commentOwner={true}/>
-            <Comment commentOwner={true}/>
-            <Comment commentOwner={true}/>
-            <Comment commentOwner={true}/>
-            <Comment commentOwner={true}/>
+            <Comment commentOwner={true} />
+            <Comment commentOwner={true} />
+            <Comment commentOwner={true} />
+            <Comment commentOwner={true} />
+            <Comment commentOwner={true} />
           </div>
         </div>
       </div>
       <Footer />
     </>
-  )
+  );
 }

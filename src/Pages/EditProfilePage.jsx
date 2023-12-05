@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./SCSS/EditProfilePage.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ref,
   uploadBytes,
@@ -10,12 +10,16 @@ import {
 } from "firebase/storage";
 import storage from "../Utils/Firebase.Storage";
 import axios from "axios";
-import { editUserAccountStart } from "../Redux(Saga)/Actions/UserAction";
+import {
+  editUserAccountStart,
+  notAuthorised,
+} from "../Redux(Saga)/Actions/UserAction";
 import AddEmailModal from "../Components/AddEmailModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import PasswordChangeModal from "../Components/PasswordChangeModal";
 import ForgetPasswordModal from "../Components/ForgetPasswordModal";
 import DeleteAccountModal from "../Components/DeleteAccountModal";
+import LogoutConfirmationModal from "../Components/LogoutConfirmationModal";
 
 export default function EditProfilePage() {
   const navigate = useNavigate();
@@ -28,11 +32,19 @@ export default function EditProfilePage() {
   //if authorised then stay otherwise it will render user to login Page
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
-      //   setUserData(UserDataFromResponse);
+      localStorage.setItem(
+        "blogApp",
+        JSON.stringify({
+          token: UserDataFromResponse.jwToken,
+          validity: "15 minutes",
+        })
+      );
     } else {
       navigate("/myProfile");
     }
   }, [UserDataFromResponse]);
+// -----------------------------------------------------------------------------
+
 
   //initialFormData
   const initialFormData = {
@@ -123,6 +135,11 @@ export default function EditProfilePage() {
 
   return (
     <>
+      <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+        <Link className="btn btn-outline-dark" to={"/myProfile"}>
+          <i class="bi bi-box-arrow-left"></i>
+        </Link>
+      </div>
       <div className="container-fluid editPage">
         <form className="container" onSubmit={update}>
           <h1 className="h1">Edit your profile:</h1>
@@ -375,6 +392,22 @@ export default function EditProfilePage() {
                   </button>
                 </div>
               </div>
+              <div className="row LogoutAccountSetting">
+                <div className="col-12">
+                  <h6 className="h6 text-light">Log Out:</h6>
+                </div>
+                <div className="col-2 mt-3">
+                  <button
+                    className="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#LogoutConfirmationModal"
+                    type="button"
+                    style={{ color: "white" }}
+                  >
+                    <i class="bi bi-box-arrow-right"></i> Log out!
+                  </button>
+                </div>
+              </div>
             </>
           ) : (
             <>
@@ -402,6 +435,22 @@ export default function EditProfilePage() {
                   </button>
                 </div>
               </div>
+              <div className="row LogoutAccountSetting">
+                <div className="col-12">
+                  <h6 className="h6 text-light">Log Out:</h6>
+                </div>
+                <div className="col-2 mt-3">
+                  <button
+                    className="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#LogoutConfirmationModal"
+                    type="button"
+                    style={{ color: "white" }}
+                  >
+                    <i class="bi bi-box-arrow-right"></i> Log out!
+                  </button>
+                </div>
+              </div>
             </>
           )}
         </div>
@@ -411,6 +460,7 @@ export default function EditProfilePage() {
       <PasswordChangeModal />
       <ForgetPasswordModal />
       <DeleteAccountModal />
+      <LogoutConfirmationModal />
     </>
   );
 }
