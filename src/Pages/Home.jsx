@@ -39,9 +39,7 @@ export default function Home() {
       if (jwToken) {
         if (jwToken.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(jwToken.token));
-        } else {
-          setNottAuthorised(true);
-        }
+        } 
       } else {
         setNottAuthorised(true);
       }

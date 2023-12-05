@@ -6,7 +6,10 @@ import BlogCard from "../Components/BlogCard";
 import Modal from "../Components/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
+import {
+  notAuthorised,
+  verifyUserAuthStart,
+} from "../Redux(Saga)/Actions/UserAction";
 
 export default function MyProfilePage() {
   const navigate = useNavigate();

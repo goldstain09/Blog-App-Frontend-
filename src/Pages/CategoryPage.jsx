@@ -27,7 +27,7 @@ export default function CategoryPage() {
           dispatch(verifyUserAuthStart(jwToken.token));
         }
       } else {
-        dispatch(notAuthorised(false));
+        // dispatch(notAuthorised(false));
         navigate("/login"); 
       }
     }

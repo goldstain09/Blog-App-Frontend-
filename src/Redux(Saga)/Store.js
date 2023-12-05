@@ -20,7 +20,7 @@ const sagaMiddleware = createSagaMiddleware();
 const Store = configureStore({
     reducer:rootReducer,
     middleware:[sagaMiddleware],
-    devTools:false
+    devTools:true
 });
 
 // running rootSaga
