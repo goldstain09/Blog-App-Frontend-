@@ -4,10 +4,7 @@ import "./SCSS/TagsPage.scss";
 import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  notAuthorised,
-  verifyUserAuthStart,
-} from "../Redux(Saga)/Actions/UserAction";
+import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 
 export default function TagsPage() {
   const navigate = useNavigate();
@@ -32,7 +29,6 @@ export default function TagsPage() {
           dispatch(verifyUserAuthStart(jwToken.token));
         }
       } else {
-        // dispatch(notAuthorised(false));
         navigate("/login");
       }
     }
@@ -44,7 +40,7 @@ export default function TagsPage() {
       <div className="container-fluid TagPage">
         <div className="container">
           <h1>
-            <i class="bi bi-tags-fill"> </i>Lifestyle
+            <i className="bi bi-tags-fill"> </i>Lifestyle
           </h1>
           <h6 className="h6">Here's related posts to this tag...</h6>
           <div className="row d-flex">

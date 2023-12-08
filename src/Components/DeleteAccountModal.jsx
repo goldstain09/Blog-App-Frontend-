@@ -6,7 +6,7 @@ import {
   deleteUserAccountStart,
   notAuthorised,
 } from "../Redux(Saga)/Actions/UserAction";
-import { deleteObject, ref } from "firebase/storage";
+import { deleteObject, listAll, ref } from "firebase/storage";
 import storage from "../Utils/Firebase.Storage";
 import { useNavigate } from "react-router-dom";
 
@@ -64,19 +64,58 @@ export default function DeleteAccountModal() {
   // delete dp and post images
   const deleteImagesFromStorage = async (UserDataFromResponse) => {
     try {
-      const desertRef = ref(
+      // post images delete from storage
+      const AllPostsImageFolder = ref(
         storage,
-        `/profilePictures/${UserDataFromResponse._id}'s_DP`
+        `/postImages/${UserDataFromResponse._id}`
       );
-      await deleteObject(desertRef);
+      // here taking help from gpt to know how to delete all images from one folder bcz on account delete its compulsory to delete all post images and profile picture also
+      const result = await listAll(AllPostsImageFolder);
+      const deleteFilePromises = result.items.map((item) => deleteObject(item));
+      await Promise.all(deleteFilePromises);
+      // await deleteObject(AllPostsImageFolder);
       localStorage.removeItem("blogApp");
-      setDeletedSuccessfully(true);
+      try {
+        // profile picture delete from storage
+        const ProfilePicture = ref(
+          storage,
+          `/profilePictures/${UserDataFromResponse._id}'s_DP`
+        );
+        await deleteObject(ProfilePicture);
+        setDeletedSuccessfully(true);
+      } catch (error) {
+        if (
+          error.message ==
+          `Firebase Storage: Object 'profilePictures/${UserDataFromResponse._id}'s_DP' does not exist. (storage/object-not-found)`
+        ) {
+          setDeletedSuccessfully(true);
+        } else {
+          setDeletedSuccessfully(true);
+        }
+      }
     } catch (error) {
       if (
         error.message ==
-        `Firebase Storage: Object 'profilePictures/${UserDataFromResponse._id}'s_DP' does not exist. (storage/object-not-found)`
+        `Firebase Storage: Object 'postImages/${UserDataFromResponse._id}' does not exist. (storage/object-not-found)`
       ) {
-        setDeletedSuccessfully(true);
+        try {
+          // profile picture delete from storage
+          const ProfilePicture = ref(
+            storage,
+            `/profilePictures/${UserDataFromResponse._id}'s_DP`
+          );
+          await deleteObject(ProfilePicture);
+          setDeletedSuccessfully(true);
+        } catch (error) {
+          if (
+            error.message ==
+            `Firebase Storage: Object 'profilePictures/${UserDataFromResponse._id}'s_DP' does not exist. (storage/object-not-found)`
+          ) {
+            setDeletedSuccessfully(true);
+          } else {
+            setDeletedSuccessfully(true);
+          }
+        }
       } else {
         setDeletedSuccessfully(true);
       }
@@ -119,7 +158,10 @@ export default function DeleteAccountModal() {
                 <div className="modal-body DeleteAccountModal">
                   <div className="row">
                     <div className="col-12 text-center">
-                      <h5 className="h5 text-light" style={{fontWeight:"100"}}>
+                      <h5
+                        className="h5 text-light"
+                        style={{ fontWeight: "100" }}
+                      >
                         Account Deleted!
                       </h5>
                       <button

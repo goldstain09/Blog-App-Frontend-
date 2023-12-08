@@ -82,7 +82,8 @@ $main: red;
         .col-11 {
           p {
             font-size: 0.9rem;
-            font-weight: 300;
+            word-wrap: break-word;
+            font-weight: 400;
             font-family: "Raleway", sans-serif;
             color: white;
           }

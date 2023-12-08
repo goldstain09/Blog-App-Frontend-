@@ -87,7 +87,7 @@ export default function Header() {
                     navigate("/myProfile");
                   }}
                 >
-                  Profile
+                  <i className="bi bi-person-fill"></i> Profile
                 </button>
               ) : (
                 <>
@@ -135,16 +135,18 @@ export default function Header() {
               </button>
             </div>
           </div>
-          <div className="row">
-            <form className="col-10 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input
-                type="search"
-                className="form-control form-control-dark"
-                placeholder="Search..."
-                aria-label="Search"
-              />
-            </form>
-          </div>
+          {authorised && (
+            <div className="row">
+              <form className="col-10 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input
+                  type="search"
+                  className="form-control form-control-dark"
+                  placeholder="Search..."
+                  aria-label="Search"
+                />
+              </form>
+            </div>
+          )}
         </div>
       </header>
 
@@ -168,12 +170,32 @@ export default function Header() {
           </button>
         </div>
         <div className="offcanvas-body">
-          <button type="button" className="btn btn-outline-danger me-2">
-            Login
-          </button>
-          <button type="button" className="btn btn-danger">
-            Sign-up
-          </button>
+          {authorised ? (
+            <button
+              type="button"
+              onClick={() => navigate("/myProfile")}
+              className="btn btn-outline-danger me-2"
+            >
+              Profile
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => navigate("/login")}
+                className="btn btn-outline-danger me-2"
+              >
+                Login
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("/signup")}
+                className="btn btn-danger"
+              >
+                Sign-up
+              </button>
+            </>
+          )}
           <div className="accordion accordion-flush" id="accordionFlushExample">
             <div className="accordion-item">
               <h2 className="accordion-header" id="flush-headingOne">

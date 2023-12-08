@@ -37,6 +37,7 @@ export default function AddEmailModal() {
     e.preventDefault();
     try {
       if (email !== "" && email.includes("@") && email.includes(".")) {
+        setOtpSendingLoading(true);
         const token = JSON.parse(localStorage.getItem("blogApp")).token;
         document.getElementById("otpSendBtn").style.display = "none";
         document.getElementById("emailInput").setAttribute("disabled", "");
@@ -217,7 +218,6 @@ export default function AddEmailModal() {
                       className="w-100"
                       onClick={(e) => {
                         getOTP(e);
-                        setOtpSendingLoading(true);
                       }}
                     >
                       Send OTP
@@ -225,8 +225,8 @@ export default function AddEmailModal() {
                   </div>
                   {otpSendingLoading && (
                     <div className="col-12 text-center mt-5">
-                      <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                      <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
                       </div>
                     </div>
                   )}

@@ -6,11 +6,12 @@ import TagsPage from "./Pages/TagsPage";
 import BloggerProfilePage from "./Pages/BloggerProfilePage";
 import MyProfilePage from "./Pages/MyProfilePage";
 import CategoryPage from "./Pages/CategoryPage";
-import MyPost from "./Pages/MyPost";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
 import EditProfilePage from "./Pages/EditProfilePage";
 import AddPostPage from "./Pages/AddPostPage";
+import MyBlog from "./Pages/MyBlog";
+import EditPostPage from "./Pages/EditPostPage";
 
 export default function Router() {
   return (
@@ -22,11 +23,12 @@ export default function Router() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/editProfile" element={<EditProfilePage />} />
           <Route path="/myProfile" element={<MyProfilePage />} />
-          <Route path="/myPost" element={<MyPost />} />
+          <Route path="/myBlog/:postId" element={<MyBlog />} />
+          <Route path="/editPost/:postId" element={<EditPostPage />} />
           <Route path="/addPost" element={<AddPostPage />} />
           <Route path="/editPost" element={<AddPostPage />} />
           <Route path="/bloggerProfile" element={<BloggerProfilePage />} />
-          <Route path="/blog" element={<BlogReadPage />} />
+          <Route path="/blog/:postId" element={<BlogReadPage />} />
           <Route path="/tagPage" element={<TagsPage />} />
           <Route path="/categoryPage" element={<CategoryPage />} />
         </Routes>

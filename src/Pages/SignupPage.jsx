@@ -23,7 +23,7 @@ export default function SignupPage() {
       }
     }
   }, [UserDataFromResponse]);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const authorised = useSelector((state) => state.userReducer.authorised);
   // user authorisation
@@ -47,7 +47,7 @@ export default function SignupPage() {
       }
     }
   }, [UserDataFromResponse]);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   //initial form data
   const initialFormData = {
@@ -83,8 +83,8 @@ export default function SignupPage() {
   // dispatching data
   const createAccount = (e) => {
     e.preventDefault();
-    if (userName !== "") {
-      if (Name !== "") {
+    if (userName !== "" && userName.length < 30) {
+      if (Name !== "" && Name.length < 30) {
         if (Password !== "" && (Password.length > 8 || Password.length === 8)) {
           if (password === Password) {
             // console.log(formData);
@@ -135,7 +135,7 @@ export default function SignupPage() {
               <input
                 type="text"
                 className=" form-control"
-                placeholder="UserName"
+                placeholder="UserName [0-30 letters only]"
                 name="userName"
                 value={userName}
                 onChange={(e) => {
@@ -162,7 +162,7 @@ export default function SignupPage() {
                 className="form-control"
                 name="Name"
                 value={Name}
-                placeholder="Full Name"
+                placeholder="Full Name [0-30 letters only]"
                 onChange={(e) => {
                   inputChange(e);
                   setEmptyNameError(false);

@@ -48,7 +48,6 @@ export default function MyProfilePage() {
           dispatch(verifyUserAuthStart(tokenInfo.token));
         }
       } else {
-        // dispatch(notAuthorised(false));
         navigate("/login");
       }
     }
@@ -118,11 +117,12 @@ export default function MyProfilePage() {
         break;
     }
   }, [WhatToShow]);
+
   return (
     <>
       <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
         <Link className="btn btn-outline-dark" to={"/"}>
-          <i class="bi bi-box-arrow-left"></i>
+          <i className="bi bi-box-arrow-left"></i>
         </Link>
       </div>
       <div className="container-fluid MyProfilePage">
@@ -146,7 +146,7 @@ export default function MyProfilePage() {
                     navigate("/addPost");
                   }}
                 >
-                  Add Post
+                  Add Blog
                 </button>
                 <button
                   onClick={() => {
@@ -268,16 +268,11 @@ export default function MyProfilePage() {
         {WhatToShow === "myPosts" && (
           <div className="container PostContainer">
             <div className="row">
-              <ProfilePostCard />
-              <ProfilePostCard />
-              <ProfilePostCard />
-              <ProfilePostCard />
-              <ProfilePostCard />
-              <ProfilePostCard />
-              <ProfilePostCard />
-              <ProfilePostCard />
-              <ProfilePostCard />
-              <ProfilePostCard />
+              {(UserDataFromResponse.hasOwnProperty('myPosts') && UserDataFromResponse.myPosts.length > 0) ? (
+                UserDataFromResponse.myPosts.map((item, index) => <ProfilePostCard key={index} data={item} />)
+              ) : (
+                <>No Posts</>
+              )}
             </div>
           </div>
         )}

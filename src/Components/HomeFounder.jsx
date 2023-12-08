@@ -18,22 +18,22 @@ export default function HomeFounder() {
               <div>
                 <a href="">
                   <p>
-                    <i class="bi bi-github"></i>
+                    <i className="bi bi-github"></i>
                   </p>
                 </a>
                 <a href="">
                   <p>
-                    <i class="bi bi-linkedin"></i>
+                    <i className="bi bi-linkedin"></i>
                   </p>
                 </a>
                 <a href="">
                   <p>
-                    <i class="bi bi-envelope-at"></i>
+                    <i className="bi bi-envelope-at"></i>
                   </p>
                 </a>
                 <a href="">
                   <p>
-                    <i class="bi bi-instagram"></i>
+                    <i className="bi bi-instagram"></i>
                   </p>
                 </a>
               </div>

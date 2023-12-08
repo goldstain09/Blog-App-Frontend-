@@ -1,4 +1,4 @@
-import { put, take, takeLatest } from "redux-saga/effects";
+import { put, takeLatest } from "redux-saga/effects";
 import {
   ADD_USER_EMAIL_START,
   CHANGE_PASSWORD_START,
@@ -22,7 +22,7 @@ import {
   loginUserAccount,
   removeUserEmail,
   verifyUserAuth,
-} from "../Service";
+} from "../Service/UserService";
 import {
   addUserEmailError,
   addUserEmailSuccess,
@@ -79,6 +79,7 @@ function* verifyUserAuthSaga({ payload }) {
     const Response = yield verifyUserAuth(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
+      yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("verification")) {
         switch (Response.verification) {
@@ -140,6 +141,7 @@ function* editUserAccountSaga({ payload }) {
     const Response = yield editUserAccount(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
+      yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("userUpdated")) {
         switch (Response.userUpdated) {
@@ -165,6 +167,7 @@ function* addUserEmailSaga({ payload }) {
     const Response = yield addUserEmail(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
+      yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("emailUpdated")) {
         switch (Response.emailUpdated) {
@@ -190,6 +193,7 @@ function* removeUserEmailSaga({ payload }) {
     const Response = yield removeUserEmail(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
+      yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("emailDeleted")) {
         switch (Response.emailDeleted) {
@@ -221,6 +225,7 @@ function* changePasswordSaga({ payload }) {
     const Response = yield changePassword(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
+      yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("passwordUpdated")) {
         switch (Response.passwordUpdated) {
@@ -253,6 +258,7 @@ function* forgetChangePasswordSaga({ payload }) {
     const Response = yield forgetChangePassword(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
+      yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("passwordUpdated")) {
         switch (Response.passwordUpdated) {
@@ -277,6 +283,7 @@ function* checkPasswordForDeleteAccountSaga({ payload }) {
     const Response = yield checkPasswordForDeleteAccount(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
+      yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("passwordCorrect")) {
         switch (Response.passwordCorrect) {
@@ -305,6 +312,7 @@ function* deleteUserAccountSaga({ payload }) {
     const Response = yield deleteUserAccount(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
+      yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("accountDeleted")) {
         switch (Response.accountDeleted) {

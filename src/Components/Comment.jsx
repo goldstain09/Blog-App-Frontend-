@@ -64,7 +64,7 @@ export default function Comment({ commentOwner }) {
         <div className="row m-0 p-0 delete">
           <div className="col col-12 m-0 p-0">
             <button>
-              <i class="bi bi-trash3"></i>
+              <i className="bi bi-trash3"></i>
             </button>
           </div>
         </div>

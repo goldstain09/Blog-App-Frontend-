@@ -10,10 +10,7 @@ import {
 } from "firebase/storage";
 import storage from "../Utils/Firebase.Storage";
 import axios from "axios";
-import {
-  editUserAccountStart,
-  notAuthorised,
-} from "../Redux(Saga)/Actions/UserAction";
+import { editUserAccountStart } from "../Redux(Saga)/Actions/UserAction";
 import AddEmailModal from "../Components/AddEmailModal";
 import ConfirmationModal from "../Components/ConfirmationModal";
 import PasswordChangeModal from "../Components/PasswordChangeModal";
@@ -43,8 +40,7 @@ export default function EditProfilePage() {
       navigate("/myProfile");
     }
   }, [UserDataFromResponse]);
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
 
   //initialFormData
   const initialFormData = {
@@ -79,8 +75,8 @@ export default function EditProfilePage() {
   // submit
   const update = async (e) => {
     e.preventDefault();
-    if (Name !== "") {
-      if (userName !== "") {
+    if (Name !== "" && Name.length < 30) {
+      if (userName !== "" && userName.length < 30) {
         if (userNameAvailable || userName === UserDataFromResponse.userName) {
           if (profilePicture === defaultProfilePicture) {
             try {
@@ -137,7 +133,7 @@ export default function EditProfilePage() {
     <>
       <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
         <Link className="btn btn-outline-dark" to={"/myProfile"}>
-          <i class="bi bi-box-arrow-left"></i>
+          <i className="bi bi-box-arrow-left"></i>
         </Link>
       </div>
       <div className="container-fluid editPage">
@@ -262,7 +258,6 @@ export default function EditProfilePage() {
                           ...formData,
                           profilePicture: url,
                         });
-                        console.log(formData);
                       } catch {
                         alert(
                           "Something went wrong, while uploading your profile picture! Please try again!"
@@ -277,7 +272,7 @@ export default function EditProfilePage() {
                           ...formData,
                           profilePicture: url,
                         });
-                        console.log(formData);
+                        // console.log(formData);
                       } catch {
                         alert(
                           "Something went wrong, while uploading your profile picture! Please try again!"
@@ -404,7 +399,7 @@ export default function EditProfilePage() {
                     type="button"
                     style={{ color: "white" }}
                   >
-                    <i class="bi bi-box-arrow-right"></i> Log out!
+                    <i className="bi bi-box-arrow-right"></i> Log out!
                   </button>
                 </div>
               </div>
@@ -447,7 +442,7 @@ export default function EditProfilePage() {
                     type="button"
                     style={{ color: "white" }}
                   >
-                    <i class="bi bi-box-arrow-right"></i> Log out!
+                    <i className="bi bi-box-arrow-right"></i> Log out!
                   </button>
                 </div>
               </div>

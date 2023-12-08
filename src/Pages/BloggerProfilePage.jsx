@@ -6,7 +6,6 @@ import ProfileTagsUsedCard from "../Components/ProfileTagsUsedCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  notAuthorised,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
 
@@ -33,7 +32,6 @@ export default function BloggerProfilePage() {
           dispatch(verifyUserAuthStart(jwToken.token));
         }
       } else {
-        // dispatch(notAuthorised(false));
         navigate("/login");
       }
     }

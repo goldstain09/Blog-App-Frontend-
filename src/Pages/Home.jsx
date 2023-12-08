@@ -8,13 +8,10 @@ import HomeFounder from "../Components/HomeFounder";
 import HomePageBlogs from "./HomePageBlogs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  notAuthorised,
-  verifyUserAuthStart,
-} from "../Redux(Saga)/Actions/UserAction";
+import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 
 export default function Home() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const UserDataFromResponse = useSelector(
@@ -39,7 +36,7 @@ export default function Home() {
       if (jwToken) {
         if (jwToken.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(jwToken.token));
-        } 
+        }
       } else {
         setNottAuthorised(true);
       }

@@ -2,10 +2,13 @@ import React from "react";
 import "./SCSS/Footer.scss";
 import Logo from "../Media/Logo.png";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Footer() {
   const navigate = useNavigate();
-
+  const authorised = useSelector(
+    (state) => state.userReducer.authorised.authorised
+  );
   return (
     <>
       <div className="container-fluid Footerr">
@@ -19,8 +22,35 @@ export default function Footer() {
           </div>
           <div className="col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
             <h4 className="h4">Start Blogging</h4>
-            <button className="btn btn-outline-primary" onClick={()=>{navigate('/login')}}>Sign In</button>
-            <button className="btn btn-primary" onClick={()=>{navigate('/signup')}}>Sign Up</button>
+            {authorised ? (
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => {
+                  navigate("/myProfile");
+                }}
+              >
+                Profile
+              </button>
+            ) : (
+              <>
+                <button
+                  className="btn btn-outline-primary"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Sign In
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
           <div className="col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
             <h4 className="h4">Contact</h4>

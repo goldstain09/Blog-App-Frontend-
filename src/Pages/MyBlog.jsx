@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "./SCSS/BlogReadPage.scss";
-import Footer from "../Components/Footer";
+import "./SCSS/MyPost.scss";
 import Header from "../Components/Header";
-import demo from "../Media/featuresHeading.png";
-import founder from "../Media/Founder.jpg";
+import Footer from "../Components/Footer";
 import Comment from "../Components/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import { getPostDataStart } from "../Redux(Saga)/Actions/PostAction";
 
-export default function BlogReadPage() {
+export default function MyBlog() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
@@ -35,8 +33,7 @@ export default function BlogReadPage() {
           (item) => item.postId !== params.postId
         )
       ) {
-      } else {
-        navigate(`/myBlog/${params.postId}`);
+        navigate(`/blog/${params.postId}`);
       }
     } else {
       const jwToken = JSON.parse(localStorage.getItem("blogApp"));
@@ -67,7 +64,7 @@ export default function BlogReadPage() {
   return (
     <>
       <Header />
-      <div className="container-fluid BlogPage">
+      <div className="container-fluid MyBlogPost">
         {postData.hasOwnProperty("userName") ? (
           <>
             <div className="row d-flex">
@@ -97,8 +94,10 @@ export default function BlogReadPage() {
                     <h4 className="h4">{postData.userName}</h4>
                   </div>
                   <div className="col-1 btnn">
-                    <button>
-                      <i className="bi bi-justify"></i>
+                    <button
+                      onClick={() => navigate(`/editPost/${params.postId}`)}
+                    >
+                      <i className="bi bi-pencil-square"></i>
                     </button>
                   </div>
                 </div>
@@ -116,7 +115,10 @@ export default function BlogReadPage() {
                         </div>
                       ))
                     ) : (
-                      <>No tags</>
+                      <>
+                        <i className="bi bi-tags-fill"> </i>
+                        No Tags
+                      </>
                     )}
                   </div>
                 </div>
@@ -155,7 +157,7 @@ export default function BlogReadPage() {
                     <Comment commentOwner={true} data={item} key={index} />
                   ))
                 ) : (
-                  <>No Comments</>
+                  <>No comments</>
                 )}
               </div>
             </div>

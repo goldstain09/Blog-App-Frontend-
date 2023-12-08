@@ -1,0 +1,168 @@
+.AddPostContainer {
+  padding: 6rem 0 5rem 0;
+  background: url("./Media/HomePageBGImageTop.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  overflow-x: hidden!important;
+  .container {
+    .row {
+      .col-9 {
+        margin-bottom: 4rem!important;
+        h1 {
+          font-weight: 100;
+          font-family: "Kalam";
+          display: inline !important;
+        }
+      }
+      .postBtn {
+        margin-bottom: 4rem;
+        button {
+          background: none;
+          outline: none;
+          box-shadow: none;
+          border: 1px solid red;
+          font-size: 1.4rem;
+          padding: 0.5rem 0.7rem;
+          border-radius: 10px;
+        }
+        button:hover {
+          background: red;
+          box-shadow: 0px 0px 40px red;
+        }
+      }
+      .col-6,
+      .col-12 {
+        margin-top: 2rem;
+        ::placeholder {
+          color: white !important;
+        }
+        input,
+        textarea {
+          margin-left: 7.5%;
+          width: 85%;
+          padding: 0.4rem 0.4rem;
+          background: none;
+          border: none;
+          border-bottom: 1px solid red;
+          box-shadow: none;
+          outline: none;
+          resize: none;
+        }
+        label {
+          text-align: left !important;
+          margin-left: 7.5%;
+        }
+        select {
+          margin-left: 7.5%;
+          width: 85%;
+          background: none;
+          border: none;
+          outline: none;
+          border-bottom: red solid 1px;
+          padding: 0.4rem 0.4rem;
+          appearance: none;
+          -webkit-appearance: none;
+          option {
+            font-size: 1.2rem;
+            appearance: none;
+            -webkit-appearance: none;
+            color: rgb(0, 255, 213) !important;
+            background-color: #000000 !important;
+            border: none !important;
+            outline: none !important;
+            overflow: hidden;
+            z-index: 1;
+            font-family: "Edu TAS Beginner", cursive;
+          }
+          option:hover {
+            background: red !important;
+          }
+        }
+      }
+      .col-12 {
+        input,
+        textarea {
+          width: 92%;
+          margin-left: 4%;
+        }
+        label {
+          margin-left: 4%;
+        }
+        button {
+          margin-left: 4%;
+          background: none;
+          border: 1px solid red;
+          border-radius: 10px;
+          padding: 0.3rem 0.4rem;
+        }
+        button:hover {
+          background: red;
+          box-shadow: 0px 0px 40px red;
+        }
+      }
+    }
+  }
+}
+
+//   font-family: 'Dancing Script', cursive;
+//   font-family: 'Raleway', sans-serif;
+//   font-family: 'Griffy';
+//   font-family: 'Maven Pro';
+
+@media (max-width: 768px) {
+  .AddPostContainer {
+    padding: 6rem 0 5rem 0;
+    .container {
+      .row {
+        .col-9 {
+          margin-bottom: 2rem!important;
+          h1 {
+            font-weight: 100;
+            font-size: 1.2rem;
+          }
+        }
+        .postBtn {
+          margin-bottom: 2rem!important;
+          button {
+            font-size: 1.1rem;
+            padding: 0.5rem 0.5rem;
+          }
+        }
+        .col-6,
+        .col-12 {
+          margin-top: 2rem;
+          width: 100%;
+          input,
+          textarea {
+            margin-left: 3%;
+            width: 94%;
+          }
+          label {
+            text-align: left !important;
+            margin-left: 3%;
+          }
+          select {
+            margin-left: 3%;
+            width: 94%;
+            option {
+              font-size: 1.2rem;
+            }
+          }
+        }
+        .col-12 {
+          input,
+          textarea {
+            width: 94%;
+            margin-left: 3%;
+          }
+          label {
+            margin-left: 4%;
+          }
+          button {
+            margin-left: 4%;
+          }
+        }
+      }
+    }
+  }
+}

@@ -56,7 +56,7 @@ export default function LogoutConfirmationModal() {
                         dispatch(notAuthorised(false));
                     }}
                   >
-                   <i class="bi bi-box-arrow-right"></i>  Yes, I' Confirm!
+                   <i className="bi bi-box-arrow-right"></i>  Yes, I' Confirm!
                   </button>
                 </div>
               </div>

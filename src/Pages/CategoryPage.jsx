@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import BlogCard from '../Components/BlogCard'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { notAuthorised, verifyUserAuthStart } from '../Redux(Saga)/Actions/UserAction';
+import { verifyUserAuthStart } from '../Redux(Saga)/Actions/UserAction';
 
 export default function CategoryPage() {
   const navigate = useNavigate();
@@ -27,7 +27,6 @@ export default function CategoryPage() {
           dispatch(verifyUserAuthStart(jwToken.token));
         }
       } else {
-        // dispatch(notAuthorised(false));
         navigate("/login"); 
       }
     }
@@ -40,7 +39,7 @@ export default function CategoryPage() {
        <div className="container-fluid TagPage">
         <div className="container">
           <h1>
-          <i class="bi bi-collection"></i> Lifestyle
+          <i className="bi bi-collection"></i> Lifestyle
           </h1>
           <h6 className="h6">Here's related posts to this Category...</h6>
           <div className="row d-flex">
