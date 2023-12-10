@@ -7,3 +7,14 @@ $main: red;
   background-size: 100% 100%;
   height: fit-content;
 }
+
+@media (max-width: 768px) {
+  .HomePageBlogSection {
+    padding-top: 6rem !important;
+  }
+}
+@media (max-width: 394px) {
+  .HomePageBlogSection {
+    padding-top: 4rem !important;
+  }
+}

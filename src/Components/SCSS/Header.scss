@@ -1,7 +1,7 @@
 $main: red;
 
 ::placeholder {
-  color: $main !important;
+  color: white!important;
 }
 // font-family: 'Dancing Script', cursive;
 // font-family: 'Raleway', sans-serif;
@@ -44,7 +44,7 @@ $main: red;
           font-size: 900 !important;
           border-radius: 0;
           border: 1px solid $main;
-          color: $main;
+          color: white;
         }
         button:hover {
           color: white;
@@ -115,7 +115,7 @@ $main: red;
             left: -1rem;
             filter: drop-shadow(3px 3px 5px rgb(255, 255, 255));
           }
-          button {
+          .btn {
             background: none;
             margin-top: 0rem;
             border: none;
@@ -124,17 +124,8 @@ $main: red;
             box-shadow: none;
           }
         }
-        .col-10{
-          margin-top: 1rem;
-          margin-left: 8%;
-          input{
-            background: none;
-            border-radius: 0;
-            border: 1px solid $main;
-            box-shadow: none;
-            color: white;
-          }
-        }
+       
+        
       }
     }
   }
@@ -223,17 +214,12 @@ $main: red;
             width: 80px!important;
             left: -1rem;
           }
-          button {
+          .btn {
             position: relative;
             left: -1rem;
             margin-top: 0rem;
-            font-size: 1.3rem;
+            font-size: 1.3rem!important;
           }
-        }
-        .col-10{
-          margin-top: .5rem;
-          width: 94%;
-          margin-left: 3%;
         }
       }
     }

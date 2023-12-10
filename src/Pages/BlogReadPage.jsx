@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./SCSS/BlogReadPage.scss";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import demo from "../Media/featuresHeading.png";
-import founder from "../Media/Founder.jpg";
+// import demo from "../Media/featuresHeading.png";
+// import founder from "../Media/Founder.jpg";
 import Comment from "../Components/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import { getPostDataStart } from "../Redux(Saga)/Actions/PostAction";
 
@@ -54,7 +54,9 @@ export default function BlogReadPage() {
   // to get post data!
   useEffect(() => {
     const jwToken = JSON.parse(localStorage.getItem("blogApp"));
-    dispatch(getPostDataStart({ postId: params.postId, token: jwToken.token }));
+    if(jwToken){
+      dispatch(getPostDataStart({ postId: params.postId, token: jwToken.token }));
+    }
   }, [params.postId]);
   // handling response
   const [postData, setPostData] = useState({});
@@ -67,6 +69,11 @@ export default function BlogReadPage() {
   return (
     <>
       <Header />
+      <div className="exitBtn1" style={{position:"absolute",left:"1rem",top:"9rem"}}>
+        <Link to={'/'} className="btn btn-outline-dark text-light">
+        <i class="bi bi-box-arrow-left"></i>
+        </Link>
+      </div>
       <div className="container-fluid BlogPage">
         {postData.hasOwnProperty("userName") ? (
           <>
@@ -90,10 +97,10 @@ export default function BlogReadPage() {
               </div>
               <div className="col col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
                 <div className="row d-flex">
-                  <div className="col-1 dp">
+                  <div className="col-1 dp" onClick={() => navigate(`/bloggerProfile/${postData.userId}`)}>
                     <img src={postData.userProfilePicture} alt="" />
                   </div>
-                  <div className=" col-8 name">
+                  <div className=" col-8 name" onClick={() => navigate(`/bloggerProfile/${postData.userId}`)}>
                     <h4 className="h4">{postData.userName}</h4>
                   </div>
                   <div className="col-1 btnn">

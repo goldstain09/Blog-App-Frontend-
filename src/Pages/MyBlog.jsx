@@ -4,7 +4,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Comment from "../Components/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import { getPostDataStart } from "../Redux(Saga)/Actions/PostAction";
 
@@ -64,6 +64,11 @@ export default function MyBlog() {
   return (
     <>
       <Header />
+      <div className="exitBtn1" style={{position:"absolute",left:"1rem",top:"9rem"}}>
+        <Link to={'/myProfile'} className="btn btn-outline-dark text-light">
+        <i class="bi bi-box-arrow-left"></i>
+        </Link>
+      </div>
       <div className="container-fluid MyBlogPost">
         {postData.hasOwnProperty("userName") ? (
           <>
@@ -87,10 +92,10 @@ export default function MyBlog() {
               </div>
               <div className="col col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
                 <div className="row d-flex">
-                  <div className="col-1 dp">
-                    <img src={postData.userProfilePicture} alt="" />
+                  <div className="col-1 dp" onClick={()=>navigate(`/myProfile`)}>
+                    <img src={postData.userProfilePicture} alt="PP"  />
                   </div>
-                  <div className=" col-8 name">
+                  <div className=" col-8 name"  onClick={()=>navigate(`/myProfile`)} >
                     <h4 className="h4">{postData.userName}</h4>
                   </div>
                   <div className="col-1 btnn">

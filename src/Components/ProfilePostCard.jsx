@@ -7,7 +7,7 @@ export default function ProfilePostCard({data}) {
   return (
     <>
       <div className="col col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3" onClick={()=>{
-        navigate(`/myBlog/${data.postId}`);
+        navigate(`/myBlog/${data._id}`);
       }}>
         <img src={data.postImage} alt="Post" />
         <div>

@@ -65,6 +65,9 @@ export default function EditProfilePage() {
   const [showCheckBtn, setShowCheckBtn] = useState(false);
   const [userNameAvailableCheck, setUserNameAvailableCheck] = useState(false);
 
+  // while uploading profile picture update btn is hide
+  const [showUpdateBtn, setShowUpdateBtn] = useState(true);
+
   //empty errors
   const [emptyNameError, setEmptyNameError] = useState(false);
   const [emptyUserNameError, setEmptyUserNameError] = useState(false);
@@ -195,25 +198,31 @@ export default function EditProfilePage() {
                       setUserNameNotAvailable(false);
                     } else {
                       if (userName !== "") {
-                        const response = await axios.get(
-                          `http://localhost:8080/v1/UserApi/checkUserNameAvailableOrNOT/${userName}`
-                        );
-                        if (response) {
-                          if (
-                            response.data.hasOwnProperty("someErrorOccured")
-                          ) {
-                            alert("someError");
-                          } else if (response.data === true) {
-                            setUserNameAvailable(true);
-                            setUserNameNotAvailable(false);
-                            setShowCheckBtn(false);
+                        try {
+                          const response = await axios.get(
+                            `http://localhost:8080/v1/UserApi/checkUserNameAvailableOrNOT/${userName}`
+                          );
+                          if (response) {
+                            if (
+                              response.data.hasOwnProperty("someErrorOccured")
+                            ) {
+                              alert("someError");
+                            } else if (response.data === true) {
+                              setUserNameAvailable(true);
+                              setUserNameNotAvailable(false);
+                              setShowCheckBtn(false);
+                            } else {
+                              setUserNameAvailable(false);
+                              setUserNameNotAvailable(true);
+                              setShowCheckBtn(false);
+                            }
                           } else {
-                            setUserNameAvailable(false);
-                            setUserNameNotAvailable(true);
-                            setShowCheckBtn(false);
+                            alert("Network Issue! Please try again later!");
                           }
-                        } else {
-                          alert("Network Issue! Please try again later!");
+                        } catch (error) {
+                          alert(
+                            "Something went wrong! Please try again later!"
+                          );
                         }
                       } else {
                         setEmptyUserNameError(true);
@@ -245,6 +254,7 @@ export default function EditProfilePage() {
                   accept="image/*"
                   type="file"
                   onChange={async (e) => {
+                    setShowUpdateBtn(false);
                     const folderPath = "profilePictures";
                     const fileName = `${UserDataFromResponse._id}'s_DP`;
                     const filePath = `${folderPath}/${fileName}`;
@@ -258,6 +268,7 @@ export default function EditProfilePage() {
                           ...formData,
                           profilePicture: url,
                         });
+                        setShowUpdateBtn(true);
                       } catch {
                         alert(
                           "Something went wrong, while uploading your profile picture! Please try again!"
@@ -272,6 +283,7 @@ export default function EditProfilePage() {
                           ...formData,
                           profilePicture: url,
                         });
+                        setShowUpdateBtn(true);
                         // console.log(formData);
                       } catch {
                         alert(
@@ -323,7 +335,7 @@ export default function EditProfilePage() {
               ></textarea>
             </div>
             <div className="text-center col-12">
-              <button type="submit">Update</button>
+              {showUpdateBtn && <button type="submit">Update</button>}
             </div>
           </div>
         </form>

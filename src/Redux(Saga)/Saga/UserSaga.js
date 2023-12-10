@@ -7,6 +7,7 @@ import {
   DELETE_USER_ACCOUNT_START,
   EDIT_USER_ACCOUNT_START,
   FORGET_CHANGE_PASSWORD_START,
+  GET_BLOGGER_DATA_START,
   LOGIN_USER_ACCOUNT_START,
   REMOVE_USER_EMAIL_START,
   VERIFY_USER_AUTH_START,
@@ -19,6 +20,7 @@ import {
   deleteUserAccount,
   editUserAccount,
   forgetChangePassword,
+  getBloggerData,
   loginUserAccount,
   removeUserEmail,
   verifyUserAuth,
@@ -39,6 +41,8 @@ import {
   editUserAccountSuccess,
   forgetChangePasswordError,
   forgetChangePasswordSuccess,
+  getBloggerDataError,
+  getBloggerDataSuccess,
   loginUserAccountError,
   loginUserAccountSuccess,
   notAuthorised,
@@ -331,6 +335,24 @@ function* deleteUserAccountSaga({ payload }) {
   }
 }
 
+function* getBloggerDataSaga({ payload }) {
+  try {
+    const Response = yield getBloggerData(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("bloggerData")) {
+        yield put(getBloggerDataSuccess(Response.bloggerData));
+        yield put(authorised(true));
+      } else {
+        throw Error(Response.errorMessage);
+      }
+    }
+  } catch (error) {
+    yield put(getBloggerDataError(error.message));
+  }
+}
+
 function* userSaga() {
   yield takeLatest(CREATE_USER_ACCOUNT_START, createUserSaga);
   yield takeLatest(VERIFY_USER_AUTH_START, verifyUserAuthSaga);
@@ -345,6 +367,7 @@ function* userSaga() {
     checkPasswordForDeleteAccountSaga
   );
   yield takeLatest(DELETE_USER_ACCOUNT_START, deleteUserAccountSaga);
+  yield takeLatest(GET_BLOGGER_DATA_START, getBloggerDataSaga);
 }
 
 export { userSaga };

@@ -2,12 +2,27 @@ import {
   DELETE_A_BLOG_ERROR,
   DELETE_A_BLOG_START,
   DELETE_A_BLOG_SUCCESS,
+  GET_ALL_POST_DATA_ERROR,
+  GET_ALL_POST_DATA_START,
+  GET_ALL_POST_DATA_SUCCESS,
   GET_POST_DATA_ERROR,
   GET_POST_DATA_START,
   GET_POST_DATA_SUCCESS,
+  LIKE_POST_ERROR,
+  LIKE_POST_START,
+  LIKE_POST_SUCCESS,
   POST_A_BLOG_ERROR,
   POST_A_BLOG_START,
   POST_A_BLOG_SUCCESS,
+  SAVE_POST_ERROR,
+  SAVE_POST_START,
+  SAVE_POST_SUCCESS,
+  UNLIKE_POST_ERROR,
+  UNLIKE_POST_START,
+  UNLIKE_POST_SUCCESS,
+  UNSAVE_POST_ERROR,
+  UNSAVE_POST_START,
+  UNSAVE_POST_SUCCESS,
   UPDATE_A_BLOG_ERROR,
   UPDATE_A_BLOG_START,
   UPDATE_A_BLOG_SUCCESS,
@@ -66,5 +81,75 @@ export const deleteBlogSuccess = (data) => ({
 });
 export const deleteBlogError = (data) => ({
   type: DELETE_A_BLOG_ERROR,
+  payload: data,
+});
+
+// get all posts data
+export const getAllPostsDataStart = (data) => ({
+  type: GET_ALL_POST_DATA_START,
+  payload: data,
+});
+export const getAllPostsDataSuccess = (data) => ({
+  type: GET_ALL_POST_DATA_SUCCESS,
+  payload: data,
+});
+export const getAllPostsDataError = (data) => ({
+  type: GET_ALL_POST_DATA_ERROR,
+  payload: data,
+});
+
+// to like a post
+export const likePostStart = (data) => ({
+  type: LIKE_POST_START,
+  payload: data,
+});
+export const likePostSuccess = (data) => ({
+  type: LIKE_POST_SUCCESS,
+  payload: data,
+});
+export const likePostError = (data) => ({
+  type: LIKE_POST_ERROR,
+  payload: data,
+});
+
+// to unlike a post
+export const unLikePostStart = (data) => ({
+  type: UNLIKE_POST_START,
+  payload: data,
+});
+export const unLikePostSuccess = (data) => ({
+  type: UNLIKE_POST_SUCCESS,
+  payload: data,
+});
+export const unLikePostError = (data) => ({
+  type: UNLIKE_POST_ERROR,
+  payload: data,
+});
+
+// to save a post
+export const savePostStart = (data) => ({
+  type: SAVE_POST_START,
+  payload: data,
+});
+export const savePostSuccess = (data) => ({
+  type: SAVE_POST_SUCCESS,
+  payload: data,
+});
+export const savePostError = (data) => ({
+  type: SAVE_POST_ERROR,
+  payload: data,
+});
+
+// to unsave a post
+export const unSavePostStart = (data) => ({
+  type: UNSAVE_POST_START,
+  payload: data,
+});
+export const unSavePostSuccess = (data) => ({
+  type: UNSAVE_POST_SUCCESS,
+  payload: data,
+});
+export const unSavePostError = (data) => ({
+  type: UNSAVE_POST_ERROR,
   payload: data,
 });

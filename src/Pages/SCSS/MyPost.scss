@@ -16,6 +16,7 @@ $main: red;
         .ImageContainer {
           text-align: center;
           .categoryy {
+            margin-left: 5rem;
             color: white;
             padding: 1rem 2rem;
             border-radius: 50px;
@@ -434,7 +435,7 @@ $main: red;
 
 @media (max-width: 768px) {
   .MyBlogPost {
-    padding: 9.2rem 0;
+    padding: 6rem 0;
     > .row {
 
       .col-xxl-8 {
@@ -531,7 +532,7 @@ $main: red;
 
 @media (max-width: 576px) {
   .MyBlogPost {
-    padding: 9.2rem 0;
+    padding: 6rem 0;
     > .row {
 
       .col-xxl-8 {
@@ -629,7 +630,7 @@ $main: red;
 
 @media (max-width: 394px) {
   .MyBlogPost {
-    padding: 7.6rem 0;
+    padding: 5rem 0;
     > .row {
 
       .col-xxl-8 {

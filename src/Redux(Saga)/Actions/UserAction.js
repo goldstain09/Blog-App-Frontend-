@@ -24,6 +24,9 @@ import {
   FORGET_CHANGE_PASSWORD_ERROR,
   FORGET_CHANGE_PASSWORD_START,
   FORGET_CHANGE_PASSWORD_SUCCESS,
+  GET_BLOGGER_DATA_ERROR,
+  GET_BLOGGER_DATA_START,
+  GET_BLOGGER_DATA_SUCCESS,
   LOGIN_USER_ACCOUNT_ERROR,
   LOGIN_USER_ACCOUNT_START,
   LOGIN_USER_ACCOUNT_SUCCESS,
@@ -183,5 +186,19 @@ export const deleteUserAccountSuccess = (data) => ({
 });
 export const deleteUserAccountError = (data) => ({
   type: DELETE_USER_ACCOUNT_ERROR,
+  payload: data,
+});
+
+// to get blogger data
+export const getBloggerDataStart = (data) => ({
+  type: GET_BLOGGER_DATA_START,
+  payload: data,
+});
+export const getBloggerDataSuccess = (data) => ({
+  type: GET_BLOGGER_DATA_SUCCESS,
+  payload: data,
+});
+export const getBloggerDataError = (data) => ({
+  type: GET_BLOGGER_DATA_ERROR,
   payload: data,
 });

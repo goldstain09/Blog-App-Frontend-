@@ -7,8 +7,6 @@ import {
   addUserEmailStart,
   notAuthorised,
 } from "../Redux(Saga)/Actions/UserAction";
-import "bootstrap/dist/css/bootstrap.min.css";
-import * as bootstrap from "bootstrap/dist/js/bootstrap.bundle";
 
 export default function AddEmailModal() {
   const navigate = useNavigate();

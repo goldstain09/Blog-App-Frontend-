@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./SCSS/MyProfilePage.scss";
 import ProfilePostCard from "../Components/ProfilePostCard";
-import ProfileTagsUsedCard from "../Components/ProfileTagsUsedCard";
 import BlogCard from "../Components/BlogCard";
 import Modal from "../Components/Modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +9,17 @@ import {
   notAuthorised,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
+import ProfileLikedAndSavedPostsCard from "../Components/ProfileLikedAndSavedPostsCard";
+import { getAllPostsDataStart } from "../Redux(Saga)/Actions/PostAction";
 
 export default function MyProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
+  );
+  const getAllPostsDataResponse = useSelector(
+    (state) => state.postReducer.getAllPostsDataResponse
   );
   // setting user data
   const [datashow, setDatashow] = useState(false);
@@ -41,11 +45,14 @@ export default function MyProfilePage() {
           validity: "15 minutes",
         })
       );
+      const allMyPosts = getAllPostsDataResponse.filter((item) => item.userId === UserDataFromResponse._id);
+      setAllMyPosts(allMyPosts);
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
       if (tokenInfo) {
         if (tokenInfo.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(tokenInfo.token));
+          dispatch(getAllPostsDataStart(tokenInfo.token));
         }
       } else {
         navigate("/login");
@@ -54,64 +61,47 @@ export default function MyProfilePage() {
   }, [UserDataFromResponse]);
   // -----------------------------------------------------------------------------
 
+  const [allMyPosts,setAllMyPosts] = useState([]);
   // for profile nav [NavLink is for routes butt i want small nav so that's why i did this!];
   const [WhatToShow, setWhatToShow] = useState("myPosts");
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   useEffect(() => {
     const myPosts = document.getElementById("myPosts");
-    const tagsUsed = document.getElementById("tagsUsed");
     const Saved = document.getElementById("Saved");
     const Liked = document.getElementById("Liked");
     switch (WhatToShow) {
       case "myPosts":
         myPosts.style.color = "white";
-        tagsUsed.style.color = "grey";
         Saved.style.color = "grey";
         Liked.style.color = "grey";
         myPosts.style.transform = "scale(1.1)";
-        tagsUsed.style.transform = "none";
         Saved.style.transform = "none";
         Liked.style.transform = "none";
         break;
-      case "tagsUsed":
-        tagsUsed.style.color = "white";
-        myPosts.style.color = "grey";
-        Saved.style.color = "grey";
-        Liked.style.color = "grey";
-        tagsUsed.style.transform = "scale(1.1)";
-        myPosts.style.transform = "none";
-        Saved.style.transform = "none";
-        Liked.style.transform = "none";
-        break;
+
       case "Saved":
         Saved.style.color = "white";
-        tagsUsed.style.color = "grey";
         myPosts.style.color = "grey";
         Liked.style.color = "grey";
         Saved.style.transform = "scale(1.1)";
-        tagsUsed.style.transform = "none";
         myPosts.style.transform = "none";
         Liked.style.transform = "none";
         break;
       case "Liked":
         Liked.style.color = "white";
-        tagsUsed.style.color = "grey";
         myPosts.style.color = "grey";
         Saved.style.color = "grey";
         Liked.style.transform = "scale(1.1)";
-        tagsUsed.style.transform = "none";
         myPosts.style.transform = "none";
         Saved.style.transform = "none";
         break;
 
       default:
         myPosts.style.color = "white";
-        tagsUsed.style.color = "grey";
         Saved.style.color = "grey";
         Liked.style.color = "grey";
         myPosts.style.transform = "scale(1.1)";
-        tagsUsed.style.transform = "none";
         Saved.style.transform = "none";
         Liked.style.transform = "none";
         break;
@@ -231,17 +221,6 @@ export default function MyProfilePage() {
             </li>
             <li className="nav-item">
               <a
-                id="tagsUsed"
-                className="nav-link"
-                onClick={() => {
-                  setWhatToShow("tagsUsed");
-                }}
-              >
-                <i className="bi bi-tags"></i> Tags Used
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
                 id="Saved"
                 className="nav-link"
                 onClick={() => {
@@ -268,102 +247,51 @@ export default function MyProfilePage() {
         {WhatToShow === "myPosts" && (
           <div className="container PostContainer">
             <div className="row">
-              {(UserDataFromResponse.hasOwnProperty('myPosts') && UserDataFromResponse.myPosts.length > 0) ? (
-                UserDataFromResponse.myPosts.map((item, index) => <ProfilePostCard key={index} data={item} />)
+              {allMyPosts.length>0 ? (
+                allMyPosts.map((item, index) => (
+                  <ProfilePostCard key={index} data={item} />
+                ))
               ) : (
                 <>No Posts</>
               )}
             </div>
           </div>
         )}
-        {WhatToShow === "tagsUsed" && (
-          <div className="container TagsUsedContainer">
-            <div className="row">
-              <ProfileTagsUsedCard
-                tagsUsed={["Lifestyle", "PhotoShoot", "DSLR", "Development"]}
-                Liked={[]}
-                Saved={[]}
-              />
-              <ProfileTagsUsedCard
-                tagsUsed={["Lifestyle", "PhotoShoot", "DSLR", "Development"]}
-                Liked={[]}
-                Saved={[]}
-              />
-              <ProfileTagsUsedCard
-                tagsUsed={["Lifestyle", "PhotoShoot", "DSLR", "Development"]}
-                Liked={[]}
-                Saved={[]}
-              />
-              <ProfileTagsUsedCard
-                tagsUsed={["Lifestyle", "PhotoShoot", "DSLR", "Development"]}
-                Liked={[]}
-                Saved={[]}
-              />
-              <ProfileTagsUsedCard
-                tagsUsed={["Lifestyle", "PhotoShoot", "DSLR", "Development"]}
-                Liked={[]}
-                Saved={[]}
-              />
-              <ProfileTagsUsedCard
-                tagsUsed={["Lifestyle", "PhotoShoot", "DSLR", "Development"]}
-                Liked={[]}
-                Saved={[]}
-              />
-              <ProfileTagsUsedCard
-                tagsUsed={["Lifestyle", "PhotoShoot", "DSLR", "Development"]}
-                Liked={[]}
-                Saved={[]}
-              />
-              <ProfileTagsUsedCard
-                tagsUsed={["Lifestyle", "PhotoShoot", "DSLR", "Development"]}
-                Liked={[]}
-                Saved={[]}
-              />
-            </div>
-          </div>
-        )}
+
         {WhatToShow === "Saved" && (
           <div className="container PostContainer">
             {/* in this there is saved post but i used PstContainer again because these are similar i wouldn't repeat it!  */}
             <div className="row">
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Saved={["Saved Post"]}
-                tagsUsed={[]}
                 Liked={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Saved={["Saved Post"]}
-                tagsUsed={[]}
                 Liked={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Saved={["Saved Post"]}
-                tagsUsed={[]}
                 Liked={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Saved={["Saved Post"]}
-                tagsUsed={[]}
                 Liked={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Saved={["Saved Post"]}
-                tagsUsed={[]}
                 Liked={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Saved={["Saved Post"]}
-                tagsUsed={[]}
                 Liked={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Saved={["Saved Post"]}
-                tagsUsed={[]}
                 Liked={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Saved={["Saved Post"]}
-                tagsUsed={[]}
                 Liked={[]}
               />
             </div>
@@ -372,44 +300,36 @@ export default function MyProfilePage() {
         {WhatToShow === "Liked" && (
           <div className="container PostContainer">
             <div className="row">
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Liked={["Liked Post"]}
-                tagsUsed={[]}
                 Saved={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Liked={["Liked Post"]}
-                tagsUsed={[]}
                 Saved={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Liked={["Liked Post"]}
-                tagsUsed={[]}
                 Saved={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Liked={["Liked Post"]}
-                tagsUsed={[]}
                 Saved={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Liked={["Liked Post"]}
-                tagsUsed={[]}
                 Saved={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Liked={["Liked Post"]}
-                tagsUsed={[]}
                 Saved={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Liked={["Liked Post"]}
-                tagsUsed={[]}
                 Saved={[]}
               />
-              <ProfileTagsUsedCard
+              <ProfileLikedAndSavedPostsCard
                 Liked={["Liked Post"]}
-                tagsUsed={[]}
                 Saved={[]}
               />
             </div>

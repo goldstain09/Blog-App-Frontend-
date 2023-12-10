@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./SCSS/Header.scss";
 import Logo from "../Media/Logo.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Header() {
@@ -122,7 +122,12 @@ export default function Header() {
             <a href="#" className="col-2">
               <img src={Logo} alt="Logo" />
             </a>
-            <div className="col-8"></div>
+            <div className="col-6"></div>
+            <div className="col-2">
+              <Link to={'/search'} className="btn btn-primary">
+              <i className="bi bi-search"></i>
+              </Link>
+            </div>
             <div className="col-2">
               <button
                 className="btn btn-primary"
@@ -135,18 +140,6 @@ export default function Header() {
               </button>
             </div>
           </div>
-          {authorised && (
-            <div className="row">
-              <form className="col-10 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input
-                  type="search"
-                  className="form-control form-control-dark"
-                  placeholder="Search..."
-                  aria-label="Search"
-                />
-              </form>
-            </div>
-          )}
         </div>
       </header>
 

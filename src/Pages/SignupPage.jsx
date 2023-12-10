@@ -83,7 +83,7 @@ export default function SignupPage() {
   // dispatching data
   const createAccount = (e) => {
     e.preventDefault();
-    if (userName !== "" && userName.length < 30) {
+    if (userName !== "" && userName.length < 30 && !userName.includes(' ')) {
       if (Name !== "" && Name.length < 30) {
         if (Password !== "" && (Password.length > 8 || Password.length === 8)) {
           if (password === Password) {

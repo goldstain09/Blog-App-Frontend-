@@ -21,6 +21,9 @@ import {
   FORGET_CHANGE_PASSWORD_ERROR,
   FORGET_CHANGE_PASSWORD_START,
   FORGET_CHANGE_PASSWORD_SUCCESS,
+  GET_BLOGGER_DATA_ERROR,
+  GET_BLOGGER_DATA_START,
+  GET_BLOGGER_DATA_SUCCESS,
   LOGIN_USER_ACCOUNT_ERROR,
   LOGIN_USER_ACCOUNT_START,
   LOGIN_USER_ACCOUNT_SUCCESS,
@@ -55,6 +58,10 @@ const initialState = {
   checkPasswordForDeleteAccountError: "",
   deleteUserAccountLoading: false,
   deleteUserAccountError: "",
+
+  bloggerDataLoading: false,
+  bloggerDataError: "",
+  bloggerDataResponse: {},
 
   authorised: { authorised: false },
 };
@@ -283,6 +290,28 @@ const userReducer = (state = initialState, action) => {
         deleteUserAccountError: action.payload,
         deleteUserAccountLoading: false,
       };
+
+    //blogger data
+    case GET_BLOGGER_DATA_START:
+      return {
+        ...state,
+        bloggerDataError: "",
+        bloggerDataLoading: true,
+      };
+    case GET_BLOGGER_DATA_SUCCESS:
+      return {
+        ...state,
+        bloggerDataError: "",
+        bloggerDataLoading: false,
+        bloggerDataResponse: action.payload,
+      };
+    case GET_BLOGGER_DATA_ERROR:
+      return {
+        ...state,
+        bloggerDataError: action.payload,
+        bloggerDataLoading: false,
+      };
+
     default:
       return state;
   }

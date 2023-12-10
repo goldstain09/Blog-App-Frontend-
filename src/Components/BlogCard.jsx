@@ -1,30 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SCSS/BlogCard.scss";
 import founder from "../Media/Founder.jpg";
 import Comment from "./Comment";
 import Modal from "./Modal";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  likePostStart,
+  likePostSuccess,
+  unLikePostStart,
+  unLikePostSuccess,
+} from "../Redux(Saga)/Actions/PostAction";
 
-export default function BlogCard() {
+export default function BlogCard({ data }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const UserDataFromResponse = useSelector(
+    (state) => state.userReducer.UserDataFromResponse
+  );
+  const likePostResponse = useSelector(
+    (state) => state.postReducer.likePostResponse
+  );
+  const unlikePostResponse = useSelector(
+    (state) => state.postReducer.unlikePostResponse
+  );
+  useEffect(() => {
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
+      if (UserDataFromResponse.likedPost.length > 0) {
+        if (
+          UserDataFromResponse.likedPost.every(
+            (item) => item.postId !== data._id
+          )
+        ) {
+          setLiked(false);
+        } else {
+          setLiked(true);
+        }
+      } else {
+        setLiked(false);
+      }
+    }
+  }, [UserDataFromResponse]);
+
+  useEffect(() => {
+    if (likePostResponse.hasOwnProperty("liked")) {
+      setLiked(true);
+      dispatch(likePostSuccess({}));
+    }
+  }, [likePostResponse]);
+  useEffect(() => {
+    if (unlikePostResponse.hasOwnProperty("liked")) {
+      setLiked(false);
+      dispatch(unLikePostSuccess({}));
+    }
+  }, [unlikePostResponse]);
+
+  // like or unlike
+  const [liked, setLiked] = useState(false);
   return (
     <>
       <div className="BlogCard col col-12 col-sm-12 col-md-5 col-lg-3 col-xl-3 card">
         <div className="row">
-          <div className="col-2">
-            <img src={founder} alt="PP" />
+          <div
+            className="col-2"
+            onClick={() => navigate(`/bloggerProfile/${data.userId}`)}
+          >
+            <img src={data.postImage} alt="PP" />
           </div>
-          <div className="col-9 align-content-center">
-            <h5 title="Name">Sujal Rajput</h5>
+          <div
+            className="col-9 align-content-center"
+            onClick={() => navigate(`/bloggerProfile/${data.userId}`)}
+          >
+            <h5 title="Name">{data.userName}</h5>
           </div>
           <div className="col-1 dropdown">
             <button
               type="button"
-              id="dropdownMenuButton1"
+              id="dropdownCardMenu"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <i className="bi h5 bi-three-dots-vertical"></i>
             </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul className="dropdown-menu" aria-labelledby="dropdownCardMenu">
               <li>
                 <a className="dropdown-item" href="#">
                   Action
@@ -45,16 +103,51 @@ export default function BlogCard() {
         </div>
 
         {/* ----------------------------------------------------- */}
-        <img src={founder} className="card-img-top" alt="..." />
+        <img src={data.postImage} className="card-img-top" alt="..." />
         <div className="card-body">
           <div className="row d-flex">
             <div className="col-6">
-              <button title="Like">
-                <i className="bi bi-suit-heart"></i>
-              </button>
-              <button className="liked" title="Unlike">
-                <i className="bi bi-suit-heart-fill"></i>
-              </button>
+              {liked ? (
+                <>
+                  <button
+                    className="liked"
+                    title="Unlike"
+                    onClick={() => {
+                      const jwToken = JSON.parse(
+                        localStorage.getItem("blogApp")
+                      );
+                      const finalData = {
+                        token: jwToken.token,
+                        postId: data._id,
+                      };
+                      dispatch(unLikePostStart(finalData));
+                      setLiked(false);
+                    }}
+                  >
+                    <i className="bi bi-suit-heart-fill"></i>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    title="Like"
+                    onClick={() => {
+                      const jwToken = JSON.parse(
+                        localStorage.getItem("blogApp")
+                      );
+                      const finalData = {
+                        token: jwToken.token,
+                        postId: data._id,
+                      };
+                      setLiked(true);
+                      dispatch(likePostStart(finalData));
+                    }}
+                  >
+                    <i className="bi bi-suit-heart"></i>
+                  </button>
+                </>
+              )}
+
               <button
                 title="Comment"
                 type="button"
@@ -73,20 +166,20 @@ export default function BlogCard() {
               </button>
             </div>
           </div>
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" className="btn btn-primary">
+          <h5 className="card-title">{data.postTitle}</h5>
+          <p className="card-text">{data.postCaption}</p>
+          <Link to={`/myBlog/${data._id}`} className="btn btn-primary">
             Read
-          </a>
+          </Link>
         </div>
       </div>
 
       {/* comment section modal */}
-      <Modal CommentSection={["sdfsd",'asdasd']} followers={[]} following={[]}/>
-
+      <Modal
+        CommentSection={["sdfsd", "asdasd"]}
+        followers={[]}
+        following={[]}
+      />
     </>
   );
 }

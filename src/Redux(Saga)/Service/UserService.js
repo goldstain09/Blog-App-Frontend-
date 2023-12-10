@@ -171,3 +171,19 @@ export const deleteUserAccount = async (token) => {
   }
 };
 
+export const getBloggerData = async (data) => {
+  try {
+    const response = await axios.get(
+      "http://localhost:8080/v1/UserApi/getBloggerData",
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+        params: {
+          bloggerId: data.bloggerId,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};

@@ -1,23 +1,39 @@
 import { put, takeLatest } from "redux-saga/effects";
 import {
   DELETE_A_BLOG_START,
+  GET_ALL_POST_DATA_START,
   GET_POST_DATA_START,
+  LIKE_POST_START,
   POST_A_BLOG_START,
+  SAVE_POST_START,
+  UNLIKE_POST_START,
+  UNSAVE_POST_START,
   UPDATE_A_BLOG_START,
 } from "../Constants/PostConstants";
 import {
   deleteBlog,
+  getAllPostsData,
   getPostData,
+  likePost,
   postABlog,
+  savePost,
+  unlikePost,
+  unsavePost,
   updateBlog,
 } from "../Service/PostService";
 import {
   deleteBlogError,
   deleteBlogSuccess,
+  getAllPostsDataError,
+  getAllPostsDataSuccess,
   getPostDataError,
   getPostDataSuccess,
+  likePostError,
+  likePostSuccess,
   postBlogError,
   postBlogSuccess,
+  unLikePostError,
+  unLikePostSuccess,
   updateBlogError,
   updateBlogSuccess,
 } from "../Actions/PostAction";
@@ -142,11 +158,105 @@ function* deleteBlogSaga({ payload }) {
   }
 }
 
+function* getAllPostsDataSaga({ payload }) {
+  try {
+    const Response = yield getAllPostsData(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("allPosts")) {
+        yield put(getAllPostsDataSuccess(Response.allPosts));
+        yield put(authorised(true));
+      } else {
+        throw Error(Response.errorMessage);
+      }
+    }
+  } catch (error) {
+    yield put(getAllPostsDataError(error.message));
+  }
+}
+
+function* likePostSaga({ payload }) {
+  try {
+    const Response = yield likePost(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("liked")) {
+        switch (Response.liked) {
+          case true:
+            yield put(authorised);
+            yield put(verifyUserAuthSuccess(Response.userData));
+            yield put(likePostSuccess({ liked: true }));
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
+      }
+    }
+  } catch (error) {
+    yield put(likePostError(error.message));
+  }
+}
+function* unlikePostSaga({ payload }) {
+  try {
+    const Response = yield unlikePost(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("unliked")) {
+        switch (Response.unliked) {
+          case true:
+            yield put(authorised(true));
+            yield put(verifyUserAuthSuccess(Response.userData));
+            yield put(unLikePostSuccess({ unliked: true }));
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
+      }
+    }
+  } catch (error) {
+    yield put(unLikePostError(error.message));
+  }
+}
+function* savePostSaga({ payload }) {
+  try {
+    const Response = yield savePost(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("")) {
+      }
+    }
+  } catch (error) {}
+}
+function* unsavePostSaga({ payload }) {
+  try {
+    const Response = yield unsavePost(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("")) {
+      }
+    }
+  } catch (error) {}
+}
+
 function* postSaga() {
   yield takeLatest(POST_A_BLOG_START, postABlogSaga);
-  yield takeLatest(GET_POST_DATA_START, getPostDataSaga);
   yield takeLatest(UPDATE_A_BLOG_START, updateBlogSaga);
   yield takeLatest(DELETE_A_BLOG_START, deleteBlogSaga);
+  yield takeLatest(GET_POST_DATA_START, getPostDataSaga);
+  yield takeLatest(GET_ALL_POST_DATA_START, getAllPostsDataSaga);
+  yield takeLatest(LIKE_POST_START, likePostSaga);
+  yield takeLatest(UNLIKE_POST_START, unlikePostSaga);
+  yield takeLatest(SAVE_POST_START, savePostSaga);
+  yield takeLatest(UNSAVE_POST_START, unsavePostSaga);
 }
 
 export { postSaga };

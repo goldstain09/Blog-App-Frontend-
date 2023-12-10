@@ -27,7 +27,7 @@ export default function Router() {
           <Route path="/editPost/:postId" element={<EditPostPage />} />
           <Route path="/addPost" element={<AddPostPage />} />
           <Route path="/editPost" element={<AddPostPage />} />
-          <Route path="/bloggerProfile" element={<BloggerProfilePage />} />
+          <Route path="/bloggerProfile/:bloggerId" element={<BloggerProfilePage />} />
           <Route path="/blog/:postId" element={<BlogReadPage />} />
           <Route path="/tagPage" element={<TagsPage />} />
           <Route path="/categoryPage" element={<CategoryPage />} />
