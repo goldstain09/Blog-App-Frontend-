@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./SCSS/BlogCard.scss";
-import founder from "../Media/Founder.jpg";
-import Comment from "./Comment";
-import Modal from "./Modal";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   likePostStart,
   likePostSuccess,
+  postCommentStart,
+  savePostStart,
+  savePostSuccess,
   unLikePostStart,
   unLikePostSuccess,
+  unSavePostStart,
+  unSavePostSuccess,
 } from "../Redux(Saga)/Actions/PostAction";
+import Comment from "./Comment";
 
-export default function BlogCard({ data }) {
+export default function BlogCard({ data , setAllData}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const UserDataFromResponse = useSelector(
@@ -24,6 +27,13 @@ export default function BlogCard({ data }) {
   const unlikePostResponse = useSelector(
     (state) => state.postReducer.unlikePostResponse
   );
+  const savePostResponse = useSelector(
+    (state) => state.postReducer.savePostResponse
+  );
+  const unsavePostResponse = useSelector(
+    (state) => state.postReducer.unsavePostResponse
+  );
+
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
       if (UserDataFromResponse.likedPost.length > 0) {
@@ -39,24 +49,53 @@ export default function BlogCard({ data }) {
       } else {
         setLiked(false);
       }
+      if (UserDataFromResponse.savedPost.length > 0) {
+        if (
+          UserDataFromResponse.savedPost.every(
+            (item) => item.postId !== data._id
+          )
+        ) {
+          setSaved(false);
+        } else {
+          setSaved(true);
+        }
+      } else {
+        setSaved(false);
+      }
     }
   }, [UserDataFromResponse]);
 
   useEffect(() => {
     if (likePostResponse.hasOwnProperty("liked")) {
-      setLiked(true);
+      // setLiked(true);
       dispatch(likePostSuccess({}));
     }
   }, [likePostResponse]);
   useEffect(() => {
     if (unlikePostResponse.hasOwnProperty("liked")) {
-      setLiked(false);
+      // setLiked(false);
       dispatch(unLikePostSuccess({}));
     }
   }, [unlikePostResponse]);
+  useEffect(() => {
+    if (savePostResponse.hasOwnProperty("saved")) {
+      // setSaved(true);
+      dispatch(savePostSuccess({}));
+    }
+  }, [savePostResponse]);
+  useEffect(() => {
+    if (unlikePostResponse.hasOwnProperty("unsaved")) {
+      // setSaved(false);
+      dispatch(unSavePostSuccess({}));
+    }
+  }, [unsavePostResponse]);
 
   // like or unlike
   const [liked, setLiked] = useState(false);
+  // save or unsave
+  const [saved, setSaved] = useState(false);
+
+
   return (
     <>
       <div className="BlogCard col col-12 col-sm-12 col-md-5 col-lg-3 col-xl-3 card">
@@ -65,7 +104,7 @@ export default function BlogCard({ data }) {
             className="col-2"
             onClick={() => navigate(`/bloggerProfile/${data.userId}`)}
           >
-            <img src={data.postImage} alt="PP" />
+            <img src={data.userProfilePicture} alt="PP" />
           </div>
           <div
             className="col-9 align-content-center"
@@ -112,7 +151,8 @@ export default function BlogCard({ data }) {
                   <button
                     className="liked"
                     title="Unlike"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       const jwToken = JSON.parse(
                         localStorage.getItem("blogApp")
                       );
@@ -131,7 +171,8 @@ export default function BlogCard({ data }) {
                 <>
                   <button
                     title="Like"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       const jwToken = JSON.parse(
                         localStorage.getItem("blogApp")
                       );
@@ -152,18 +193,51 @@ export default function BlogCard({ data }) {
                 title="Comment"
                 type="button"
                 data-bs-toggle="modal"
-                data-bs-target="#Modall"
+                data-bs-target="#CommentModal"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setAllData(data);
+                  
+                }}
               >
                 <i className="bi bi-chat"></i>
               </button>
             </div>
             <div className="col-6 text-end">
-              <button title="Save">
-                <i className="bi bi-bookmark"></i>
-              </button>
-              <button className="saved" title="Remove from Saved">
-                <i className="bi bi-bookmark-fill"></i>
-              </button>
+              {saved ? (
+                <button
+                  className="saved"
+                  title="Remove from Saved"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const jwToken = JSON.parse(localStorage.getItem("blogApp"));
+                    const finalData = {
+                      token: jwToken.token,
+                      postId: data._id,
+                    };
+                    setSaved(false);
+                    dispatch(unSavePostStart(finalData));
+                  }}
+                >
+                  <i className="bi bi-bookmark-fill"></i>
+                </button>
+              ) : (
+                <button
+                  title="Save"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const jwToken = JSON.parse(localStorage.getItem("blogApp"));
+                    const finalData = {
+                      token: jwToken.token,
+                      postId: data._id,
+                    };
+                    setSaved(true);
+                    dispatch(savePostStart(finalData));
+                  }}
+                >
+                  <i className="bi bi-bookmark"></i>
+                </button>
+              )}
             </div>
           </div>
           <h5 className="card-title">{data.postTitle}</h5>
@@ -174,12 +248,6 @@ export default function BlogCard({ data }) {
         </div>
       </div>
 
-      {/* comment section modal */}
-      <Modal
-        CommentSection={["sdfsd", "asdasd"]}
-        followers={[]}
-        following={[]}
-      />
     </>
   );
 }

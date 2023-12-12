@@ -131,3 +131,40 @@ export const unsavePost = async (data) => {
     return response.data;
   } catch (error) {}
 };
+
+
+export const postComment = async (data) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:8080/v1/PostApi/postComment",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    
+  }
+}
+
+
+export const deleteComment = async (data) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:8080/v1/PostApi/deleteComment",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    
+  }
+}
+

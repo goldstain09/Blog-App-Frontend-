@@ -6,7 +6,19 @@ import Comment from "../Components/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
-import { getPostDataStart } from "../Redux(Saga)/Actions/PostAction";
+import {
+  getPostDataStart,
+  likePostStart,
+  likePostSuccess,
+  postCommentStart,
+  postCommentSuccess,
+  savePostStart,
+  savePostSuccess,
+  unLikePostStart,
+  unLikePostSuccess,
+  unSavePostStart,
+  unSavePostSuccess,
+} from "../Redux(Saga)/Actions/PostAction";
 
 export default function MyBlog() {
   const navigate = useNavigate();
@@ -17,6 +29,21 @@ export default function MyBlog() {
   );
   const getPostDataResponse = useSelector(
     (state) => state.postReducer.getPostDataResponse
+  );
+  const likePostResponse = useSelector(
+    (state) => state.postReducer.likePostResponse
+  );
+  const unlikePostResponse = useSelector(
+    (state) => state.postReducer.unlikePostResponse
+  );
+  const savePostResponse = useSelector(
+    (state) => state.postReducer.savePostResponse
+  );
+  const unsavePostResponse = useSelector(
+    (state) => state.postReducer.unsavePostResponse
+  );
+  const postCommentResponse = useSelector(
+    (state) => state.postReducer.postCommentResponse
   );
   // this useEffect is for authorization!
   useEffect(() => {
@@ -51,22 +78,122 @@ export default function MyBlog() {
   // to get post data!
   useEffect(() => {
     const jwToken = JSON.parse(localStorage.getItem("blogApp"));
-    dispatch(getPostDataStart({ postId: params.postId, token: jwToken.token }));
+    if (jwToken) {
+      dispatch(
+        getPostDataStart({ postId: params.postId, token: jwToken.token })
+      );
+    }
   }, [params.postId]);
   // handling response
   const [postData, setPostData] = useState({});
   useEffect(() => {
     if (getPostDataResponse.hasOwnProperty("userName")) {
       setPostData(getPostDataResponse);
+      setLikedCount(getPostDataResponse.postLikes.length);
     }
   }, [getPostDataResponse]);
 
+  // for setting up like and save !!!
+  useEffect(() => {
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
+      if (UserDataFromResponse.likedPost.length > 0) {
+        if (
+          UserDataFromResponse.likedPost.every(
+            (item) => item.postId !== params.postId
+          )
+        ) {
+          setLiked(false);
+        } else {
+          setLiked(true);
+        }
+      } else {
+        setLiked(false);
+      }
+      if (UserDataFromResponse.savedPost.length > 0) {
+        if (
+          UserDataFromResponse.savedPost.every(
+            (item) => item.postId !== params.postId
+          )
+        ) {
+          setSaved(false);
+        } else {
+          setSaved(true);
+        }
+      } else {
+        setSaved(false);
+      }
+    }
+  }, [UserDataFromResponse]);
+
+  // handling response
+  useEffect(() => {
+    if (likePostResponse.hasOwnProperty("liked")) {
+      // setLiked(true);
+      dispatch(likePostSuccess({}));
+    }
+  }, [likePostResponse]);
+  useEffect(() => {
+    if (unlikePostResponse.hasOwnProperty("liked")) {
+      // setLiked(false);
+      dispatch(unLikePostSuccess({}));
+    }
+  }, [unlikePostResponse]);
+  useEffect(() => {
+    if (savePostResponse.hasOwnProperty("saved")) {
+      // setSaved(true);
+      dispatch(savePostSuccess({}));
+    }
+  }, [savePostResponse]);
+  useEffect(() => {
+    if (unlikePostResponse.hasOwnProperty("unsaved")) {
+      // setSaved(false);
+      dispatch(unSavePostSuccess({}));
+    }
+  }, [unsavePostResponse]);
+
+  // like or unlike
+  const [liked, setLiked] = useState(false);
+  const [likedCount, setLikedCount] = useState(false);
+  // save or unsave
+  const [saved, setSaved] = useState(false);
+
+  // comments
+  // post a comment
+  const [comment, setComment] = useState("");
+  const [emptyComment, setEmptyComment] = useState(false);
+
+  const post = (e) => {
+    e.preventDefault();
+    if (comment !== "") {
+      const jwToken = JSON.parse(localStorage.getItem("blogApp"));
+      const finalData = {
+        token: jwToken.token,
+        comment: comment,
+        postId: params.postId,
+      };
+      dispatch(postCommentStart(finalData));
+    } else {
+      setEmptyComment(true);
+    }
+  };
+
+  // handling response
+  useEffect(() => {
+    if (postCommentResponse.hasOwnProperty("postComments")) {
+      setPostData(postCommentResponse);
+      setComment("");
+      dispatch(postCommentSuccess({}));
+    }
+  }, [postCommentResponse]);
   return (
     <>
       <Header />
-      <div className="exitBtn1" style={{position:"absolute",left:"1rem",top:"9rem"}}>
-        <Link to={'/myProfile'} className="btn btn-outline-dark text-light">
-        <i class="bi bi-box-arrow-left"></i>
+      <div
+        className="exitBtn1"
+        style={{ position: "absolute", left: "1rem", top: "9rem" }}
+      >
+        <Link to={"/myProfile"} className="btn btn-outline-dark text-light">
+          <i class="bi bi-box-arrow-left"></i>
         </Link>
       </div>
       <div className="container-fluid MyBlogPost">
@@ -92,10 +219,16 @@ export default function MyBlog() {
               </div>
               <div className="col col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
                 <div className="row d-flex">
-                  <div className="col-1 dp" onClick={()=>navigate(`/myProfile`)}>
-                    <img src={postData.userProfilePicture} alt="PP"  />
+                  <div
+                    className="col-1 dp"
+                    onClick={() => navigate(`/myProfile`)}
+                  >
+                    <img src={postData.userProfilePicture} alt="PP" />
                   </div>
-                  <div className=" col-8 name"  onClick={()=>navigate(`/myProfile`)} >
+                  <div
+                    className=" col-8 name"
+                    onClick={() => navigate(`/myProfile`)}
+                  >
                     <h4 className="h4">{postData.userName}</h4>
                   </div>
                   <div className="col-1 btnn">
@@ -130,36 +263,106 @@ export default function MyBlog() {
 
                 <div className="row BlogLikeAndSaveBtnContainer">
                   <div className="col-6">
-                    <button>
-                      <i className="bi bi-suit-heart"></i>
-                    </button>
-                    <button>
-                      <i className="bi bi-suit-heart-fill"></i>
-                    </button>
+                    {liked ? (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const jwToken = JSON.parse(
+                            localStorage.getItem("blogApp")
+                          );
+                          const finalData = {
+                            token: jwToken.token,
+                            postId: params.postId,
+                          };
+                          setLiked(true);
+                          dispatch(unLikePostStart(finalData));
+                        }}
+                      >
+                        <i className="bi bi-suit-heart-fill"></i>{" "}
+                        {likedCount > 0 ? `${likedCount}` : ""}
+                      </button>
+                    ) : (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const jwToken = JSON.parse(
+                            localStorage.getItem("blogApp")
+                          );
+                          const finalData = {
+                            token: jwToken.token,
+                            postId: params.postId,
+                          };
+                          setLiked(true);
+                          dispatch(likePostStart(finalData));
+                        }}
+                      >
+                        <i className="bi bi-suit-heart"></i>
+                      </button>
+                    )}
                   </div>
                   <div className="col-6 text-center">
-                    <button>
-                      <i className="bi bi-bookmark"></i>
-                    </button>
-                    <button>
-                      <i className="bi bi-bookmark-fill"></i>
-                    </button>
+                    {saved ? (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const jwToken = JSON.parse(
+                            localStorage.getItem("blogApp")
+                          );
+                          const finalData = {
+                            token: jwToken.token,
+                            postId: params.postId,
+                          };
+                          setSaved(false);
+                          dispatch(unSavePostStart(finalData));
+                        }}
+                      >
+                        <i className="bi bi-bookmark-fill"></i>
+                      </button>
+                    ) : (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const jwToken = JSON.parse(
+                            localStorage.getItem("blogApp")
+                          );
+                          const finalData = {
+                            token: jwToken.token,
+                            postId: params.postId,
+                          };
+                          setSaved(true);
+                          dispatch(savePostStart(finalData));
+                        }}
+                      >
+                        <i className="bi bi-bookmark"></i>
+                      </button>
+                    )}
                   </div>
                 </div>
 
                 <div className="row PostACommentSection">
                   <div className="col-9">
-                    <input type="text" placeholder="  Add a Comment!" />
+                    <input
+                      type="text"
+                      placeholder="  Add a Comment!"
+                      value={comment}
+                      onChange={(e) => {
+                        setComment(e.target.value);
+                        setEmptyComment(false);
+                      }}
+                    />
+                    {emptyComment && (
+                      <p className="text-danger">Please type something!</p>
+                    )}
                   </div>
                   <div className="col-3">
-                    <button className="btn btn-outline-danger">Post</button>
+                    <button className="btn btn-outline-danger" onClick={post}>Post</button>
                   </div>
                 </div>
 
                 <h4 className="h4">Comments</h4>
                 {postData.postComments.length > 0 ? (
                   postData.postComments.map((item, index) => (
-                    <Comment commentOwner={true} data={item} key={index} />
+                    <Comment data={item} key={index} postId={params.postId} myBlog={true} />
                   ))
                 ) : (
                   <>No comments</>

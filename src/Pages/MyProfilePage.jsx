@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./SCSS/MyProfilePage.scss";
 import ProfilePostCard from "../Components/ProfilePostCard";
-import BlogCard from "../Components/BlogCard";
-import Modal from "../Components/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -36,6 +34,10 @@ export default function MyProfilePage() {
 
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
+      const allMyPosts = getAllPostsDataResponse.filter(
+        (item) => item.userId === UserDataFromResponse._id
+      );
+      setAllMyPosts(allMyPosts);
       setDatashow(true);
       setUserData(UserDataFromResponse);
       localStorage.setItem(
@@ -45,8 +47,8 @@ export default function MyProfilePage() {
           validity: "15 minutes",
         })
       );
-      const allMyPosts = getAllPostsDataResponse.filter((item) => item.userId === UserDataFromResponse._id);
-      setAllMyPosts(allMyPosts);
+      setLikedPosts(UserDataFromResponse.likedPost);
+      setSavedPosts(UserDataFromResponse.savedPost);
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
       if (tokenInfo) {
@@ -61,11 +63,11 @@ export default function MyProfilePage() {
   }, [UserDataFromResponse]);
   // -----------------------------------------------------------------------------
 
-  const [allMyPosts,setAllMyPosts] = useState([]);
+  const [allMyPosts, setAllMyPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
+  const [savedPosts, setSavedPosts] = useState([]);
   // for profile nav [NavLink is for routes butt i want small nav so that's why i did this!];
   const [WhatToShow, setWhatToShow] = useState("myPosts");
-  const [followers, setFollowers] = useState([]);
-  const [following, setFollowing] = useState([]);
   useEffect(() => {
     const myPosts = document.getElementById("myPosts");
     const Saved = document.getElementById("Saved");
@@ -155,44 +157,16 @@ export default function MyProfilePage() {
                   </h4>
                 )}
               </div>
-              <div className="col-4">
-                <h4
-                  className="h4"
-                  title="Comment"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Modall"
-                  onClick={() => {
-                    setFollowers(["followers", "followers", "followers"]);
-                    setFollowing([]);
-                  }}
-                >
-                  {datashow && (
-                    <>
-                      <span>{userData.Followers.length}</span>&nbsp;Followers
-                    </>
-                  )}
-                </h4>
-              </div>
-              <div className="col-4">
-                <h4
-                  className="h4"
-                  title="Comment"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Modall"
-                  onClick={() => {
-                    setFollowers([]);
-                    setFollowing(["following", "following", "following"]);
-                  }}
-                >
-                  {datashow && (
-                    <>
-                      <span>{userData.Followings.length}</span>&nbsp;Following
-                    </>
-                  )}
-                </h4>
-              </div>
+              {datashow && (
+                <>
+                  <div className="col-4">
+                    <h4 className="h4">{userData.Followers.length} Followers</h4>
+                  </div>
+                  <div className="col-4">
+                    <h4 className="h4">{userData.Followings.length} Following</h4>
+                  </div>
+                </>
+              )}
             </div>
             <div className="row NameAndBio">
               <div className="col-12">
@@ -247,7 +221,7 @@ export default function MyProfilePage() {
         {WhatToShow === "myPosts" && (
           <div className="container PostContainer">
             <div className="row">
-              {allMyPosts.length>0 ? (
+              {allMyPosts.length > 0 ? (
                 allMyPosts.map((item, index) => (
                   <ProfilePostCard key={index} data={item} />
                 ))
@@ -262,81 +236,38 @@ export default function MyProfilePage() {
           <div className="container PostContainer">
             {/* in this there is saved post but i used PstContainer again because these are similar i wouldn't repeat it!  */}
             <div className="row">
-              <ProfileLikedAndSavedPostsCard
-                Saved={["Saved Post"]}
-                Liked={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Saved={["Saved Post"]}
-                Liked={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Saved={["Saved Post"]}
-                Liked={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Saved={["Saved Post"]}
-                Liked={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Saved={["Saved Post"]}
-                Liked={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Saved={["Saved Post"]}
-                Liked={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Saved={["Saved Post"]}
-                Liked={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Saved={["Saved Post"]}
-                Liked={[]}
-              />
+              {savedPosts.length > 0 ? (
+                savedPosts.map((item, index) => (
+                  <ProfileLikedAndSavedPostsCard
+                    Saved={item}
+                    Liked={{}}
+                    key={index}
+                  />
+                ))
+              ) : (
+                <>No saved posts</>
+              )}
             </div>
           </div>
         )}
         {WhatToShow === "Liked" && (
           <div className="container PostContainer">
             <div className="row">
-              <ProfileLikedAndSavedPostsCard
-                Liked={["Liked Post"]}
-                Saved={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Liked={["Liked Post"]}
-                Saved={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Liked={["Liked Post"]}
-                Saved={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Liked={["Liked Post"]}
-                Saved={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Liked={["Liked Post"]}
-                Saved={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Liked={["Liked Post"]}
-                Saved={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Liked={["Liked Post"]}
-                Saved={[]}
-              />
-              <ProfileLikedAndSavedPostsCard
-                Liked={["Liked Post"]}
-                Saved={[]}
-              />
+              {likedPosts.length > 0 ? (
+                likedPosts.map((item, index) => (
+                  <ProfileLikedAndSavedPostsCard
+                    Liked={item}
+                    Saved={{}}
+                    key={index}
+                  />
+                ))
+              ) : (
+                <> no liked posts </>
+              )}
             </div>
           </div>
         )}
       </div>
-      <Modal CommentSection={[]} followers={followers} following={following} />
     </>
   );
 }

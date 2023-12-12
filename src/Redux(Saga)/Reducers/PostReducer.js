@@ -2,6 +2,8 @@ import {
   DELETE_A_BLOG_ERROR,
   DELETE_A_BLOG_START,
   DELETE_A_BLOG_SUCCESS,
+  DELETE_A_COMMENT_ERROR,
+  DELETE_A_COMMENT_START,
   GET_ALL_POST_DATA_ERROR,
   GET_ALL_POST_DATA_START,
   GET_ALL_POST_DATA_SUCCESS,
@@ -14,9 +16,18 @@ import {
   POST_A_BLOG_ERROR,
   POST_A_BLOG_START,
   POST_A_BLOG_SUCCESS,
+  POST_A_COMMENT_ERROR,
+  POST_A_COMMENT_START,
+  POST_A_COMMENT_SUCCESS,
+  SAVE_POST_ERROR,
+  SAVE_POST_START,
+  SAVE_POST_SUCCESS,
   UNLIKE_POST_ERROR,
   UNLIKE_POST_START,
   UNLIKE_POST_SUCCESS,
+  UNSAVE_POST_ERROR,
+  UNSAVE_POST_START,
+  UNSAVE_POST_SUCCESS,
   UPDATE_A_BLOG_ERROR,
   UPDATE_A_BLOG_START,
   UPDATE_A_BLOG_SUCCESS,
@@ -50,6 +61,21 @@ const initialState = {
   unlikePostError: "",
   unlikePostLoading: false,
   unlikePostResponse: {},
+
+  savePostError: "",
+  savePostLoading: false,
+  savePostResponse: {},
+
+  unsavePostError: "",
+  unsavePostLoading: false,
+  unsavePostResponse: {},
+
+  postCommentError: "",
+  postCommentLoading: false,
+  postCommentResponse: {},
+
+  deleteCommentLoading: false,
+  deleteCommentError: "",
 };
 
 const postReducer = (state = initialState, action) => {
@@ -199,6 +225,83 @@ const postReducer = (state = initialState, action) => {
         ...state,
         unlikePostLoading: false,
         unlikePostError: action.payload,
+      };
+
+    // save post
+    case SAVE_POST_START:
+      return {
+        ...state,
+        savePostError: "",
+        savePostLoading: true,
+      };
+    case SAVE_POST_SUCCESS:
+      return {
+        ...state,
+        savePostError: "",
+        savePostLoading: false,
+        savePostResponse: action.payload,
+      };
+    case SAVE_POST_ERROR:
+      return {
+        ...state,
+        savePostError: action.payload,
+        savePostLoading: false,
+      };
+
+    // unsave post
+    case UNSAVE_POST_START:
+      return {
+        ...state,
+        unsavePostLoading: true,
+        unsavePostError: "",
+      };
+    case UNSAVE_POST_SUCCESS:
+      return {
+        ...state,
+        unsavePostLoading: false,
+        unsavePostError: "",
+        unsavePostResponse: action.payload,
+      };
+    case UNSAVE_POST_ERROR:
+      return {
+        ...state,
+        unsavePostLoading: false,
+        unsavePostError: action.payload,
+      };
+
+    // post a comment
+    case POST_A_COMMENT_START:
+      return {
+        ...state,
+        postCommentError: "",
+        postCommentLoading: true,
+      };
+    case POST_A_COMMENT_SUCCESS:
+      return {
+        ...state,
+        postCommentError: "",
+        postCommentLoading: false,
+        postCommentResponse: action.payload,
+      };
+    case POST_A_COMMENT_ERROR:
+      return {
+        ...state,
+        postCommentError: action.payload,
+        postCommentLoading: false,
+      };
+
+    //delete comment
+    case DELETE_A_COMMENT_START:
+      return {
+        ...state,
+        deleteCommentError: "",
+        deleteCommentLoading: true,
+      };
+    case DELETE_A_COMMENT_ERROR:
+      return {
+        ...state,
+        deleteCommentError: action.payload,
+        deleteCommentLoading: false,
       };
     default:
       return state;

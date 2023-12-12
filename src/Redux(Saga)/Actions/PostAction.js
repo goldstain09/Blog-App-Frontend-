@@ -2,6 +2,9 @@ import {
   DELETE_A_BLOG_ERROR,
   DELETE_A_BLOG_START,
   DELETE_A_BLOG_SUCCESS,
+  DELETE_A_COMMENT_ERROR,
+  DELETE_A_COMMENT_START,
+  DELETE_A_COMMENT_SUCCESS,
   GET_ALL_POST_DATA_ERROR,
   GET_ALL_POST_DATA_START,
   GET_ALL_POST_DATA_SUCCESS,
@@ -14,6 +17,9 @@ import {
   POST_A_BLOG_ERROR,
   POST_A_BLOG_START,
   POST_A_BLOG_SUCCESS,
+  POST_A_COMMENT_ERROR,
+  POST_A_COMMENT_START,
+  POST_A_COMMENT_SUCCESS,
   SAVE_POST_ERROR,
   SAVE_POST_START,
   SAVE_POST_SUCCESS,
@@ -151,5 +157,29 @@ export const unSavePostSuccess = (data) => ({
 });
 export const unSavePostError = (data) => ({
   type: UNSAVE_POST_ERROR,
+  payload: data,
+});
+
+// to post a comment
+export const postCommentStart = (data) => ({
+  type: POST_A_COMMENT_START,
+  payload: data,
+});
+export const postCommentSuccess = (data) => ({
+  type: POST_A_COMMENT_SUCCESS,
+  payload: data,
+});
+export const postCommentError = (data) => ({
+  type: POST_A_COMMENT_ERROR,
+  payload: data,
+});
+
+// to delete a comment
+export const deleteCommentStart = (data) => ({
+  type: DELETE_A_COMMENT_START,
+  payload: data,
+});
+export const deleteCommentError = (data) => ({
+  type: DELETE_A_COMMENT_ERROR,
   payload: data,
 });

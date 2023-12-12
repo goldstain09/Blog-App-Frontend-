@@ -1,10 +1,12 @@
 import { put, takeLatest } from "redux-saga/effects";
 import {
   DELETE_A_BLOG_START,
+  DELETE_A_COMMENT_START,
   GET_ALL_POST_DATA_START,
   GET_POST_DATA_START,
   LIKE_POST_START,
   POST_A_BLOG_START,
+  POST_A_COMMENT_START,
   SAVE_POST_START,
   UNLIKE_POST_START,
   UNSAVE_POST_START,
@@ -12,10 +14,12 @@ import {
 } from "../Constants/PostConstants";
 import {
   deleteBlog,
+  deleteComment,
   getAllPostsData,
   getPostData,
   likePost,
   postABlog,
+  postComment,
   savePost,
   unlikePost,
   unsavePost,
@@ -24,6 +28,7 @@ import {
 import {
   deleteBlogError,
   deleteBlogSuccess,
+  deleteCommentError,
   getAllPostsDataError,
   getAllPostsDataSuccess,
   getPostDataError,
@@ -32,8 +37,14 @@ import {
   likePostSuccess,
   postBlogError,
   postBlogSuccess,
+  postCommentError,
+  postCommentSuccess,
+  savePostError,
+  savePostSuccess,
   unLikePostError,
   unLikePostSuccess,
+  unSavePostError,
+  unSavePostSuccess,
   updateBlogError,
   updateBlogSuccess,
 } from "../Actions/PostAction";
@@ -230,21 +241,96 @@ function* savePostSaga({ payload }) {
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
     } else {
-      if (Response.hasOwnProperty("")) {
+      if (Response.hasOwnProperty("saved")) {
+        switch (Response.saved) {
+          case true:
+            yield put(authorised(true));
+            yield put(verifyUserAuthSuccess(Response.userData));
+            yield put(savePostSuccess({ saved: true }));
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    yield put(savePostError(error.message));
+  }
 }
+
 function* unsavePostSaga({ payload }) {
   try {
     const Response = yield unsavePost(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
       yield put(notAuthorised(false));
     } else {
-      if (Response.hasOwnProperty("")) {
+      if (Response.hasOwnProperty("unsaved")) {
+        switch (Response.unsaved) {
+          case true:
+            yield put(authorised(true));
+            yield put(verifyUserAuthSuccess(Response.userData));
+            yield put(unSavePostSuccess({ unsaved: true }));
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    yield put(unSavePostError(error.message));
+  }
+}
+
+function* postCommentSaga({ payload }) {
+  try {
+    const Response = yield postComment(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("commentPosted")) {
+        switch (Response.commentPosted) {
+          case true:
+            yield put(authorised(true));
+            yield put(postCommentSuccess(Response.updatedPost)); // in this Response.updatedPost all updatedPost's data is present!
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
+      }
+    }
+  } catch (error) {
+    yield put(postCommentError(error.message));
+  }
+}
+
+function* deleteCommentSaga({ payload }) {
+  try {
+    const Response = yield deleteComment(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("commentDeleted")) {
+        switch (Response.commentDeleted) {
+          case true:
+            yield put(authorised(true));
+            yield put(postCommentSuccess(Response.updatedPost)); // here i didnot creating a reducer state for deletecommentsuccess beczz same data should be saved in postCommentSuccess
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
+      }
+    }
+  } catch (error) {
+    yield put(deleteCommentError(error.message));
+  }
 }
 
 function* postSaga() {
@@ -257,6 +343,8 @@ function* postSaga() {
   yield takeLatest(UNLIKE_POST_START, unlikePostSaga);
   yield takeLatest(SAVE_POST_START, savePostSaga);
   yield takeLatest(UNSAVE_POST_START, unsavePostSaga);
+  yield takeLatest(POST_A_COMMENT_START, postCommentSaga);
+  yield takeLatest(DELETE_A_COMMENT_START, deleteCommentSaga);
 }
 
 export { postSaga };
