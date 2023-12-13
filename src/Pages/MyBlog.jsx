@@ -229,7 +229,7 @@ export default function MyBlog() {
                     className=" col-8 name"
                     onClick={() => navigate(`/myProfile`)}
                   >
-                    <h4 className="h4">{postData.userName}</h4>
+                    <h4 className="h4">{postData.userName.split("").slice(0, 15).join("")}</h4>
                   </div>
                   <div className="col-1 btnn">
                     <button
@@ -276,6 +276,7 @@ export default function MyBlog() {
                           };
                           setLiked(true);
                           dispatch(unLikePostStart(finalData));
+                          setLikedCount(likedCount-1)
                         }}
                       >
                         <i className="bi bi-suit-heart-fill"></i>{" "}
@@ -294,9 +295,11 @@ export default function MyBlog() {
                           };
                           setLiked(true);
                           dispatch(likePostStart(finalData));
+                          setLikedCount(likedCount+1)
                         }}
                       >
-                        <i className="bi bi-suit-heart"></i>
+                        <i className="bi bi-suit-heart"></i>{" "}
+                        {likedCount > 0 ? `${likedCount}` : ""}
                       </button>
                     )}
                   </div>

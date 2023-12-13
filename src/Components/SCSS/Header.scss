@@ -1,7 +1,7 @@
 $main: red;
 
 ::placeholder {
-  color: white!important;
+  color: white !important;
 }
 // font-family: 'Dancing Script', cursive;
 // font-family: 'Raleway', sans-serif;
@@ -11,7 +11,7 @@ $main: red;
 .MobileScreenMainHeader {
   display: none;
 }
-.HeaderNavbarCanvas{
+.HeaderNavbarCanvas {
   display: none;
 }
 .MainHeader {
@@ -30,29 +30,34 @@ $main: red;
           filter: drop-shadow(3px 3px 5px rgb(255, 255, 255));
         }
       }
-      form {
-        input {
-          background: none;
+      .nav{
+        li{
+          a{
+            font-size: 1.5rem;
+          }
+        }
+      }
+      div {
+        .searchbtn {
+          background: none!important;
           border-radius: 0;
-          border: 1px solid $main;
+          border: none;
+          outline: none;
           box-shadow: none;
           color: white;
+          font-size: 1.5rem;
         }
       }
       .text-end {
         button {
           font-size: 900 !important;
           border-radius: 0;
-          border: 1px solid $main;
           color: white;
+          border: none!important;
+
         }
         button:hover {
-          color: white;
-          background: $main;
-        }
-        .btn-danger {
-          color: white;
-          background: $main;
+          background:none;
         }
       }
     }
@@ -90,6 +95,7 @@ $main: red;
           // }
           .btn-danger {
             color: white;
+            border: none!important;
             background: $main;
           }
         }
@@ -110,137 +116,63 @@ $main: red;
       .row {
         .col-2 {
           img {
-            width: 100px!important;
+            width: 100px !important;
             position: relative;
             left: -1rem;
             filter: drop-shadow(3px 3px 5px rgb(255, 255, 255));
           }
-          .btn {
+          .homeIcon {
             background: none;
             margin-top: 0rem;
             border: none;
-            font-size: 2.4rem;
+            font-size: 2rem;
             color: white !important;
             box-shadow: none;
           }
         }
-       
-        
-      }
-    }
-  }
-  .HeaderNavbarCanvas{
-    display: block;
-    background: #0000009d;
-    backdrop-filter: blur(9px);
-    .offcanvas-header{
-      .offcanvas-title{
-        img{
-          position: relative;
-          left: -1rem;
-          width: 120px;
-          filter: drop-shadow(3px 3px 5px rgb(255, 255, 255));
-        }
-      }
-      button{
-        color: white!important;
-        background: none;
-        box-shadow: none;
-        font-size: 1.5rem;
-        border: none;
-      }
-    }
-    .offcanvas-body{
-      button {
-        width: 80%;
-        margin-left: 10%;
-        margin-top: 1rem;
-        border-radius: 0;
-        border: 1px solid $main;
-        color: $main;
-      }
-      button:hover {
-        color: white;
-        background: $main;
-      }
-      .btn-danger {
-        color: white;
-        background: $main;
-      }
-      // accordian categories
-      .accordion{
-        padding-top: 2rem;
-        .accordion-item{
-          background: none;
-          .accordion-header{
+        .col-8{
+          .btn-primary{
             background: none;
-            .accordion-button{
-              background: none;
-              color: white;
-              box-shadow: none;
-            }
-            .accordion-button:hover{
-              box-shadow: 0px 0px 20px red;
-            }
-          }
-          .accordion-collapse{
-            padding: 1rem;
-            .accordion-body{
-              a{
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-                text-align: center;
-                color: white;
-              }
-              a:hover{
-                background: #000;
-                color: $main;
-              }
+            margin-top: 0rem;
+            border: none;
+            font-size: 2rem;
+            color: white !important;
+            box-shadow: none;
+            img{
+              width: 2rem;
+              border-radius: 50px;
             }
           }
         }
       }
-
     }
   }
 }
 
-@media (max-width: 394px) {
+@media (max-width: 576px) {
   .MobileScreenMainHeader {
     .container-fluid {
       .row {
         .col-2 {
           img {
-            width: 80px!important;
+            width: 80px !important;
             left: -1rem;
           }
-          .btn {
-            position: relative;
-            left: -1rem;
-            margin-top: 0rem;
-            font-size: 1.3rem!important;
+          .homeIcon {
+            font-size: 1.7rem;
+            margin-left: 2rem;
           }
         }
-      }
-    }
-  }
-  .HeaderNavbarCanvas{
-    .offcanvas-header{
-      .offcanvas-title{
-        img{
-          left: -1rem;
-          width: 80px;
+        .col-8{
+          .btn-primary{
+            font-size: 1.4rem!important;
+            box-shadow: none;
+            img{
+              width: 1.6rem;
+              border-radius: 50px;
+            }
+          }
         }
-      }
-      button{
-        font-size: 1.2rem;
-      }
-    }
-    .offcanvas-body{
-      button {
-        width: 90%;
-        margin-left: 5%;
-        margin-top: 1rem;
       }
     }
   }

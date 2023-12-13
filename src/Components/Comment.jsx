@@ -4,21 +4,25 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCommentStart } from "../Redux(Saga)/Actions/PostAction";
 
-export default function Comment({ data, postId,myBlog }) {
+export default function Comment({ data, postId, myBlog }) {
   const dispatch = useDispatch();
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
 
   const [showDeleteCommentBtn, setShowDeleteCommentBtn] = useState(false);
-
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
-      if (UserDataFromResponse._id === data.userId || myBlog) {
+      if (UserDataFromResponse._id === data.userId) {
         setShowDeleteCommentBtn(true);
+      }else{
+        setShowDeleteCommentBtn(false)
+      }
+      if(myBlog){
+        setShowDeleteCommentBtn(true)
       }
     }
-  }, [UserDataFromResponse]);
+  }, [data]);
 
   const [userInfo, setUserInfo] = useState({
     userId: data.userId,
@@ -34,14 +38,8 @@ export default function Comment({ data, postId,myBlog }) {
 
   const Response = async (userId) => {
     try {
-      const jwToken = JSON.parse(localStorage.getItem("blogApp"));
       const response = await axios.get(
-        `http://localhost:8080/v1/UserApi/getUserUserNameAndDp/${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${jwToken.token}`,
-          },
-        }
+        `http://localhost:8080/v1/UserApi/getUserUserNameAndDp/${userId}`
       );
       if (response.data.hasOwnProperty("userName")) {
         setUserInfo({
@@ -62,7 +60,9 @@ export default function Comment({ data, postId,myBlog }) {
           <img src={userInfo.profilePicture} alt="" />
         </div>
         <div className="col-11 commenterName">
-          <h5 className="h5">{userInfo.userName}</h5>
+          <h5 className="h5">
+            {userInfo.userName.split("").slice(0, 13).join("")}
+          </h5>
         </div>
         <div
           className={showDeleteCommentBtn ? "col-12" : "col-12 dropdown"}
@@ -77,17 +77,7 @@ export default function Comment({ data, postId,myBlog }) {
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
                 <a className="dropdown-item" href="#">
-                  Action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Something else here
+                  Report
                 </a>
               </li>
             </ul>
@@ -96,16 +86,17 @@ export default function Comment({ data, postId,myBlog }) {
       </div>
 
       {showDeleteCommentBtn && (
-        <div className="row m-0 p-0 delete">
+        <div className="row m-0 p-0 delete___">
           <div className="col col-12 m-0 p-0">
             <button
+              className="deleteBtn"
               onClick={(e) => {
                 e.preventDefault();
                 const jwToken = JSON.parse(localStorage.getItem("blogApp"));
                 const finalData = {
                   token: jwToken.token,
                   commentDetail: data,
-                  postId:postId
+                  postId: postId,
                 };
                 dispatch(deleteCommentStart(finalData));
               }}

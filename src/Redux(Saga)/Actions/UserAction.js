@@ -21,6 +21,9 @@ import {
   EDIT_USER_ACCOUNT_ERROR,
   EDIT_USER_ACCOUNT_START,
   EDIT_USER_ACCOUNT_SUCCESS,
+  FOLLOW_BLOGGER_ERROR,
+  FOLLOW_BLOGGER_START,
+  FOLLOW_BLOGGER_SUCCESS,
   FORGET_CHANGE_PASSWORD_ERROR,
   FORGET_CHANGE_PASSWORD_START,
   FORGET_CHANGE_PASSWORD_SUCCESS,
@@ -34,6 +37,9 @@ import {
   REMOVE_USER_EMAIL_ERROR,
   REMOVE_USER_EMAIL_START,
   REMOVE_USER_EMAIL_SUCCESS,
+  UNFOLLOW_BLOGGER_ERROR,
+  UNFOLLOW_BLOGGER_START,
+  UNFOLLOW_BLOGGER_SUCCESS,
   VERIFY_USER_AUTH_ERROR,
   VERIFY_USER_AUTH_START,
   VERIFY_USER_AUTH_SUCCESS,
@@ -200,5 +206,25 @@ export const getBloggerDataSuccess = (data) => ({
 });
 export const getBloggerDataError = (data) => ({
   type: GET_BLOGGER_DATA_ERROR,
+  payload: data,
+});
+
+// to follow a blogger
+export const followBloggerStart = (data) => ({
+  type: FOLLOW_BLOGGER_START,
+  payload: data,
+});
+export const followBloggerError = (data) => ({
+  type: FOLLOW_BLOGGER_ERROR,
+  payload: data,
+});
+
+// to unfollow a blogger
+export const unfollowBloggerStart = (data) => ({
+  type: UNFOLLOW_BLOGGER_START,
+  payload: data,
+});
+export const unfollowBloggerError = (data) => ({
+  type: UNFOLLOW_BLOGGER_ERROR,
   payload: data,
 });

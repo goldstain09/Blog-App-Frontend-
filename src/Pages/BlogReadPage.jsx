@@ -157,7 +157,7 @@ export default function BlogReadPage() {
 
   // like or unlike
   const [liked, setLiked] = useState(false);
-  const [likedCount, setLikedCount] = useState(false);
+  const [likedCount, setLikedCount] = useState(0);
   // save or unsave
   const [saved, setSaved] = useState(false);
 
@@ -237,7 +237,7 @@ export default function BlogReadPage() {
                       navigate(`/bloggerProfile/${postData.userId}`)
                     }
                   >
-                    <h4 className="h4">{postData.userName}</h4>
+                    <h4 className="h4">{postData.userName.split("").slice(0, 15).join("")}</h4>
                   </div>
                   <div className="col-1 btnn">
                     <button>
@@ -279,9 +279,10 @@ export default function BlogReadPage() {
                           };
                           setLiked(true);
                           dispatch(unLikePostStart(finalData));
+                          setLikedCount(likedCount-1)
                         }}
                       >
-                        <i className="bi bi-suit-heart-fill"></i>{" "}
+                        <i className="bi bi-suit-heart-fill"></i> {" "}
                         {likedCount > 0 ? `${likedCount}` : ""}
                       </button>
                     ) : (
@@ -297,9 +298,11 @@ export default function BlogReadPage() {
                           };
                           setLiked(true);
                           dispatch(likePostStart(finalData));
+                          setLikedCount(likedCount+1);
                         }}
                       >
-                        <i className="bi bi-suit-heart"></i>
+                        <i className="bi bi-suit-heart"></i> {" "}
+                        {likedCount>0 ? `${likedCount}` : ""}
                       </button>
                     )}
                   </div>

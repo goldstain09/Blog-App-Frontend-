@@ -187,3 +187,33 @@ export const getBloggerData = async (data) => {
     return response.data;
   } catch (error) {}
 };
+
+export const followBlogger = async (data) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:8080/v1/UserApi/followBlogger",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};
+
+export const unfollowBlogger = async (data) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:8080/v1/UserApi/unfollowBlogger",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};

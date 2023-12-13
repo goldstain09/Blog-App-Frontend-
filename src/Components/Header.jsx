@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import "./SCSS/Header.scss";
 import Logo from "../Media/Logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Header() {
   const navigate = useNavigate();
   const authorised = useSelector(
     (state) => state.userReducer.authorised.authorised
+  );
+  const UserDataFromResponse = useSelector(
+    (state) => state.userReducer.UserDataFromResponse
   );
   useEffect(() => {
     const handleScroll = () => {
@@ -40,55 +43,36 @@ export default function Header() {
               <img src={Logo} alt="Logo" />
             </a>
 
-            <ul className="nav col-1 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              {/* <li>
-                <a href="#" className="nav-link px-2 text-secondary">
-                  Home
-                </a>
-              </li>
+            <ul className="nav col-1 col-md-5 col-lg-2 me-lg-auto mb-2  mb-md-0">
               <li>
-                <a href="#" className="nav-link px-2 text-white">
-                  Features
-                </a>
+                <NavLink to={"/"} className="nav-link px-2 text-light">
+                  <i class="bi bi-house"></i>
+                </NavLink>
               </li>
-              <li>
-                <a href="#" className="nav-link px-2 text-white">
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a href="#" className="nav-link px-2 text-white">
-                  FAQs
-                </a>
-              </li>
-              <li>
-                <a href="#" className="nav-link px-2 text-white">
-                  About
-                </a>
-              </li> */}
             </ul>
-            {authorised && (
-              <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input
-                  type="search"
-                  className="form-control form-control-dark"
-                  placeholder="Search for blogs, tags, & categories..."
-                  aria-label="Search"
-                />
-              </form>
-            )}
-
             <div className="text-end">
-              {authorised ? (
-                <button
-                  type="button"
-                  className="btn btn-outline-danger me-2"
-                  onClick={() => {
-                    navigate("/myProfile");
-                  }}
-                >
-                  <i className="bi bi-person-fill"></i> Profile
-                </button>
+              {UserDataFromResponse.hasOwnProperty("profilePicture") ? (
+                <>
+                  <Link
+                    to={"/search"}
+                    className="btn btn-primary searchbtn mx-2"
+                  >
+                    <i className="bi bi-search"></i>
+                  </Link>
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger me-2"
+                    onClick={() => {
+                      navigate("/myProfile");
+                    }}
+                  >
+                    <img
+                      src={UserDataFromResponse.profilePicture}
+                      alt="dp"
+                      style={{ borderRadius: "50px", width: "1.5rem" }}
+                    />
+                  </button>
+                </>
               ) : (
                 <>
                   <button
@@ -119,134 +103,31 @@ export default function Header() {
       <header className="MobileScreenMainHeader fixed-top" id="MbMainHeader">
         <div className="container-fluid">
           <div className="row d-flex">
-            <a href="#" className="col-2">
+            <a className="col-2 mt-2">
               <img src={Logo} alt="Logo" />
             </a>
-            <div className="col-6"></div>
-            <div className="col-2">
-              <Link to={'/search'} className="btn btn-primary">
-              <i className="bi bi-search"></i>
-              </Link>
+            <div className="col-2 mt-2">
+              <NavLink to={"/"} className="homeIcon">
+                <i class="bi bi-house"></i>
+              </NavLink>
             </div>
-            <div className="col-2">
-              <button
-                className="btn btn-primary"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasExample"
-                aria-controls="offcanvasExample"
-              >
-                <i className="bi bi-app-indicator"></i>
-              </button>
+            <div className="col-8 text-end">
+              {authorised && (
+                <Link to={"/search"} className="btn btn-primary mt-2">
+                  <i className="bi bi-search"></i>
+                </Link>
+              )}
+              {UserDataFromResponse.hasOwnProperty("profilePicture") ? (
+                <button className="btn btn-primary">
+                  <img src={UserDataFromResponse.profilePicture} alt="" />
+                </button>
+              ) : (
+                <button>Login</button>
+              )}
             </div>
           </div>
         </div>
       </header>
-
-      <div
-        className="offcanvas offcanvas-start HeaderNavbarCanvas"
-        tabIndex="-1"
-        id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel"
-      >
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            <img src={Logo} alt="logo" />
-          </h5>
-          <button
-            type="button"
-            className="text-reset"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          >
-            <i className="bi bi-arrow-90deg-left"></i>
-          </button>
-        </div>
-        <div className="offcanvas-body">
-          {authorised ? (
-            <button
-              type="button"
-              onClick={() => navigate("/myProfile")}
-              className="btn btn-outline-danger me-2"
-            >
-              Profile
-            </button>
-          ) : (
-            <>
-              <button
-                type="button"
-                onClick={() => navigate("/login")}
-                className="btn btn-outline-danger me-2"
-              >
-                Login
-              </button>
-              <button
-                type="button"
-                onClick={() => navigate("/signup")}
-                className="btn btn-danger"
-              >
-                Sign-up
-              </button>
-            </>
-          )}
-          <div className="accordion accordion-flush" id="accordionFlushExample">
-            <div className="accordion-item">
-              <h2 className="accordion-header" id="flush-headingOne">
-                <button
-                  className="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseOne"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseOne"
-                >
-                  Categories
-                </button>
-              </h2>
-              <div
-                id="flush-collapseOne"
-                className="accordion-collapse collapse"
-                aria-labelledby="flush-headingOne"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div className="accordion-body">
-                  <a className="nav-link active" aria-current="page" href="#">
-                    ALL BLOGS
-                  </a>
-
-                  <a className="nav-link" href="#">
-                    FASHION BLOGS
-                  </a>
-
-                  <a className="nav-link" href="#">
-                    PERSONAL BLOGS
-                  </a>
-
-                  <a className="nav-link" href="#">
-                    LIFESTYLE BLOGS
-                  </a>
-
-                  <a className="nav-link" href="#">
-                    SPORT BLOGS
-                  </a>
-
-                  <a className="nav-link" href="#">
-                    FITNESS BLOGS
-                  </a>
-
-                  <a className="nav-link" href="#">
-                    MARKETING BLOGS
-                  </a>
-
-                  <a className="nav-link" href="#">
-                    PARENTING BLOGS
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

@@ -9,6 +9,8 @@ import {
 } from "../Redux(Saga)/Actions/UserAction";
 import ProfileLikedAndSavedPostsCard from "../Components/ProfileLikedAndSavedPostsCard";
 import { getAllPostsDataStart } from "../Redux(Saga)/Actions/PostAction";
+import MyFollowersModal from "../Components/MyFollowersModal";
+import MyFollowingsModal from "../Components/MyFollowingsModal";
 
 export default function MyProfilePage() {
   const navigate = useNavigate();
@@ -38,7 +40,6 @@ export default function MyProfilePage() {
         (item) => item.userId === UserDataFromResponse._id
       );
       setAllMyPosts(allMyPosts);
-      setDatashow(true);
       setUserData(UserDataFromResponse);
       localStorage.setItem(
         "blogApp",
@@ -49,6 +50,7 @@ export default function MyProfilePage() {
       );
       setLikedPosts(UserDataFromResponse.likedPost);
       setSavedPosts(UserDataFromResponse.savedPost);
+      setDatashow(true);
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
       if (tokenInfo) {
@@ -62,10 +64,11 @@ export default function MyProfilePage() {
     }
   }, [UserDataFromResponse]);
   // -----------------------------------------------------------------------------
-
   const [allMyPosts, setAllMyPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const [savedPosts, setSavedPosts] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [followings, setFollowings] = useState([]);
   // for profile nav [NavLink is for routes butt i want small nav so that's why i did this!];
   const [WhatToShow, setWhatToShow] = useState("myPosts");
   useEffect(() => {
@@ -128,7 +131,12 @@ export default function MyProfilePage() {
             <div className="row d-flex usernameAndEditBtnContainer">
               <div className="col-7">
                 {datashow && (
-                  <h3 className="h3 username">{userData.userName}</h3>
+                  <h3
+                    className="h3 username"
+                    style={{ wordWrap: "break-word" }}
+                  >
+                    {userData.userName}
+                  </h3>
                 )}
               </div>
               <div className="col-5">
@@ -160,10 +168,32 @@ export default function MyProfilePage() {
               {datashow && (
                 <>
                   <div className="col-4">
-                    <h4 className="h4">{userData.Followers.length} Followers</h4>
+                    <h4
+                      className="h4"
+                      data-bs-toggle="modal"
+                      data-bs-target="#myFollowers"
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setFollowers(userData.Followers);
+                      }}
+                    >
+                      {userData.Followers.length} Followers
+                    </h4>
                   </div>
                   <div className="col-4">
-                    <h4 className="h4">{userData.Followings.length} Following</h4>
+                    <h4
+                      className="h4"
+                      data-bs-toggle="modal"
+                      data-bs-target="#myFollowings"
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setFollowings(userData.Followings);
+                      }}
+                    >
+                      {userData.Followings.length} Following
+                    </h4>
                   </div>
                 </>
               )}
@@ -225,6 +255,11 @@ export default function MyProfilePage() {
                 allMyPosts.map((item, index) => (
                   <ProfilePostCard key={index} data={item} />
                 ))
+              ) : UserDataFromResponse.hasOwnProperty("jwtoken") &&
+                UserDataFromResponse.myPosts.length > 0 ? (
+                UserDataFromResponse.myPosts.map((item, index) => (
+                  <ProfilePostCard key={index} data={item} />
+                ))
               ) : (
                 <>No Posts</>
               )}
@@ -268,6 +303,8 @@ export default function MyProfilePage() {
           </div>
         )}
       </div>
+      <MyFollowersModal followers={followers} />
+      <MyFollowingsModal followings={followings} />
     </>
   );
 }

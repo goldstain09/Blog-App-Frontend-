@@ -1,0 +1,46 @@
+#Followd {
+  .col-2 {
+    img {
+      border-radius: 50px;
+      width: 2rem !important;
+    }
+    button {
+      border: 1px solid red;
+      background: none;
+      font-family: "Kalam";
+      padding: 0.1rem 0.5rem;
+    }
+    button:hover{
+        background: red;
+    }
+  }
+  .col-8 {
+    h4 {
+      font-family: "Kalam";
+      margin-top: 0.25rem;
+      word-wrap: break-word;
+      line-break: auto;
+    }
+  }
+}
+
+
+@media (max-width:394px) {
+    #Followd{
+        .col-2{
+            img{
+                width: 1.3rem!important;
+            }
+            button{
+                padding: .1rem .2rem;
+                font-size: .9rem;
+            }
+        }
+        .col-8{
+            width: 55%!important;
+            h4{
+                font-size: 1rem!important;
+            }
+        }
+    }    
+}

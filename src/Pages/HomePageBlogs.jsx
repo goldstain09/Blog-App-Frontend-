@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import BlogCard from "../Components/BlogCard";
-import CategoryHeader from "../Components/CategoryHeader";
 import "./SCSS/HomePageBlog.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -64,7 +63,6 @@ export default function HomePageBlog() {
   }, [postCommentResponse]);
   return (
     <>
-      <CategoryHeader />
       <div className="container-fluid HomePageBlogSection">
         <div className="container">
           <div className="row d-flex">

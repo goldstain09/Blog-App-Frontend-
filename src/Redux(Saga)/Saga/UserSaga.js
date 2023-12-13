@@ -6,10 +6,12 @@ import {
   CREATE_USER_ACCOUNT_START,
   DELETE_USER_ACCOUNT_START,
   EDIT_USER_ACCOUNT_START,
+  FOLLOW_BLOGGER_START,
   FORGET_CHANGE_PASSWORD_START,
   GET_BLOGGER_DATA_START,
   LOGIN_USER_ACCOUNT_START,
   REMOVE_USER_EMAIL_START,
+  UNFOLLOW_BLOGGER_START,
   VERIFY_USER_AUTH_START,
 } from "../Constants/UserConstants";
 import {
@@ -19,10 +21,12 @@ import {
   createUserAccount,
   deleteUserAccount,
   editUserAccount,
+  followBlogger,
   forgetChangePassword,
   getBloggerData,
   loginUserAccount,
   removeUserEmail,
+  unfollowBlogger,
   verifyUserAuth,
 } from "../Service/UserService";
 import {
@@ -39,6 +43,7 @@ import {
   deleteUserAccountSuccess,
   editUserAccountError,
   editUserAccountSuccess,
+  followBloggerError,
   forgetChangePasswordError,
   forgetChangePasswordSuccess,
   getBloggerDataError,
@@ -48,6 +53,7 @@ import {
   notAuthorised,
   removeUserEmailError,
   removeUserEmailSuccess,
+  unfollowBloggerError,
   verifyUserAuthError,
   verifyUserAuthSuccess,
 } from "../Actions/UserAction";
@@ -353,6 +359,56 @@ function* getBloggerDataSaga({ payload }) {
   }
 }
 
+function* followBloggerSaga({ payload }) {
+  try {
+    const Response = yield followBlogger(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("followed")) {
+        switch (Response.followed) {
+          case true:
+            yield put(authorised(true));
+            yield put(getBloggerDataSuccess(Response.bloggerData));
+            yield put(verifyUserAuthSuccess(Response.userData));
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
+      }
+    }
+  } catch (error) {
+    followBloggerError(error.message);
+  }
+}
+
+function* unfollowBloggerSaga({ payload }) {
+  try {
+    const Response = yield unfollowBlogger(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("unfollowed")) {
+        switch (Response.unfollowed) {
+          case true:
+            yield put(authorised(true));
+            yield put(getBloggerDataSuccess(Response.bloggerData));
+            yield put(verifyUserAuthSuccess(Response.userData));
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
+      }
+    }
+  } catch (error) {
+    unfollowBloggerError(error.message);
+  }
+}
+
 function* userSaga() {
   yield takeLatest(CREATE_USER_ACCOUNT_START, createUserSaga);
   yield takeLatest(VERIFY_USER_AUTH_START, verifyUserAuthSaga);
@@ -368,6 +424,9 @@ function* userSaga() {
   );
   yield takeLatest(DELETE_USER_ACCOUNT_START, deleteUserAccountSaga);
   yield takeLatest(GET_BLOGGER_DATA_START, getBloggerDataSaga);
+
+  yield takeLatest(FOLLOW_BLOGGER_START, followBloggerSaga);
+  yield takeLatest(UNFOLLOW_BLOGGER_START, unfollowBloggerSaga);
 }
 
 export { userSaga };

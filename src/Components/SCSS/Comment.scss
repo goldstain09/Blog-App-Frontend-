@@ -1,4 +1,4 @@
-.delete {
+.delete___ {
   text-align: center;
   .col-12 {
     button {
@@ -45,22 +45,14 @@
       font-weight: 200;
     }
   }
-  .likeBtn {
-    button {
-      border: none;
-      background: none;
-      color: white;
-      .bi-suit-heart-fill {
-        color: red;
-      }
-    }
-  }
+
   .col-12 {
     padding: 0.3rem 0.3rem;
     p {
       color: white;
       font-size: 0.8rem;
       width: 90%;
+      word-wrap: break-word;
     }
   }
 }
@@ -79,11 +71,7 @@
         color: white;
       }
     }
-    .likeBtn {
-      button {
-        border: none;
-      }
-    }
+ 
     .col-12 {
       p {
         font-size: 0.8rem;
@@ -95,6 +83,7 @@
 @media (max-width: 992px) {
   .comment {
     margin-top: 2rem;
+    width: 100%!important;
     .commenterDp {
       width: 2rem;
       margin-right: 1rem;
@@ -103,19 +92,14 @@
       }
     }
     .commenterName {
+      width: 70%!important;
       h5 {
-        margin-top: 0.25rem;
+        margin-top: -1rem;
         color: white;
       }
     }
-    .likeBtn {
-      width: 10%;
-      text-align: end !important;
-      button {
-        border: none;
-      }
-    }
     .col-12 {
+      margin: 0;
       p {
         font-size: 0.8rem;
       }
@@ -133,27 +117,35 @@
 @media (max-width: 394px) {
   .comment {
     margin-top: 2rem;
+    width: 100%!important;
     .commenterDp {
-      width: 1.5rem;
+      width: 1.5rem!important;
       margin-right: .2rem;
       img {
         width: 1.3rem;
       }
     }
     .commenterName {
+      width: 78%!important;
       h5 {
-        margin-top: 0.25rem;
-        color: white;
+        position: relative;
+        top: -.9rem;
+        margin-top: 0rem;
       }
-    }
-    .likeBtn {
-      width: 10%;
     }
     .col-12 {
       p {
         margin-left: 0.5rem;
+        position: relative;
+        top: -3rem;
         font-size: 0.9rem;
       }
+    }
+  }
+  .delete___{
+    .deleteBtn{
+      position: relative;
+      top: -4rem!important;
     }
   }
 }

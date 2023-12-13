@@ -18,6 +18,8 @@ import {
   EDIT_USER_ACCOUNT_ERROR,
   EDIT_USER_ACCOUNT_START,
   EDIT_USER_ACCOUNT_SUCCESS,
+  FOLLOW_BLOGGER_ERROR,
+  FOLLOW_BLOGGER_START,
   FORGET_CHANGE_PASSWORD_ERROR,
   FORGET_CHANGE_PASSWORD_START,
   FORGET_CHANGE_PASSWORD_SUCCESS,
@@ -31,6 +33,8 @@ import {
   REMOVE_USER_EMAIL_ERROR,
   REMOVE_USER_EMAIL_START,
   REMOVE_USER_EMAIL_SUCCESS,
+  UNFOLLOW_BLOGGER_ERROR,
+  UNFOLLOW_BLOGGER_START,
   VERIFY_USER_AUTH_ERROR,
   VERIFY_USER_AUTH_START,
   VERIFY_USER_AUTH_SUCCESS,
@@ -62,6 +66,11 @@ const initialState = {
   bloggerDataLoading: false,
   bloggerDataError: "",
   bloggerDataResponse: {},
+
+  followBloggerLoading: false,
+  followBloggerError: "",
+  unfollowBloggerLoading: false,
+  unfollowBloggerError: "",
 
   authorised: { authorised: false },
 };
@@ -312,6 +321,33 @@ const userReducer = (state = initialState, action) => {
         bloggerDataLoading: false,
       };
 
+    // follow blogger
+    case FOLLOW_BLOGGER_START:
+      return {
+        ...state,
+        followBloggerError: "",
+        followBloggerLoading: true,
+      };
+    case FOLLOW_BLOGGER_ERROR:
+      return {
+        ...state,
+        followBloggerError: action.payload,
+        followBloggerLoading: false,
+      };
+
+    // unfollow blogger
+    case UNFOLLOW_BLOGGER_START:
+      return {
+        ...state,
+        unfollowBloggerError: "",
+        unfollowBloggerLoading: true,
+      };
+    case UNFOLLOW_BLOGGER_ERROR:
+      return {
+        ...state,
+        unfollowBloggerError: action.payload,
+        unfollowBloggerLoading: false,
+      };
     default:
       return state;
   }

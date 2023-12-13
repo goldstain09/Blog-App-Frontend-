@@ -110,7 +110,7 @@ export default function BlogCard({ data , setAllData}) {
             className="col-9 align-content-center"
             onClick={() => navigate(`/bloggerProfile/${data.userId}`)}
           >
-            <h5 title="Name">{data.userName}</h5>
+            <h5 title={data.userName}>{data.userName.split("").slice(0, 15).join("")}</h5>
           </div>
           <div className="col-1 dropdown">
             <button
@@ -124,17 +124,7 @@ export default function BlogCard({ data , setAllData}) {
             <ul className="dropdown-menu" aria-labelledby="dropdownCardMenu">
               <li>
                 <a className="dropdown-item" href="#">
-                  Action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Something else here
+                  Report
                 </a>
               </li>
             </ul>
@@ -240,8 +230,8 @@ export default function BlogCard({ data , setAllData}) {
               )}
             </div>
           </div>
-          <h5 className="card-title">{data.postTitle}</h5>
-          <p className="card-text">{data.postCaption}</p>
+          <h5 className="card-title">{data.postTitle.split(" ").slice(0, 3).join(" ")}...</h5>
+          <p className="card-text">{data.postCaption.split(" ").slice(0, 12).join(" ")}...</p>
           <Link to={`/myBlog/${data._id}`} className="btn btn-primary">
             Read
           </Link>
