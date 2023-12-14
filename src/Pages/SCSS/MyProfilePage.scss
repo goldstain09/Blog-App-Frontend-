@@ -107,8 +107,8 @@ $main: red;
         img {
           width: 120%;
           height: 100%;
-          margin-top: -10%;
-          margin-left: -20%;
+          margin-top: 0%;
+          margin-left: -10%;
         }
         > div {
           display: none;
@@ -122,9 +122,10 @@ $main: red;
         }
       }
       .col-xl-3:hover {
+        border: 1px solid white;
         transition: all 0.3s;
         > div {
-          display: block;
+          display: block !important;
         }
         img {
           transition: all 0.3s;
@@ -177,8 +178,8 @@ $main: red;
           img {
             width: 120%;
             height: 100%;
-            margin-top: -10%;
-            margin-left: -20%;
+            margin-top: 0%;
+            margin-left: -10%;
           }
           > div {
             top: -50% !important;
@@ -251,8 +252,8 @@ $main: red;
           img {
             width: 120%;
             height: 100%;
-            margin-top: -10%;
-            margin-left: -20%;
+            margin-top: -0%;
+            margin-left: -10%;
           }
           > div {
             top: -50% !important;
@@ -326,8 +327,8 @@ $main: red;
           img {
             width: 120%;
             height: 100%;
-            margin-top: -10%;
-            margin-left: -20%;
+            margin-top: -0%;
+            margin-left: -10%;
           }
           > div {
             top: -50% !important;
@@ -413,8 +414,8 @@ $main: red;
           img {
             width: 120%;
             height: 100%;
-            margin-top: -10%;
-            margin-left: -20%;
+            margin-top: 0%;
+            margin-left: -10%;
           }
           > div {
             top: -60% !important;
@@ -497,8 +498,8 @@ $main: red;
           img {
             width: 120%;
             height: 100%;
-            margin-top: -10%;
-            margin-left: -20%;
+            margin-top: 0%;
+            margin-left: -10%;
           }
           > div {
             top: -80% !important;

@@ -217,3 +217,17 @@ export const unfollowBlogger = async (data) => {
     return response.data;
   } catch (error) {}
 };
+
+export const getAllBloggersData = async (token) => {
+  try {
+    const response = await axios.get(
+      "http://localhost:8080/v1/UserApi/getAllBloggersData",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {}
+};

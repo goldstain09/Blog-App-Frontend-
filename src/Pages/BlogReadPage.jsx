@@ -10,6 +10,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import {
   getPostDataStart,
+  getPostDataSuccess,
   likePostStart,
   likePostSuccess,
   postCommentStart,
@@ -78,8 +79,12 @@ export default function BlogReadPage() {
   }, [UserDataFromResponse]);
   // -----------------------------------------------------------------------------
 
+  // if post is deleted then not found page will be shown to user
+  const [postDoesntExist, setPostDoesntExist] = useState(false);
+
   // to get post data!
   useEffect(() => {
+    setPostData({});
     const jwToken = JSON.parse(localStorage.getItem("blogApp"));
     if (jwToken) {
       dispatch(
@@ -90,14 +95,18 @@ export default function BlogReadPage() {
   // handling response
   const [postData, setPostData] = useState({});
   useEffect(() => {
-    if (getPostDataResponse.hasOwnProperty("userName")) {
-      setPostData(getPostDataResponse);
-      setLikedCount(getPostDataResponse.postLikes.length);
+    if (getPostDataResponse) {
+      if (getPostDataResponse.hasOwnProperty("userName")) {
+        setPostData(getPostDataResponse);
+        setLikedCount(getPostDataResponse.postLikes.length);
+        dispatch(getPostDataSuccess({}));
+      }
+    } else {
+      setPostDoesntExist(true);
     }
   }, [getPostDataResponse]);
 
   // for setting up like and save !!!
-
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
       if (UserDataFromResponse.likedPost.length > 0) {
@@ -189,6 +198,7 @@ export default function BlogReadPage() {
       dispatch(postCommentSuccess({}));
     }
   }, [postCommentResponse]);
+
   return (
     <>
       <Header />
@@ -237,7 +247,9 @@ export default function BlogReadPage() {
                       navigate(`/bloggerProfile/${postData.userId}`)
                     }
                   >
-                    <h4 className="h4">{postData.userName.split("").slice(0, 15).join("")}</h4>
+                    <h4 className="h4">
+                      {postData.userName.split("").slice(0, 15).join("")}
+                    </h4>
                   </div>
                   <div className="col-1 btnn">
                     <button>
@@ -279,10 +291,10 @@ export default function BlogReadPage() {
                           };
                           setLiked(true);
                           dispatch(unLikePostStart(finalData));
-                          setLikedCount(likedCount-1)
+                          setLikedCount(likedCount - 1);
                         }}
                       >
-                        <i className="bi bi-suit-heart-fill"></i> {" "}
+                        <i className="bi bi-suit-heart-fill"></i>{" "}
                         {likedCount > 0 ? `${likedCount}` : ""}
                       </button>
                     ) : (
@@ -298,11 +310,11 @@ export default function BlogReadPage() {
                           };
                           setLiked(true);
                           dispatch(likePostStart(finalData));
-                          setLikedCount(likedCount+1);
+                          setLikedCount(likedCount + 1);
                         }}
                       >
-                        <i className="bi bi-suit-heart"></i> {" "}
-                        {likedCount>0 ? `${likedCount}` : ""}
+                        <i className="bi bi-suit-heart"></i>{" "}
+                        {likedCount > 0 ? `${likedCount}` : ""}
                       </button>
                     )}
                   </div>
@@ -361,7 +373,9 @@ export default function BlogReadPage() {
                     )}
                   </div>
                   <div className="col-3">
-                    <button className="btn btn-outline-danger" onClick={post}>Post</button>
+                    <button className="btn btn-outline-danger" onClick={post}>
+                      Post
+                    </button>
                   </div>
                 </div>
 
@@ -382,7 +396,15 @@ export default function BlogReadPage() {
             </div>
           </>
         ) : (
-          <></>
+          <>
+            {postDoesntExist && (
+              <>
+                <h1 className="text-center h1">
+                  Post doesn't exist or deleted!!
+                </h1>
+              </>
+            )}
+          </>
         )}
       </div>
       <Footer />

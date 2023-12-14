@@ -8,6 +8,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import {
   getPostDataStart,
+  getPostDataSuccess,
   likePostStart,
   likePostSuccess,
   postCommentStart,
@@ -77,6 +78,7 @@ export default function MyBlog() {
 
   // to get post data!
   useEffect(() => {
+    setPostData({});
     const jwToken = JSON.parse(localStorage.getItem("blogApp"));
     if (jwToken) {
       dispatch(
@@ -87,9 +89,12 @@ export default function MyBlog() {
   // handling response
   const [postData, setPostData] = useState({});
   useEffect(() => {
-    if (getPostDataResponse.hasOwnProperty("userName")) {
-      setPostData(getPostDataResponse);
-      setLikedCount(getPostDataResponse.postLikes.length);
+    if (getPostDataResponse) {
+      if (getPostDataResponse.hasOwnProperty("userName")) {
+        setPostData(getPostDataResponse);
+        setLikedCount(getPostDataResponse.postLikes.length);
+        dispatch(getPostDataSuccess({}));
+      }
     }
   }, [getPostDataResponse]);
 
@@ -229,7 +234,9 @@ export default function MyBlog() {
                     className=" col-8 name"
                     onClick={() => navigate(`/myProfile`)}
                   >
-                    <h4 className="h4">{postData.userName.split("").slice(0, 15).join("")}</h4>
+                    <h4 className="h4">
+                      {postData.userName.split("").slice(0, 15).join("")}
+                    </h4>
                   </div>
                   <div className="col-1 btnn">
                     <button
@@ -276,7 +283,7 @@ export default function MyBlog() {
                           };
                           setLiked(true);
                           dispatch(unLikePostStart(finalData));
-                          setLikedCount(likedCount-1)
+                          setLikedCount(likedCount - 1);
                         }}
                       >
                         <i className="bi bi-suit-heart-fill"></i>{" "}
@@ -295,7 +302,7 @@ export default function MyBlog() {
                           };
                           setLiked(true);
                           dispatch(likePostStart(finalData));
-                          setLikedCount(likedCount+1)
+                          setLikedCount(likedCount + 1);
                         }}
                       >
                         <i className="bi bi-suit-heart"></i>{" "}
@@ -358,14 +365,21 @@ export default function MyBlog() {
                     )}
                   </div>
                   <div className="col-3">
-                    <button className="btn btn-outline-danger" onClick={post}>Post</button>
+                    <button className="btn btn-outline-danger" onClick={post}>
+                      Post
+                    </button>
                   </div>
                 </div>
 
                 <h4 className="h4">Comments</h4>
                 {postData.postComments.length > 0 ? (
                   postData.postComments.map((item, index) => (
-                    <Comment data={item} key={index} postId={params.postId} myBlog={true} />
+                    <Comment
+                      data={item}
+                      key={index}
+                      postId={params.postId}
+                      myBlog={true}
+                    />
                   ))
                 ) : (
                   <>No comments</>
@@ -374,7 +388,9 @@ export default function MyBlog() {
             </div>
           </>
         ) : (
-          <></>
+          <>
+            <h1>Deleted</h1>
+          </>
         )}
       </div>
       <Footer />

@@ -118,11 +118,13 @@ export default function Header() {
                 </Link>
               )}
               {UserDataFromResponse.hasOwnProperty("profilePicture") ? (
-                <button className="btn btn-primary">
+                <button className="btn btn-primary" onClick={()=> navigate('/myProfile')}>
                   <img src={UserDataFromResponse.profilePicture} alt="" />
                 </button>
               ) : (
-                <button>Login</button>
+                <button className="btn btn-primary text-danger loginbtn" style={{color:'red'}}>
+                  <i class="bi bi-box-arrow-in-right"></i>
+                </button>
               )}
             </div>
           </div>

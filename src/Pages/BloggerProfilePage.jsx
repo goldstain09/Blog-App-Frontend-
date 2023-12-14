@@ -9,8 +9,6 @@ import {
   unfollowBloggerStart,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
-import FollowersModal from "../Components/MyFollowersModal";
-import FollowingsModal from "../Components/MyFollowingsModal";
 import { getAllPostsDataStart } from "../Redux(Saga)/Actions/PostAction";
 import BloggerFollowersModal from "../Components/BloggerFollowersModal";
 import BloggerFollowingsModal from "../Components/BloggerFollowingsModal";
@@ -21,9 +19,6 @@ export default function BloggerProfilePage() {
   const params = useParams();
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
-  );
-  const getAllPostsDataResponse = useSelector(
-    (state) => state.postReducer.getAllPostsDataResponse
   );
   const bloggerDataResponse = useSelector(
     (state) => state.userReducer.bloggerDataResponse
@@ -41,10 +36,6 @@ export default function BloggerProfilePage() {
           token: UserDataFromResponse.jwToken,
         })
       );
-      const allBloggerPosts = getAllPostsDataResponse.filter(
-        (item) => item.userId === params.bloggerId
-      );
-      setAllBloggerPosts(allBloggerPosts);
     } else {
       const jwToken = JSON.parse(localStorage.getItem("blogApp"));
       if (jwToken) {
@@ -75,7 +66,6 @@ export default function BloggerProfilePage() {
   const [bloggerData, setBloggerData] = useState({});
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
-  const [allBloggerPosts, setAllBloggerPosts] = useState([]);
   const [followingMe, setFollowingMe] = useState(false); // if user followed that blogger then it is true
   useEffect(() => {
     if (bloggerDataResponse.hasOwnProperty("userName")) {
@@ -191,7 +181,7 @@ export default function BloggerProfilePage() {
                 </div>
               </div>
             </div>
-            {}
+
             <div className="row">
               <ul className="nav justify-content-center postetcNavbar">
                 <li className="nav-item">
@@ -204,8 +194,9 @@ export default function BloggerProfilePage() {
 
             <div className="container PostContainer">
               <div className="row">
-                {allBloggerPosts.length > 0 ? (
-                  allBloggerPosts.map((item, index) => (
+                {bloggerData.hasOwnProperty("myPosts") &&
+                bloggerData.myPosts.length > 0 ? (
+                  bloggerData.myPosts.map((item, index) => (
                     <ProfilePostCard key={index} data={item} />
                   ))
                 ) : (

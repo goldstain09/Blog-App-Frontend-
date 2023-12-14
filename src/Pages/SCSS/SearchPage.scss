@@ -1,0 +1,93 @@
+.searchPage {
+  padding: 5rem 0;
+  .container {
+    .row {
+        text-align: center;
+      .col-12 {
+        input {
+          width: 75%;
+          padding: 0.5rem 1rem;
+          border: none;
+          outline: none;
+          box-shadow: none;
+          background: none;
+          border-bottom: 1px solid red;
+        }
+      }
+    }
+    .Bloggers {
+      .col-xl-3 {
+        border-bottom: 1px solid red;
+        padding: 2rem;
+        .row {
+          .col-12 {
+            text-align: center;
+            img {
+              border-radius: 500px;
+              width: 50%;
+            }
+            h3 {
+              margin-top: 1.5rem;
+            }
+            button {
+              outline: none;
+              border: 1px solid red;
+              padding: 0.1rem 0.4rem;
+              margin-top: 1rem;
+              background: none;
+              box-shadow: none;
+            }
+            button:hover {
+              background: red;
+              transition: all 0.3s;
+            }
+          }
+        }
+      }
+    }
+    .Categories {
+      .col-xl-3 {
+        text-align: center;
+        font-size: 2rem;
+        margin-top: 1rem;
+        i {
+          color: aqua;
+        }
+
+      }
+    }
+    .Tags {
+      .col-xl-3 {
+        text-align: center;
+        font-size: 2rem;
+        margin-top: 1rem;
+        i {
+          color: aqua;
+        }
+
+      }
+    }
+    .Blogs{
+        .col-xl-3{
+            img{
+                width: 100%;
+            }
+        }
+    }
+    .nav{
+        .col-xl-3{
+  font-family: "Edu TAS Beginner", cursive;
+  font-size: 1.5rem;
+
+        }
+        .col-xl-3:hover{
+            color: red;
+        }
+    }
+  }
+}
+// font-family: 'Dancing Script', cursive;
+// font-family: 'Raleway', sans-serif;
+// font-family: 'Griffy';
+// font-family: 'Maven Pro';
+// font-family: 'Kalam';

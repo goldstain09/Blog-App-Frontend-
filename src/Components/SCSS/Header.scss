@@ -30,16 +30,16 @@ $main: red;
           filter: drop-shadow(3px 3px 5px rgb(255, 255, 255));
         }
       }
-      .nav{
-        li{
-          a{
+      .nav {
+        li {
+          a {
             font-size: 1.5rem;
           }
         }
       }
       div {
         .searchbtn {
-          background: none!important;
+          background: none !important;
           border-radius: 0;
           border: none;
           outline: none;
@@ -53,11 +53,10 @@ $main: red;
           font-size: 900 !important;
           border-radius: 0;
           color: white;
-          border: none!important;
-
+          border: none !important;
         }
         button:hover {
-          background:none;
+          background: none;
         }
       }
     }
@@ -95,7 +94,7 @@ $main: red;
           // }
           .btn-danger {
             color: white;
-            border: none!important;
+            border: none !important;
             background: $main;
           }
         }
@@ -130,15 +129,15 @@ $main: red;
             box-shadow: none;
           }
         }
-        .col-8{
-          .btn-primary{
+        .col-8 {
+          .btn-primary {
             background: none;
             margin-top: 0rem;
             border: none;
             font-size: 2rem;
             color: white !important;
             box-shadow: none;
-            img{
+            img {
               width: 2rem;
               border-radius: 50px;
             }
@@ -163,14 +162,18 @@ $main: red;
             margin-left: 2rem;
           }
         }
-        .col-8{
-          .btn-primary{
-            font-size: 1.4rem!important;
+        .col-8 {
+          .btn-primary {
+            font-size: 1.4rem !important;
             box-shadow: none;
-            img{
+            img {
               width: 1.6rem;
               border-radius: 50px;
             }
+          }
+          .loginbtn {
+            color: red !important;
+            font-size: 1.8rem !important;
           }
         }
       }

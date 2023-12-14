@@ -8,6 +8,7 @@ import {
   EDIT_USER_ACCOUNT_START,
   FOLLOW_BLOGGER_START,
   FORGET_CHANGE_PASSWORD_START,
+  GET_ALL_BLOGGERS_DATA_START,
   GET_BLOGGER_DATA_START,
   LOGIN_USER_ACCOUNT_START,
   REMOVE_USER_EMAIL_START,
@@ -23,6 +24,7 @@ import {
   editUserAccount,
   followBlogger,
   forgetChangePassword,
+  getAllBloggersData,
   getBloggerData,
   loginUserAccount,
   removeUserEmail,
@@ -46,6 +48,8 @@ import {
   followBloggerError,
   forgetChangePasswordError,
   forgetChangePasswordSuccess,
+  getAllBloggersDataError,
+  getAllBloggersDataSuccess,
   getBloggerDataError,
   getBloggerDataSuccess,
   loginUserAccountError,
@@ -409,6 +413,30 @@ function* unfollowBloggerSaga({ payload }) {
   }
 }
 
+function* getAllBloggersDataSaga({ payload }) {
+  try {
+    const Response = yield getAllBloggersData(payload);
+    if (Response.hasOwnProperty("Unauthorized")) {
+      yield put(notAuthorised(false));
+    } else {
+      if (Response.hasOwnProperty("success")) {
+        switch (Response.success) {
+          case true:
+            yield put(authorised(true));
+            yield put(getAllBloggersDataSuccess(Response.bloggersList));
+            break;
+          case false:
+            throw Error(Response.errorMessage);
+        }
+      } else {
+        throw Error("Something went wrong!");
+      }
+    }
+  } catch (error) {
+    yield put(getAllBloggersDataError(error.message));
+  }
+}
+
 function* userSaga() {
   yield takeLatest(CREATE_USER_ACCOUNT_START, createUserSaga);
   yield takeLatest(VERIFY_USER_AUTH_START, verifyUserAuthSaga);
@@ -427,6 +455,8 @@ function* userSaga() {
 
   yield takeLatest(FOLLOW_BLOGGER_START, followBloggerSaga);
   yield takeLatest(UNFOLLOW_BLOGGER_START, unfollowBloggerSaga);
+
+  yield takeLatest(GET_ALL_BLOGGERS_DATA_START, getAllBloggersDataSaga);
 }
 
 export { userSaga };

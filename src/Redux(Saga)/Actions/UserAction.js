@@ -27,6 +27,9 @@ import {
   FORGET_CHANGE_PASSWORD_ERROR,
   FORGET_CHANGE_PASSWORD_START,
   FORGET_CHANGE_PASSWORD_SUCCESS,
+  GET_ALL_BLOGGERS_DATA_ERROR,
+  GET_ALL_BLOGGERS_DATA_START,
+  GET_ALL_BLOGGERS_DATA_SUCCESS,
   GET_BLOGGER_DATA_ERROR,
   GET_BLOGGER_DATA_START,
   GET_BLOGGER_DATA_SUCCESS,
@@ -226,5 +229,19 @@ export const unfollowBloggerStart = (data) => ({
 });
 export const unfollowBloggerError = (data) => ({
   type: UNFOLLOW_BLOGGER_ERROR,
+  payload: data,
+});
+
+// to get all bloggers data
+export const getAllBloggersDataStart = (data) => ({
+  type: GET_ALL_BLOGGERS_DATA_START,
+  payload: data,
+});
+export const getAllBloggersDataSuccess = (data) => ({
+  type: GET_ALL_BLOGGERS_DATA_SUCCESS,
+  payload: data,
+});
+export const getAllBloggersDataError = (data) => ({
+  type: GET_ALL_BLOGGERS_DATA_ERROR,
   payload: data,
 });

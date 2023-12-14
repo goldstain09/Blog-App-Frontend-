@@ -18,9 +18,6 @@ export default function MyProfilePage() {
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
-  const getAllPostsDataResponse = useSelector(
-    (state) => state.postReducer.getAllPostsDataResponse
-  );
   // setting user data
   const [datashow, setDatashow] = useState(false);
   const [userData, setUserData] = useState({});
@@ -36,10 +33,6 @@ export default function MyProfilePage() {
 
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
-      const allMyPosts = getAllPostsDataResponse.filter(
-        (item) => item.userId === UserDataFromResponse._id
-      );
-      setAllMyPosts(allMyPosts);
       setUserData(UserDataFromResponse);
       localStorage.setItem(
         "blogApp",
@@ -51,6 +44,7 @@ export default function MyProfilePage() {
       setLikedPosts(UserDataFromResponse.likedPost);
       setSavedPosts(UserDataFromResponse.savedPost);
       setDatashow(true);
+      setWhatToShow("myPosts");
     } else {
       const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
       if (tokenInfo) {
@@ -64,13 +58,12 @@ export default function MyProfilePage() {
     }
   }, [UserDataFromResponse]);
   // -----------------------------------------------------------------------------
-  const [allMyPosts, setAllMyPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const [savedPosts, setSavedPosts] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
   // for profile nav [NavLink is for routes butt i want small nav so that's why i did this!];
-  const [WhatToShow, setWhatToShow] = useState("myPosts");
+  const [WhatToShow, setWhatToShow] = useState("Loading");
   useEffect(() => {
     const myPosts = document.getElementById("myPosts");
     const Saved = document.getElementById("Saved");
@@ -248,16 +241,17 @@ export default function MyProfilePage() {
           </ul>
         </div>
 
+        {WhatToShow === "Loading" && (
+          <div className="container PostContainer">
+            <div className="row">Loading-------------------------------</div>
+          </div>
+        )}
         {WhatToShow === "myPosts" && (
           <div className="container PostContainer">
             <div className="row">
-              {allMyPosts.length > 0 ? (
-                allMyPosts.map((item, index) => (
-                  <ProfilePostCard key={index} data={item} />
-                ))
-              ) : UserDataFromResponse.hasOwnProperty("jwtoken") &&
-                UserDataFromResponse.myPosts.length > 0 ? (
-                UserDataFromResponse.myPosts.map((item, index) => (
+              {userData.hasOwnProperty("jwToken") &&
+              userData.myPosts.length > 0 ? (
+                userData.myPosts.map((item, index) => (
                   <ProfilePostCard key={index} data={item} />
                 ))
               ) : (

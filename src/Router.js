@@ -12,6 +12,7 @@ import EditProfilePage from "./Pages/EditProfilePage";
 import AddPostPage from "./Pages/AddPostPage";
 import MyBlog from "./Pages/MyBlog";
 import EditPostPage from "./Pages/EditPostPage";
+import SearchPage from "./Pages/SearchPage";
 
 export default function Router() {
   return (
@@ -31,6 +32,7 @@ export default function Router() {
           <Route path="/blog/:postId" element={<BlogReadPage />} />
           <Route path="/tagPage" element={<TagsPage />} />
           <Route path="/categoryPage" element={<CategoryPage />} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </BrowserRouter>
     </>

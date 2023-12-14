@@ -23,6 +23,9 @@ import {
   FORGET_CHANGE_PASSWORD_ERROR,
   FORGET_CHANGE_PASSWORD_START,
   FORGET_CHANGE_PASSWORD_SUCCESS,
+  GET_ALL_BLOGGERS_DATA_ERROR,
+  GET_ALL_BLOGGERS_DATA_START,
+  GET_ALL_BLOGGERS_DATA_SUCCESS,
   GET_BLOGGER_DATA_ERROR,
   GET_BLOGGER_DATA_START,
   GET_BLOGGER_DATA_SUCCESS,
@@ -66,6 +69,10 @@ const initialState = {
   bloggerDataLoading: false,
   bloggerDataError: "",
   bloggerDataResponse: {},
+
+  getAllBloggersDataLoading: false,
+  getAllBloggersDataError: "",
+  getAllBloggersDataResponse: {},
 
   followBloggerLoading: false,
   followBloggerError: "",
@@ -348,6 +355,28 @@ const userReducer = (state = initialState, action) => {
         unfollowBloggerError: action.payload,
         unfollowBloggerLoading: false,
       };
+
+    // all bloggers data
+    case GET_ALL_BLOGGERS_DATA_START:
+      return {
+        ...state,
+        getAllBloggersDataError: "",
+        getAllBloggersDataLoading: true,
+      };
+    case GET_ALL_BLOGGERS_DATA_SUCCESS:
+      return {
+        ...state,
+        getAllBloggersDataError: "",
+        getAllBloggersDataLoading: false,
+        getAllBloggersDataResponse: action.payload,
+      };
+    case GET_ALL_BLOGGERS_DATA_ERROR:
+      return {
+        ...state,
+        getAllBloggersDataError: action.payload,
+        getAllBloggersDataLoading: false,
+      };
+
     default:
       return state;
   }

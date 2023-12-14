@@ -144,11 +144,12 @@ function* deleteBlogSaga({ payload }) {
       yield put(notAuthorised(false));
     } else {
       if (Response.hasOwnProperty("postDeleted")) {
+        console.log(Response.userData);
         switch (Response.postDeleted) {
           case true:
             yield put(authorised(true));
-            yield put(deleteBlogSuccess({ postDeleted: true }));
             yield put(verifyUserAuthSuccess(Response.userData));
+            yield put(deleteBlogSuccess({ postDeleted: true }));
             yield localStorage.setItem(
               "blogApp",
               JSON.stringify({
