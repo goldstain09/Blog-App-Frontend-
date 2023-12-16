@@ -37,7 +37,6 @@ export default function Home() {
         if (jwToken.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(jwToken.token));
           dispatch(getAllBloggersDataStart(jwToken.token));
-
         }
       } else {
         setNottAuthorised(true);

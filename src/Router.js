@@ -30,8 +30,8 @@ export default function Router() {
           <Route path="/editPost" element={<AddPostPage />} />
           <Route path="/bloggerProfile/:bloggerId" element={<BloggerProfilePage />} />
           <Route path="/blog/:postId" element={<BlogReadPage />} />
-          <Route path="/tagPage" element={<TagsPage />} />
-          <Route path="/categoryPage" element={<CategoryPage />} />
+          <Route path="/tagPage/:tag" element={<TagsPage />} />
+          <Route path="/categoryPage/:category" element={<CategoryPage />} />
           <Route path="/search" element={<SearchPage />} />
         </Routes>
       </BrowserRouter>

@@ -4,6 +4,7 @@ import ProfilePostCard from "../Components/ProfilePostCard";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  getAllBloggersDataStart,
   notAuthorised,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
@@ -51,6 +52,7 @@ export default function MyProfilePage() {
         if (tokenInfo.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(tokenInfo.token));
           dispatch(getAllPostsDataStart(tokenInfo.token));
+          dispatch(getAllBloggersDataStart(tokenInfo.token));
         }
       } else {
         navigate("/login");

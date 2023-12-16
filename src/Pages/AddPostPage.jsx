@@ -291,7 +291,7 @@ export default function AddPostPage() {
             </div>
             <div className="col-12">
               <label>
-                Give tags related to your blog! [a #hash before a word means
+                Give tags related to your blog! [a space between words means
                 it's a tag]
               </label>
               <input

@@ -197,7 +197,7 @@ export default function MyBlog() {
         className="exitBtn1"
         style={{ position: "absolute", left: "1rem", top: "9rem" }}
       >
-        <Link to={"/myProfile"} className="btn btn-outline-dark text-light">
+        <Link to={"/"} className="btn btn-outline-dark text-light">
           <i class="bi bi-box-arrow-left"></i>
         </Link>
       </div>
@@ -208,7 +208,12 @@ export default function MyBlog() {
               <div className="col col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
                 <div className="row d-flex">
                   <div className="col col-12 ImageContainer">
-                    <h6 className="h4 text-start categoryy">
+                    <h6
+                      className="h4 text-start categoryy"
+                      onClick={() =>
+                        navigate(`/categoryPage/${postData.postCategory}`)
+                      }
+                    >
                       {postData.postCategory}
                     </h6>
                     <h1 className="h1">{postData.postTitle.toUpperCase()}</h1>

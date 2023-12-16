@@ -217,7 +217,12 @@ export default function BlogReadPage() {
               <div className="col col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
                 <div className="row d-flex">
                   <div className="col col-12 ImageContainer">
-                    <h6 className="h4 text-start categoryy">
+                    <h6
+                      className="h4 text-start categoryy"
+                      onClick={() =>
+                        navigate(`/categoryPage/${postData.postCategory}`)
+                      }
+                    >
                       {postData.postCategory}
                     </h6>
                     <h1 className="h1">{postData.postTitle.toUpperCase()}</h1>

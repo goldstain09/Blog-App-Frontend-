@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./SCSS/SearchPage.scss";
-import img from "../Media/Founder.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -87,7 +86,7 @@ export default function SearchPage() {
   const inputChange = (e) => {
     e.preventDefault();
     setSearchInput(e.target.value);
-    if (e.target.value !== "" || e.target.value.length>0) {
+    if (e.target.value !== "" || e.target.value.length > 0) {
       // new values for search
       let newBlogs = blogs.filter(
         (item) =>
@@ -144,7 +143,7 @@ export default function SearchPage() {
             Back
           </Link>
         </div>
-        <form className="container">
+        <form className="container" onSubmit={(e) => e.preventDefault()}>
           <div className="row d-flex">
             <div className="col-12">
               <input
@@ -255,6 +254,9 @@ export default function SearchPage() {
                   <div
                     key={index}
                     className="col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3"
+                    onClick={()=>{
+                      navigate(`/categoryPage/${item}`)
+                    }}
                   >
                     <i className="bi bi-collection"></i> {`${item}`}
                   </div>
@@ -291,6 +293,10 @@ export default function SearchPage() {
                   <div
                     key={index}
                     className="col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 mt-2"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(`/blog/${item._id}`);
+                    }}
                   >
                     <img src={item.postImage} alt="" />
                   </div>
