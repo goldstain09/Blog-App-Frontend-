@@ -90,7 +90,13 @@ export default function PasswordChangeModal() {
         delete UserDataFromResponse.wrongPassword;
       }
     }
-  }, [UserDataFromResponse]);
+  }, [
+    UserDataFromResponse,
+    setSuccessfullyChanged,
+    setFormData,
+    setPassword1,
+    setWrongPassword,
+  ]);
   return (
     <>
       <div

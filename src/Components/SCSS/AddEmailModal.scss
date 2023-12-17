@@ -1,5 +1,6 @@
 .emailModal{
     padding-top: 5rem;
+    color: white!important;
     >.emailInputContainer{
         .col-9{
             ::placeholder{
@@ -11,6 +12,7 @@
                 border-bottom: 1px solid red;
                 padding: .3rem .4rem;         
                 outline: none;
+                color: white;
                 box-shadow: none;
             }
         }
@@ -20,6 +22,7 @@
                 background: none;
                 border: red solid 1px;
                 outline: none;
+                color: white;
                 box-shadow: none;
             }
             button:hover{
@@ -40,11 +43,13 @@
                 padding: .4rem .6rem;
                 outline: none;
                 box-shadow: none;
+                color: white;
             }
             button{
                 margin-top: 2rem;
                 padding: .3rem .6rem;
                 background: none;
+                color: white;
                 border: 1px solid red;
                 outline: none;
                 box-shadow: none;

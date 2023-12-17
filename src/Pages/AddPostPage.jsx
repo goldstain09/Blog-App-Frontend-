@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import "./SCSS/AddPostPage.scss";
 import {
@@ -14,18 +14,18 @@ import {
   postBlogStart,
   postBlogSuccess,
 } from "../Redux(Saga)/Actions/PostAction";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function AddPostPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // reponse of post successfully posted or not!!
-  const postBlogResponse = useSelector(
-    (state) => state.postReducer.postBlogResponse
-  );
+  const { postBlogResponse, postNewBlogLoading, postNewBlogError } =
+    useSelector((state) => state.postReducer);
 
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
+  const { UserDataFromResponse, verifyUserLoading, verifyUserError } =
+    useSelector((state) => state.userReducer);
 
   // this useEffect is for authorization!
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function AddPostPage() {
         navigate("/login");
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, dispatch, navigate]);
   // -----------------------------------------------------------------------------
 
   // blog post form related functions and state-
@@ -135,10 +135,15 @@ export default function AddPostPage() {
         navigate("/myProfile");
       }
     }
-  }, [postBlogResponse]);
+  }, [postBlogResponse, dispatch, navigate]);
 
   return (
     <>
+      <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+        <Link to={"/myProfile"} className="btn btn-outline-dark">
+          Back
+        </Link>
+      </div>
       <div className="container-fluid AddPostContainer">
         <form className="container" onSubmit={post}>
           <div className="row d-flex">
@@ -373,6 +378,11 @@ export default function AddPostPage() {
           </div>
         </form>
       </div>
+      {(verifyUserLoading || postNewBlogLoading) && (
+        <Loading message={"Uploading your blog!"} />
+      )}
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
+      {postNewBlogError !== "" && <Error errorMessage={postNewBlogError} />}
     </>
   );
 }

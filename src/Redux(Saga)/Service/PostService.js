@@ -12,7 +12,9 @@ export const postABlog = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while uploading your post!");
+  }
 };
 
 export const getPostData = async (data) => {
@@ -26,7 +28,9 @@ export const getPostData = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while fetching your post!");
+  }
 };
 
 export const updateBlog = async (data) => {
@@ -41,7 +45,9 @@ export const updateBlog = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while updating your post!");
+  }
 };
 
 export const deleteBlog = async (data) => {
@@ -55,7 +61,9 @@ export const deleteBlog = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while deleting your post!");
+  }
 };
 
 export const getAllPostsData = async (token) => {
@@ -69,7 +77,9 @@ export const getAllPostsData = async (token) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while fetching data!");
+  }
 };
 
 export const likePost = async (data) => {
@@ -84,7 +94,9 @@ export const likePost = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while liking this post!");
+  }
 };
 
 export const unlikePost = async (data) => {
@@ -99,7 +111,9 @@ export const unlikePost = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while unliking this post!");
+  }
 };
 
 export const savePost = async (data) => {
@@ -114,7 +128,9 @@ export const savePost = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while saving this post!");
+  }
 };
 
 export const unsavePost = async (data) => {
@@ -129,9 +145,10 @@ export const unsavePost = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while unsaving this post!");
+  }
 };
-
 
 export const postComment = async (data) => {
   try {
@@ -146,10 +163,9 @@ export const postComment = async (data) => {
     );
     return response.data;
   } catch (error) {
-    
+    throw Error("An error occurred while posting your comment!");
   }
-}
-
+};
 
 export const deleteComment = async (data) => {
   try {
@@ -164,7 +180,6 @@ export const deleteComment = async (data) => {
     );
     return response.data;
   } catch (error) {
-    
+    throw Error("An error occurred while deleting your comment!");
   }
-}
-
+};

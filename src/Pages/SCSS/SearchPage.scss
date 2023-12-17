@@ -7,6 +7,7 @@
         input {
           width: 75%;
           padding: 0.5rem 1rem;
+          color: white;
           border: none;
           outline: none;
           box-shadow: none;
@@ -24,7 +25,8 @@
             text-align: center;
             img {
               border-radius: 500px;
-              width: 50%;
+              width: 8rem;
+              height: 8rem;
             }
             h3 {
               margin-top: 1.5rem;
@@ -34,6 +36,7 @@
               border: 1px solid red;
               padding: 0.1rem 0.4rem;
               margin-top: 1rem;
+              color: white;
               background: none;
               box-shadow: none;
             }

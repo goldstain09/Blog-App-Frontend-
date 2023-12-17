@@ -7,14 +7,21 @@ import {
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function SignupPage() {
   const navigate = useNavigate();
   //dispatch and state selector
   const dispatch = useDispatch();
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
+  const {
+    UserDataFromResponse,
+    createUserLoading,
+    verifyUserLoading,
+    createUserError,
+    verifyUserError,
+  } = useSelector((state) => state.userReducer);
+
   useEffect(() => {
     // it's for if user account was deleted and he is on edit or signup page thenn info from state or store is mandatory to remove!!
     if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
@@ -22,7 +29,7 @@ export default function SignupPage() {
         dispatch(notAuthorised(false));
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, dispatch]);
   // -----------------------------------------------------------------------------
 
   const authorised = useSelector((state) => state.userReducer.authorised);
@@ -33,7 +40,7 @@ export default function SignupPage() {
         navigate("/");
       }
     }
-  }, [authorised]);
+  }, [authorised, navigate]);
   useEffect(() => {
     //if user is already signedUp!
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -46,7 +53,7 @@ export default function SignupPage() {
         }
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, dispatch, navigate]);
   // -----------------------------------------------------------------------------
 
   //initial form data
@@ -83,7 +90,7 @@ export default function SignupPage() {
   // dispatching data
   const createAccount = (e) => {
     e.preventDefault();
-    if (userName !== "" && userName.length < 30 && !userName.includes(' ')) {
+    if (userName !== "" && userName.length < 30 && !userName.includes(" ")) {
       if (Name !== "" && Name.length < 30) {
         if (Password !== "" && (Password.length > 8 || Password.length === 8)) {
           if (password === Password) {
@@ -123,10 +130,21 @@ export default function SignupPage() {
         setUserNameAlreadyInUse(true);
       }
     }
-  }, [UserDataFromResponse]);
+  }, [
+    UserDataFromResponse,
+    setUserNameAlreadyInUse,
+    setFormData,
+    setPassword,
+    navigate,
+  ]);
 
   return (
     <>
+      <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+        <Link to={"/"} className="btn btn-outline-dark">
+          Back
+        </Link>
+      </div>
       <div className="container-fluid signUp">
         <form className="container" onSubmit={createAccount}>
           <h2 className="h2">Create your Blogger Account!</h2>
@@ -224,6 +242,13 @@ export default function SignupPage() {
           </div>
         </form>
       </div>
+
+      {(verifyUserLoading || createUserLoading) && (
+        <Loading message={"Creating your blogger account!"} />
+      )}
+
+      {createUserError !== "" && <Error errorMessage={createUserError} />}
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
     </>
   );
 }

@@ -20,32 +20,34 @@ import {
   unSavePostStart,
   unSavePostSuccess,
 } from "../Redux(Saga)/Actions/PostAction";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function MyBlog() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
-  const getPostDataResponse = useSelector(
-    (state) => state.postReducer.getPostDataResponse
-  );
-  const likePostResponse = useSelector(
-    (state) => state.postReducer.likePostResponse
-  );
-  const unlikePostResponse = useSelector(
-    (state) => state.postReducer.unlikePostResponse
-  );
-  const savePostResponse = useSelector(
-    (state) => state.postReducer.savePostResponse
-  );
-  const unsavePostResponse = useSelector(
-    (state) => state.postReducer.unsavePostResponse
-  );
-  const postCommentResponse = useSelector(
-    (state) => state.postReducer.postCommentResponse
-  );
+  const { UserDataFromResponse, verifyUserLoading, verifyUserError } =
+    useSelector((state) => state.userReducer);
+  const {
+    getPostDataResponse,
+    getPostDataLoading,
+    getPostDataError,
+    updateBlogLoading,
+    updateBlogError,
+    deleteBlogLoading,
+    deleteBlogError,
+    likePostResponse,
+    unlikePostResponse,
+    savePostResponse,
+    unsavePostResponse,
+    postCommentResponse,
+    postCommentLoading,
+    postCommentError,
+    deleteCommentLoading,
+    deleteCommentError,
+  } = useSelector((state) => state.postReducer);
+
   // this useEffect is for authorization!
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -73,9 +75,10 @@ export default function MyBlog() {
         navigate("/login");
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, navigate, dispatch]);
   // -----------------------------------------------------------------------------
 
+  const [postData, setPostData] = useState({});
   // to get post data!
   useEffect(() => {
     setPostData({});
@@ -85,9 +88,34 @@ export default function MyBlog() {
         getPostDataStart({ postId: params.postId, token: jwToken.token })
       );
     }
-  }, [params.postId]);
+  }, [params.postId, setPostData, dispatch]);
+
+  // like or unlike
+  const [liked, setLiked] = useState(false);
+  const [likedCount, setLikedCount] = useState(false);
+  // save or unsave
+  const [saved, setSaved] = useState(false);
+
+  // comments
+  // post a comment
+  const [comment, setComment] = useState("");
+  const [emptyComment, setEmptyComment] = useState(false);
+
+  const post = (e) => {
+    e.preventDefault();
+    if (comment !== "") {
+      const jwToken = JSON.parse(localStorage.getItem("blogApp"));
+      const finalData = {
+        token: jwToken.token,
+        comment: comment,
+        postId: params.postId,
+      };
+      dispatch(postCommentStart(finalData));
+    } else {
+      setEmptyComment(true);
+    }
+  };
   // handling response
-  const [postData, setPostData] = useState({});
   useEffect(() => {
     if (getPostDataResponse) {
       if (getPostDataResponse.hasOwnProperty("userName")) {
@@ -96,7 +124,7 @@ export default function MyBlog() {
         dispatch(getPostDataSuccess({}));
       }
     }
-  }, [getPostDataResponse]);
+  }, [getPostDataResponse, setPostData, setLikedCount, dispatch]);
 
   // for setting up like and save !!!
   useEffect(() => {
@@ -128,7 +156,7 @@ export default function MyBlog() {
         setSaved(false);
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, setSaved, setLiked]);
 
   // handling response
   useEffect(() => {
@@ -138,7 +166,7 @@ export default function MyBlog() {
     }
   }, [likePostResponse]);
   useEffect(() => {
-    if (unlikePostResponse.hasOwnProperty("liked")) {
+    if (unlikePostResponse.hasOwnProperty("unliked")) {
       // setLiked(false);
       dispatch(unLikePostSuccess({}));
     }
@@ -156,32 +184,6 @@ export default function MyBlog() {
     }
   }, [unsavePostResponse]);
 
-  // like or unlike
-  const [liked, setLiked] = useState(false);
-  const [likedCount, setLikedCount] = useState(false);
-  // save or unsave
-  const [saved, setSaved] = useState(false);
-
-  // comments
-  // post a comment
-  const [comment, setComment] = useState("");
-  const [emptyComment, setEmptyComment] = useState(false);
-
-  const post = (e) => {
-    e.preventDefault();
-    if (comment !== "") {
-      const jwToken = JSON.parse(localStorage.getItem("blogApp"));
-      const finalData = {
-        token: jwToken.token,
-        comment: comment,
-        postId: params.postId,
-      };
-      dispatch(postCommentStart(finalData));
-    } else {
-      setEmptyComment(true);
-    }
-  };
-
   // handling response
   useEffect(() => {
     if (postCommentResponse.hasOwnProperty("postComments")) {
@@ -189,7 +191,7 @@ export default function MyBlog() {
       setComment("");
       dispatch(postCommentSuccess({}));
     }
-  }, [postCommentResponse]);
+  }, [postCommentResponse, setPostData, setComment, dispatch]);
   return (
     <>
       <Header />
@@ -198,7 +200,7 @@ export default function MyBlog() {
         style={{ position: "absolute", left: "1rem", top: "9rem" }}
       >
         <Link to={"/"} className="btn btn-outline-dark text-light">
-          <i class="bi bi-box-arrow-left"></i>
+          Back
         </Link>
       </div>
       <div className="container-fluid MyBlogPost">
@@ -387,18 +389,48 @@ export default function MyBlog() {
                     />
                   ))
                 ) : (
-                  <>No comments</>
+                  <>
+                    <h4 className="h4 text-light text-center mt-5 pt-5">
+                      No comments
+                    </h4>
+                  </>
                 )}
               </div>
             </div>
           </>
         ) : (
           <>
-            <h1>Deleted</h1>
+            <div className="container my-5 p-1 postDeleted">
+              <h1 className="text-center h1 text-light">
+                Post not found or may be deleted!
+              </h1>
+            </div>
           </>
         )}
       </div>
       <Footer />
+      {/* {(unsavePostLoading ||
+        savePostLoading ||
+        likePostLoading ||
+        unlikePostLoading) && <Loading message={""} />} */}
+      {(verifyUserLoading || getPostDataLoading) && (
+        <Loading message={"Fetching data!"} />
+      )}
+      {updateBlogLoading && <Loading message={"Updating your blog!"} />}
+      {deleteBlogLoading && <Loading message={"Deleting your blog!"} />}
+      {postCommentLoading && <Loading message={"Posting your comment!"} />}
+      {deleteCommentLoading && <Loading message={"Deleting your comment!"} />}
+
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
+      {getPostDataError !== "" && <Error errorMessage={getPostDataError} />}
+      {updateBlogError !== "" && <Error errorMessage={updateBlogError} />}
+      {deleteBlogError !== "" && <Error errorMessage={deleteBlogError} />}
+      {/* {likePostError !== "" && <Error errorMessage={likePostError} />} */}
+      {/* {unlikePostError !== "" && <Error errorMessage={unlikePostError} />} */}
+      {/* {savePostError !== "" && <Error errorMessage={savePostError} />} */}
+      {/* {unsavePostError !== "" && <Error errorMessage={unsavePostError} />} */}
+      {postCommentError !== "" && <Error errorMessage={postCommentError} />}
+      {deleteCommentError !== "" && <Error errorMessage={deleteCommentError} />}
     </>
   );
 }

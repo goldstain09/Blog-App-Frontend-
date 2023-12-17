@@ -9,10 +9,6 @@ export default function Follower({ data }) {
   const UserDataFromResponse = useSelector(
     (state) => state.userReducer.UserDataFromResponse
   );
-  useEffect(() => {
-    Response(data.bloggerId);
-  }, [data]);
-
   const [userInfo, setUserInfo] = useState({
     userId: data.bloggerId,
     profilePicture:
@@ -34,6 +30,10 @@ export default function Follower({ data }) {
       }
     } catch (error) {}
   };
+  useEffect(() => {
+    Response(data.bloggerId);
+  }, [data, Response, setUserInfo]);
+
   return (
     <>
       <div className="row d-flex" id="Followd">
@@ -41,7 +41,9 @@ export default function Follower({ data }) {
           <img src={userInfo.profilePicture} alt="dp" className="w-100" />
         </div>
         <div className="col-8">
-          <h4 className="h4">{userInfo.userName.split("").slice(0, 15).join("")}</h4>
+          <h4 className="h4">
+            {userInfo.userName.split("").slice(0, 15).join("")}
+          </h4>
         </div>
         <div className="col-2">
           <button

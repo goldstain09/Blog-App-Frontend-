@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { delay, put, takeLatest } from "redux-saga/effects";
 import {
   DELETE_A_BLOG_START,
   DELETE_A_COMMENT_START,
@@ -63,6 +63,7 @@ function* postABlogSaga({ payload }) {
       if (Response.hasOwnProperty("blogPosted")) {
         switch (Response.blogPosted) {
           case true:
+            yield delay(3000);
             yield put(postBlogSuccess({ blogPosted: true }));
             // here i fired user to set new user data with myPosts data !
             yield put(verifyUserAuthSuccess(Response.userData));
@@ -83,6 +84,7 @@ function* postABlogSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(3000);
     yield put(postBlogError(error.message));
   }
 }
@@ -94,6 +96,7 @@ function* getPostDataSaga({ payload }) {
       yield put(notAuthorised(false));
     } else {
       if (Response.hasOwnProperty("post")) {
+        yield delay(1500);
         yield put(getPostDataSuccess(Response.post));
         yield put(authorised(true));
       } else {
@@ -101,6 +104,7 @@ function* getPostDataSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(2000);
     yield put(getPostDataError(error.message));
   }
 }
@@ -114,6 +118,7 @@ function* updateBlogSaga({ payload }) {
       if (Response.hasOwnProperty("postUpdated")) {
         switch (Response.postUpdated) {
           case true:
+            yield delay(2000);
             yield put(authorised(true));
             yield put(updateBlogSuccess({ postUpdated: true }));
             yield put(verifyUserAuthSuccess(Response.userData));
@@ -133,6 +138,7 @@ function* updateBlogSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(2000);
     yield put(updateBlogError(error.message));
   }
 }
@@ -144,9 +150,9 @@ function* deleteBlogSaga({ payload }) {
       yield put(notAuthorised(false));
     } else {
       if (Response.hasOwnProperty("postDeleted")) {
-        console.log(Response.userData);
         switch (Response.postDeleted) {
           case true:
+            yield delay(3000);
             yield put(authorised(true));
             yield put(verifyUserAuthSuccess(Response.userData));
             yield put(deleteBlogSuccess({ postDeleted: true }));
@@ -162,6 +168,7 @@ function* deleteBlogSaga({ payload }) {
             throw Error(Response.errorMessage);
         }
       } else {
+        yield delay(3000);
         throw Error("Something went wrong!");
       }
     }
@@ -177,6 +184,7 @@ function* getAllPostsDataSaga({ payload }) {
       yield put(notAuthorised(false));
     } else {
       if (Response.hasOwnProperty("allPosts")) {
+        yield delay(1000);
         yield put(getAllPostsDataSuccess(Response.allPosts));
         yield put(authorised(true));
       } else {
@@ -184,6 +192,7 @@ function* getAllPostsDataSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1000);
     yield put(getAllPostsDataError(error.message));
   }
 }
@@ -295,6 +304,7 @@ function* postCommentSaga({ payload }) {
       if (Response.hasOwnProperty("commentPosted")) {
         switch (Response.commentPosted) {
           case true:
+            yield delay(500);
             yield put(authorised(true));
             yield put(postCommentSuccess(Response.updatedPost)); // in this Response.updatedPost all updatedPost's data is present!
             break;
@@ -306,6 +316,7 @@ function* postCommentSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(500);
     yield put(postCommentError(error.message));
   }
 }
@@ -319,6 +330,7 @@ function* deleteCommentSaga({ payload }) {
       if (Response.hasOwnProperty("commentDeleted")) {
         switch (Response.commentDeleted) {
           case true:
+            yield delay(1000);
             yield put(authorised(true));
             yield put(postCommentSuccess(Response.updatedPost)); // here i didnot creating a reducer state for deletecommentsuccess beczz same data should be saved in postCommentSuccess
             break;
@@ -330,6 +342,7 @@ function* deleteCommentSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1000);
     yield put(deleteCommentError(error.message));
   }
 }

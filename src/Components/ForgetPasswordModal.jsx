@@ -58,7 +58,7 @@ export default function ForgetPasswordModal() {
         setPassword1("");
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, setPassword, setPassword1, setSuccessfullyChanged]);
 
   // otp states--
   const [message, setMessage] = useState("");
@@ -291,7 +291,9 @@ export default function ForgetPasswordModal() {
                           {showLoading && (
                             <>
                               <div className="spinner-border" role="status">
-                                <span className="visually-hidden">Loading...</span>
+                                <span className="visually-hidden">
+                                  Loading...
+                                </span>
                               </div>
                             </>
                           )}

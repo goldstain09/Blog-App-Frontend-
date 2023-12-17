@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./SCSS/BloggerProfilePage.scss";
 import ProfilePostCard from "../Components/ProfilePostCard";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   followBloggerStart,
   getBloggerDataStart,
@@ -12,17 +12,26 @@ import {
 import { getAllPostsDataStart } from "../Redux(Saga)/Actions/PostAction";
 import BloggerFollowersModal from "../Components/BloggerFollowersModal";
 import BloggerFollowingsModal from "../Components/BloggerFollowingsModal";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function BloggerProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
-  const bloggerDataResponse = useSelector(
-    (state) => state.userReducer.bloggerDataResponse
-  );
+  const {
+    UserDataFromResponse,
+    verifyUserLoading,
+    verifyUserError,
+    bloggerDataResponse,
+    bloggerDataLoading,
+    bloggerDataError,
+    followBloggerLoading,
+    followBloggerError,
+    unfollowBloggerLoading,
+    unfollowBloggerError,
+  } = useSelector((state) => state.userReducer);
+
   // this useEffect is for authorization!
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -47,7 +56,7 @@ export default function BloggerProfilePage() {
         navigate("/login");
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, navigate, dispatch]);
   // -----------------------------------------------------------------------------
 
   // to getting this blogger's data for showing their profile
@@ -61,30 +70,38 @@ export default function BloggerProfilePage() {
         })
       );
     }
-  }, [params.bloggerId]);
+  }, [params.bloggerId, dispatch]);
   // handling its response
   const [bloggerData, setBloggerData] = useState({});
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
-  const [followingMe, setFollowingMe] = useState(false); // if user followed that blogger then it is true
+  const [followingMe, setFollowingMe] = useState(true); // if user followed that blogger then it is true
   useEffect(() => {
-    if (bloggerDataResponse.hasOwnProperty("userName")) {
+    if (
+      bloggerDataResponse.hasOwnProperty("userName") &&
+      UserDataFromResponse.hasOwnProperty("_id")
+    ) {
       setBloggerData(bloggerDataResponse);
-      if (UserDataFromResponse.hasOwnProperty("_id")) {
-        if (
-          bloggerDataResponse.Followers.every(
-            (item) => item.bloggerId !== UserDataFromResponse._id
-          )
-        ) {
-          // if user didnot followed him then it execute
-          setFollowingMe(true);
-        }
+      if (
+        UserDataFromResponse.Followings.every(
+          (item) => item.bloggerId !== bloggerDataResponse._id
+        )
+      ) {
+        // if user didnot followed him then it execute
+        setFollowingMe(true);
+      } else {
+        setFollowingMe(false);
       }
     }
-  }, [bloggerDataResponse]);
+  }, [bloggerDataResponse, UserDataFromResponse]);
 
   return (
     <>
+      <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+        <Link to={"/"} className="btn btn-outline-dark">
+          Back
+        </Link>
+      </div>
       <div className="container-fluid BloggerProfilePage">
         {bloggerData.hasOwnProperty("userName") ? (
           <>
@@ -117,6 +134,7 @@ export default function BloggerProfilePage() {
                       </button>
                     ) : (
                       <button
+                        className="btn btn-outline-danger"
                         onClick={(e) => {
                           e.preventDefault();
                           const jwToken = JSON.parse(
@@ -200,18 +218,35 @@ export default function BloggerProfilePage() {
                     <ProfilePostCard key={index} data={item} />
                   ))
                 ) : (
-                  <>no posts</>
+                  <>
+                    <h3 className="h3 text-light text-center">No Posts</h3>
+                  </>
                 )}
               </div>
             </div>
           </>
         ) : (
-          <>No PRofile</>
+          <>
+            <h1 className="h1 text-light text-center mt-5 pt-5">
+              No User Found!
+            </h1>
+          </>
         )}
       </div>
 
       <BloggerFollowersModal followers={followers} />
       <BloggerFollowingsModal followings={followings} />
+
+      {(verifyUserLoading || bloggerDataLoading) && (
+        <Loading message={"Fetching data!"} />
+      )}
+
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
+      {bloggerDataError !== "" && <Error errorMessage={bloggerDataError} />}
+      {followBloggerError !== "" && <Error errorMessage={followBloggerError} />}
+      {unfollowBloggerError !== "" && (
+        <Error errorMessage={unfollowBloggerError} />
+      )}
     </>
   );
 }

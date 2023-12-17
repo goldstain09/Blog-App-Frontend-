@@ -282,6 +282,7 @@ const postReducer = (state = initialState, action) => {
         postCommentError: "",
         postCommentLoading: false,
         postCommentResponse: action.payload,
+        deleteCommentLoading: false,
       };
     case POST_A_COMMENT_ERROR:
       return {

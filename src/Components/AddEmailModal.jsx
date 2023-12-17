@@ -124,12 +124,12 @@ export default function AddEmailModal() {
       delete UserDataFromResponse.emailUpdated;
       setaddedSuccessfully(true);
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, setaddedSuccessfully]);
 
   return (
     <>
       <div
-        className="modal fade commentSectionModal"
+        className="modal fade commentSectionModal text-light"
         id="EmailModal"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
@@ -252,7 +252,11 @@ export default function AddEmailModal() {
                       )}
                     </div>
                     <div className="col-12">
-                      <button id="verifyBtn" onClick={verifyOtp}>
+                      <button
+                        id="verifyBtn"
+                        className="text-light"
+                        onClick={verifyOtp}
+                      >
                         Verify
                       </button>
                     </div>

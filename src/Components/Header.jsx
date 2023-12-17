@@ -46,7 +46,7 @@ export default function Header() {
             <ul className="nav col-1 col-md-5 col-lg-2 me-lg-auto mb-2  mb-md-0">
               <li>
                 <NavLink to={"/"} className="nav-link px-2 text-light">
-                  <i class="bi bi-house"></i>
+                  <i className="bi bi-house"></i>
                 </NavLink>
               </li>
             </ul>
@@ -108,7 +108,7 @@ export default function Header() {
             </a>
             <div className="col-2 mt-2">
               <NavLink to={"/"} className="homeIcon">
-                <i class="bi bi-house"></i>
+                <i className="bi bi-house"></i>
               </NavLink>
             </div>
             <div className="col-8 text-end">
@@ -118,12 +118,19 @@ export default function Header() {
                 </Link>
               )}
               {UserDataFromResponse.hasOwnProperty("profilePicture") ? (
-                <button className="btn btn-primary" onClick={()=> navigate('/myProfile')}>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigate("/myProfile")}
+                >
                   <img src={UserDataFromResponse.profilePicture} alt="" />
                 </button>
               ) : (
-                <button className="btn btn-primary text-danger loginbtn" style={{color:'red'}}>
-                  <i class="bi bi-box-arrow-in-right"></i>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="btn btn-primary text-danger loginbtn"
+                  style={{ color: "red" }}
+                >
+                  <i className="bi bi-box-arrow-in-right"></i>
                 </button>
               )}
             </div>

@@ -7,15 +7,22 @@ import {
   notAuthorised,
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   // dispatch & data getting from store
   const dispatch = useDispatch();
   const authorised = useSelector((state) => state.userReducer.authorised);
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
+  const {
+    UserDataFromResponse,
+    verifyUserLoading,
+    loginUserLoading,
+    verifyUserError,
+    loginUserError,
+  } = useSelector((state) => state.userReducer);
+
   useEffect(() => {
     // it's for if user account was deleted and he is on edit or login page thenn info from state or store is mandatory to remove!!
     if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
@@ -23,9 +30,8 @@ export default function LoginPage() {
         dispatch(notAuthorised(false));
       }
     }
-  }, [UserDataFromResponse]);
-// -----------------------------------------------------------------------------
-
+  }, [UserDataFromResponse, dispatch]);
+  // -----------------------------------------------------------------------------
 
   // user Authorization
   useEffect(() => {
@@ -34,7 +40,7 @@ export default function LoginPage() {
         navigate("/");
       }
     }
-  }, [authorised]);
+  }, [authorised, navigate]);
   useEffect(() => {
     //if user is already logged in!
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -47,9 +53,8 @@ export default function LoginPage() {
         }
       }
     }
-  }, [UserDataFromResponse]);
-// -----------------------------------------------------------------------------
-
+  }, [UserDataFromResponse, dispatch, navigate]);
+  // -----------------------------------------------------------------------------
 
   // initial login data
   const initialFormData = {
@@ -111,10 +116,21 @@ export default function LoginPage() {
     } else if (UserDataFromResponse.hasOwnProperty("userNameIsWrong")) {
       setInvalidUserName(true);
     }
-  }, [UserDataFromResponse]);
+  }, [
+    UserDataFromResponse,
+    setInvalidUserName,
+    setInvalidPassword,
+    navigate,
+    setFormData,
+  ]);
 
   return (
     <>
+      <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+        <Link to={"/"} className="btn btn-outline-dark">
+          Back
+        </Link>
+      </div>
       <div className="container-fluid login">
         <form className="container" onSubmit={login}>
           <h2 className="h2">Login to your Blogger Account!</h2>
@@ -177,6 +193,11 @@ export default function LoginPage() {
           </div>
         </form>
       </div>
+      {(loginUserLoading || verifyUserLoading) && (
+        <Loading message={"Loggining into your account!"} />
+      )}
+      {loginUserError !== "" && <Error errorMessage={loginUserError} />}
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
     </>
   );
 }

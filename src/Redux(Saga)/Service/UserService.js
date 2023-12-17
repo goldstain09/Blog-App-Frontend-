@@ -9,9 +9,7 @@ export const createUserAccount = async (user_Info) => {
     );
     return response.data;
   } catch (error) {
-    throw Error(
-      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
-    );
+    throw Error("An error occurred while creating your account!");
   }
 };
 export const verifyUserAuth = async (token) => {
@@ -26,9 +24,7 @@ export const verifyUserAuth = async (token) => {
     );
     return response.data;
   } catch (error) {
-    throw Error(
-      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
-    );
+    throw Error("An error occurred while fetching your data!");
   }
 };
 
@@ -40,9 +36,7 @@ export const loginUserAccount = async (data) => {
     );
     return response.data;
   } catch (error) {
-    throw Error(
-      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
-    );
+    throw Error("An error occurred while loggining into your account!");
   }
 };
 
@@ -59,9 +53,7 @@ export const editUserAccount = async (data) => {
     );
     return response.data;
   } catch (error) {
-    throw Error(
-      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
-    );
+    throw Error("An error occurred while updating your account!");
   }
 };
 
@@ -78,9 +70,7 @@ export const addUserEmail = async (data) => {
     );
     return response.data;
   } catch (error) {
-    throw Error(
-      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
-    );
+    throw Error("An error occurred while updating your email!");
   }
 };
 
@@ -98,9 +88,7 @@ export const removeUserEmail = async (token) => {
     );
     return response.data;
   } catch (error) {
-    throw Error(
-      `Sorry! Your account is not created at the moment, due to some reasons [${error}]`
-    );
+    throw Error("An error occurred while removing your email!");
   }
 };
 
@@ -117,7 +105,7 @@ export const changePassword = async (data) => {
     );
     return response.data;
   } catch (error) {
-    throw Error("sorry-----------");
+    throw Error("An error occurred while updating your password!");
   }
 };
 
@@ -134,7 +122,7 @@ export const forgetChangePassword = async (data) => {
     );
     return response.data;
   } catch (error) {
-    throw Error("sorry-----------");
+    throw Error("An error occurred while updating your password!");
   }
 };
 
@@ -151,7 +139,7 @@ export const checkPasswordForDeleteAccount = async (data) => {
     );
     return response.data;
   } catch (error) {
-    throw Error("sorry-----------");
+    throw Error("An error occurred while checking your password!");
   }
 };
 
@@ -167,7 +155,7 @@ export const deleteUserAccount = async (token) => {
     );
     return response.data;
   } catch (error) {
-    throw Error("sorry-----------");
+    throw Error("An error occurred while deleting your account!");
   }
 };
 
@@ -185,7 +173,9 @@ export const getBloggerData = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while fetching data!");
+  }
 };
 
 export const followBlogger = async (data) => {
@@ -200,7 +190,9 @@ export const followBlogger = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while following this blogger!");
+  }
 };
 
 export const unfollowBlogger = async (data) => {
@@ -215,7 +207,9 @@ export const unfollowBlogger = async (data) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while unfollowing this blogger!");
+  }
 };
 
 export const getAllBloggersData = async (token) => {
@@ -229,5 +223,7 @@ export const getAllBloggersData = async (token) => {
       }
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw Error("An error occurred while fetching data!");
+  }
 };

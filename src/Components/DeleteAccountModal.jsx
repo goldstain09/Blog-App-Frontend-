@@ -38,6 +38,9 @@ export default function DeleteAccountModal() {
       setEmptyPasswordError(true);
     }
   };
+
+  // if password is correct then continue
+  const [continuee, setContinuee] = useState(false);
   // handling response of it
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -47,20 +50,9 @@ export default function DeleteAccountModal() {
         setWrongPassword(true);
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, setWrongPassword, setContinuee]);
 
-  // if password is correct then continue
-  const [continuee, setContinuee] = useState(false);
-
-  // handling response of account deleted successfully
   const [deletedSuccessfully, setDeletedSuccessfully] = useState(false);
-  useEffect(() => {
-    if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
-      if (UserDataFromResponse.accountDeleted) {
-        deleteImagesFromStorage(UserDataFromResponse);
-      }
-    }
-  }, [UserDataFromResponse]);
   // delete dp and post images
   const deleteImagesFromStorage = async (UserDataFromResponse) => {
     try {
@@ -121,6 +113,14 @@ export default function DeleteAccountModal() {
       }
     }
   };
+  // handling response of account deleted successfully
+  useEffect(() => {
+    if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
+      if (UserDataFromResponse.accountDeleted) {
+        deleteImagesFromStorage(UserDataFromResponse);
+      }
+    }
+  }, [UserDataFromResponse, deleteImagesFromStorage, setDeletedSuccessfully]);
   return (
     <>
       <div

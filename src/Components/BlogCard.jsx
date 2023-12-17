@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   likePostStart,
   likePostSuccess,
-  postCommentStart,
   savePostStart,
   savePostSuccess,
   unLikePostStart,
@@ -13,9 +12,8 @@ import {
   unSavePostStart,
   unSavePostSuccess,
 } from "../Redux(Saga)/Actions/PostAction";
-import Comment from "./Comment";
 
-export default function BlogCard({ data , setAllData}) {
+export default function BlogCard({ data, setAllData }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const UserDataFromResponse = useSelector(
@@ -33,6 +31,11 @@ export default function BlogCard({ data , setAllData}) {
   const unsavePostResponse = useSelector(
     (state) => state.postReducer.unsavePostResponse
   );
+
+  // like or unlike
+  const [liked, setLiked] = useState(false);
+  // save or unsave
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -63,38 +66,32 @@ export default function BlogCard({ data , setAllData}) {
         setSaved(false);
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, setSaved, setLiked]);
 
   useEffect(() => {
     if (likePostResponse.hasOwnProperty("liked")) {
       // setLiked(true);
       dispatch(likePostSuccess({}));
     }
-  }, [likePostResponse]);
+  }, [likePostResponse, dispatch]);
   useEffect(() => {
     if (unlikePostResponse.hasOwnProperty("liked")) {
       // setLiked(false);
       dispatch(unLikePostSuccess({}));
     }
-  }, [unlikePostResponse]);
+  }, [unlikePostResponse, dispatch]);
   useEffect(() => {
     if (savePostResponse.hasOwnProperty("saved")) {
       // setSaved(true);
       dispatch(savePostSuccess({}));
     }
-  }, [savePostResponse]);
+  }, [savePostResponse, dispatch]);
   useEffect(() => {
     if (unlikePostResponse.hasOwnProperty("unsaved")) {
       // setSaved(false);
       dispatch(unSavePostSuccess({}));
     }
-  }, [unsavePostResponse]);
-
-  // like or unlike
-  const [liked, setLiked] = useState(false);
-  // save or unsave
-  const [saved, setSaved] = useState(false);
-
+  }, [unsavePostResponse, dispatch]);
 
   return (
     <>
@@ -110,7 +107,9 @@ export default function BlogCard({ data , setAllData}) {
             className="col-9 align-content-center"
             onClick={() => navigate(`/bloggerProfile/${data.userId}`)}
           >
-            <h5 title={data.userName}>{data.userName.split("").slice(0, 15).join("")}</h5>
+            <h5 title={data.userName}>
+              {data.userName.split("").slice(0, 15).join("")}
+            </h5>
           </div>
           <div className="col-1 dropdown">
             <button
@@ -185,9 +184,8 @@ export default function BlogCard({ data , setAllData}) {
                 data-bs-toggle="modal"
                 data-bs-target="#CommentModal"
                 onClick={(e) => {
-                  e.preventDefault()
+                  e.preventDefault();
                   setAllData(data);
-                  
                 }}
               >
                 <i className="bi bi-chat"></i>
@@ -230,14 +228,17 @@ export default function BlogCard({ data , setAllData}) {
               )}
             </div>
           </div>
-          <h5 className="card-title">{data.postTitle.split(" ").slice(0, 3).join(" ")}...</h5>
-          <p className="card-text">{data.postCaption.split(" ").slice(0, 12).join(" ")}...</p>
+          <h5 className="card-title">
+            {data.postTitle.split(" ").slice(0, 3).join(" ")}...
+          </h5>
+          <p className="card-text">
+            {data.postCaption.split(" ").slice(0, 12).join(" ")}...
+          </p>
           <Link to={`/myBlog/${data._id}`} className="btn btn-primary">
             Read
           </Link>
         </div>
       </div>
-
     </>
   );
 }

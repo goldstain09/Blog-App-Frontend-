@@ -8,8 +8,9 @@ $main: red;
       text-align: center;
       padding: 5rem 0;
       img {
-        width: 40%;
-        border-radius: 11111px;
+        width: 300px;
+        height: 300px;
+        border-radius: 11234px;
       }
     }
     .col-xl-8 {
@@ -27,10 +28,15 @@ $main: red;
           button {
             font-family: "Raleway", sans-serif;
             background: rgb(255, 0, 0);
-            border: rgb(255, 0, 0);
+            border: rgb(255, 0, 0) 1px solid;
             color: white;
             padding: 0.3rem 0.7rem;
             border-radius: 10px;
+            outline: none;
+            box-shadow: none;
+          }
+          .btn-outline-danger{
+            background: none;
           }
         }
       }
@@ -176,7 +182,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 60%;
+          width: 250px;
+          height: 250px;
         }
       }
       .col-xl-8 {
@@ -247,8 +254,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 40%;
-        }
+          width: 300px;
+          height: 300px;        }
       }
       .col-xl-8 {
         > .usernameAndFollowBtnContainer {
@@ -338,7 +345,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 40%;
+          width: 260px;
+          height: 260px;
         }
       }
       .col-xl-8 {
@@ -434,7 +442,8 @@ $main: red;
       .col-xl-4 {
         padding: 3rem 0;
         img {
-          width: 50%;
+          width: 230px;
+          height: 230px;
         }
       }
       .col-xl-8 {
@@ -543,9 +552,10 @@ $main: red;
   .BloggerProfilePage{
     > .row {
       .col-xl-4 {
-        padding: 3rem 0;
+        padding: 4rem 0;
         img {
-          width: 70%;
+          width: 200px;
+          height: 200px;
         }
       }
       .col-xl-8 {

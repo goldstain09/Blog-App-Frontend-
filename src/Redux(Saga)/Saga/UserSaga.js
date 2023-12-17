@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { delay, put, takeLatest } from "redux-saga/effects";
 import {
   ADD_USER_EMAIL_START,
   CHANGE_PASSWORD_START,
@@ -68,10 +68,12 @@ function* createUserSaga({ payload }) {
     if (Response.hasOwnProperty("userCreated")) {
       switch (Response.userCreated) {
         case true:
+          yield delay(3000);
           yield put(createUserAccountSuccess(Response.data));
           yield put(authorised(true));
           break;
         case false:
+          yield delay(1000);
           if (Response.hasOwnProperty("userNameIsUnique")) {
             yield put(createUserAccountSuccess(Response));
           } else if (Response.hasOwnProperty("errorMessage")) {
@@ -84,6 +86,7 @@ function* createUserSaga({ payload }) {
       throw Error("");
     }
   } catch (error) {
+    yield delay(2000);
     yield put(createUserAccountError(error.message));
   }
 }
@@ -92,16 +95,19 @@ function* verifyUserAuthSaga({ payload }) {
   try {
     const Response = yield verifyUserAuth(payload);
     if (Response.hasOwnProperty("Unauthorized")) {
+      yield delay(1500);
       yield put(notAuthorised(false));
       yield localStorage.removeItem("blogApp");
     } else {
       if (Response.hasOwnProperty("verification")) {
         switch (Response.verification) {
           case true:
+            yield delay(2000);
             yield put(verifyUserAuthSuccess(Response.data));
             yield put(authorised(true));
             break;
           case false:
+            yield delay(1500);
             if (Response.hasOwnProperty("errorMessage")) {
               yield localStorage.removeItem("blogApp");
               throw Error(Response.errorMessage);
@@ -116,6 +122,7 @@ function* verifyUserAuthSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1500);
     yield put(verifyUserAuthError(error.message));
   }
 }
@@ -126,10 +133,12 @@ function* loginUserAccountSaga({ payload }) {
     if (Response.hasOwnProperty("userLoginSuccess")) {
       switch (Response.userLoginSuccess) {
         case true:
+          yield delay(3000);
           yield put(loginUserAccountSuccess(Response.data));
           yield put(authorised(true));
           break;
         case false:
+          yield delay(1000);
           if (Response.hasOwnProperty("PasswordIsWrong")) {
             yield put(loginUserAccountSuccess(Response));
             // yield put(notAuthorised(false));
@@ -146,6 +155,7 @@ function* loginUserAccountSaga({ payload }) {
       throw Error("Something went wrong!");
     }
   } catch (error) {
+    yield delay(2000);
     yield put(loginUserAccountError(error.message));
   }
 }
@@ -160,6 +170,7 @@ function* editUserAccountSaga({ payload }) {
       if (Response.hasOwnProperty("userUpdated")) {
         switch (Response.userUpdated) {
           case true:
+            yield delay(2000);
             yield put(editUserAccountSuccess(Response.data));
             yield put(authorised(true));
             break;
@@ -172,6 +183,7 @@ function* editUserAccountSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(2000);
     yield put(editUserAccountError(error.message));
   }
 }
@@ -197,6 +209,7 @@ function* addUserEmailSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1500);
     yield put(addUserEmailError(error.message));
   }
 }
@@ -219,6 +232,7 @@ function* removeUserEmailSaga({ payload }) {
                 validity: "15 minutes",
               })
             );
+            yield delay(1500);
             yield put(removeUserEmailSuccess(Response.data));
             yield put(authorised(true));
             break;
@@ -230,6 +244,7 @@ function* removeUserEmailSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1500);
     yield put(removeUserEmailError(error.message));
   }
 }
@@ -244,6 +259,7 @@ function* changePasswordSaga({ payload }) {
       if (Response.hasOwnProperty("passwordUpdated")) {
         switch (Response.passwordUpdated) {
           case true:
+            yield delay(2500);
             yield put(changePasswordSuccess(Response.data));
             yield put(authorised(true));
             break;
@@ -263,6 +279,7 @@ function* changePasswordSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1500);
     yield put(changePasswordError(error.message));
   }
 }
@@ -277,6 +294,7 @@ function* forgetChangePasswordSaga({ payload }) {
       if (Response.hasOwnProperty("passwordUpdated")) {
         switch (Response.passwordUpdated) {
           case true:
+            yield delay(2500);
             yield put(forgetChangePasswordSuccess(Response.data));
             yield put(authorised(true));
             break;
@@ -288,6 +306,7 @@ function* forgetChangePasswordSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1500);
     yield put(forgetChangePasswordError(error.message));
   }
 }
@@ -302,6 +321,7 @@ function* checkPasswordForDeleteAccountSaga({ payload }) {
       if (Response.hasOwnProperty("passwordCorrect")) {
         switch (Response.passwordCorrect) {
           case true:
+            yield delay(500);
             yield put(checkPasswordForDeleteAccountSuccess(Response.data));
             yield put(authorised(true));
             break;
@@ -318,6 +338,7 @@ function* checkPasswordForDeleteAccountSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(500);
     yield put(checkPasswordForDeleteAccountError(error.message));
   }
 }
@@ -331,6 +352,7 @@ function* deleteUserAccountSaga({ payload }) {
       if (Response.hasOwnProperty("accountDeleted")) {
         switch (Response.accountDeleted) {
           case true:
+            yield delay(3500);
             yield put(deleteUserAccountSuccess(Response.data));
             break;
           case false:
@@ -341,6 +363,7 @@ function* deleteUserAccountSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(3500);
     yield put(deleteUserAccountError(error.message));
   }
 }
@@ -352,6 +375,7 @@ function* getBloggerDataSaga({ payload }) {
       yield put(notAuthorised(false));
     } else {
       if (Response.hasOwnProperty("bloggerData")) {
+        yield delay(1000);
         yield put(getBloggerDataSuccess(Response.bloggerData));
         yield put(authorised(true));
       } else {
@@ -359,6 +383,7 @@ function* getBloggerDataSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1000);
     yield put(getBloggerDataError(error.message));
   }
 }
@@ -373,8 +398,8 @@ function* followBloggerSaga({ payload }) {
         switch (Response.followed) {
           case true:
             yield put(authorised(true));
-            yield put(getBloggerDataSuccess(Response.bloggerData));
             yield put(verifyUserAuthSuccess(Response.userData));
+            yield put(getBloggerDataSuccess(Response.bloggerData));
             break;
           case false:
             throw Error(Response.errorMessage);
@@ -384,6 +409,7 @@ function* followBloggerSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1000);
     followBloggerError(error.message);
   }
 }
@@ -398,8 +424,8 @@ function* unfollowBloggerSaga({ payload }) {
         switch (Response.unfollowed) {
           case true:
             yield put(authorised(true));
-            yield put(getBloggerDataSuccess(Response.bloggerData));
             yield put(verifyUserAuthSuccess(Response.userData));
+            yield put(getBloggerDataSuccess(Response.bloggerData));
             break;
           case false:
             throw Error(Response.errorMessage);
@@ -409,6 +435,7 @@ function* unfollowBloggerSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1000);
     unfollowBloggerError(error.message);
   }
 }
@@ -422,6 +449,7 @@ function* getAllBloggersDataSaga({ payload }) {
       if (Response.hasOwnProperty("success")) {
         switch (Response.success) {
           case true:
+            yield delay(1000);
             yield put(authorised(true));
             yield put(getAllBloggersDataSuccess(Response.bloggersList));
             break;
@@ -433,6 +461,7 @@ function* getAllBloggersDataSaga({ payload }) {
       }
     }
   } catch (error) {
+    yield delay(1000);
     yield put(getAllBloggersDataError(error.message));
   }
 }

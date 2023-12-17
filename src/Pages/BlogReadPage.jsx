@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./SCSS/BlogReadPage.scss";
-import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 // import demo from "../Media/featuresHeading.png";
 // import founder from "../Media/Founder.jpg";
@@ -22,32 +21,29 @@ import {
   unSavePostStart,
   unSavePostSuccess,
 } from "../Redux(Saga)/Actions/PostAction";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function BlogReadPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
-  const getPostDataResponse = useSelector(
-    (state) => state.postReducer.getPostDataResponse
-  );
-  const likePostResponse = useSelector(
-    (state) => state.postReducer.likePostResponse
-  );
-  const unlikePostResponse = useSelector(
-    (state) => state.postReducer.unlikePostResponse
-  );
-  const savePostResponse = useSelector(
-    (state) => state.postReducer.savePostResponse
-  );
-  const unsavePostResponse = useSelector(
-    (state) => state.postReducer.unsavePostResponse
-  );
-  const postCommentResponse = useSelector(
-    (state) => state.postReducer.postCommentResponse
-  );
+  const { UserDataFromResponse, verifyUserLoading, verifyUserError } =
+    useSelector((state) => state.userReducer);
+  const {
+    getPostDataResponse,
+    getPostDataLoading,
+    getPostDataError,
+    likePostResponse,
+    unlikePostResponse,
+    savePostResponse,
+    unsavePostResponse,
+    postCommentResponse,
+    postCommentLoading,
+    postCommentError,
+    deleteCommentLoading,
+    deleteCommentError,
+  } = useSelector((state) => state.postReducer);
   // this useEffect is for authorization!
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -76,13 +72,11 @@ export default function BlogReadPage() {
         navigate("/login");
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, navigate, dispatch]);
   // -----------------------------------------------------------------------------
 
-  // if post is deleted then not found page will be shown to user
-  const [postDoesntExist, setPostDoesntExist] = useState(false);
-
   // to get post data!
+  const [postData, setPostData] = useState({});
   useEffect(() => {
     setPostData({});
     const jwToken = JSON.parse(localStorage.getItem("blogApp"));
@@ -91,22 +85,35 @@ export default function BlogReadPage() {
         getPostDataStart({ postId: params.postId, token: jwToken.token })
       );
     }
-  }, [params.postId]);
-  // handling response
-  const [postData, setPostData] = useState({});
-  useEffect(() => {
-    if (getPostDataResponse) {
-      if (getPostDataResponse.hasOwnProperty("userName")) {
-        setPostData(getPostDataResponse);
-        setLikedCount(getPostDataResponse.postLikes.length);
-        dispatch(getPostDataSuccess({}));
-      }
-    } else {
-      setPostDoesntExist(true);
-    }
-  }, [getPostDataResponse]);
+  }, [params.postId, setPostData, dispatch]);
 
   // for setting up like and save !!!
+  // like or unlike
+  const [liked, setLiked] = useState(false);
+  const [likedCount, setLikedCount] = useState(0);
+  // save or unsave
+  const [saved, setSaved] = useState(false);
+
+  // comments
+  // post a comment
+  const [comment, setComment] = useState("");
+  const [emptyComment, setEmptyComment] = useState(false);
+
+  const post = (e) => {
+    e.preventDefault();
+    if (comment !== "") {
+      const jwToken = JSON.parse(localStorage.getItem("blogApp"));
+      const finalData = {
+        token: jwToken.token,
+        comment: comment,
+        postId: params.postId,
+      };
+      dispatch(postCommentStart(finalData));
+    } else {
+      setEmptyComment(true);
+    }
+  };
+
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
       if (UserDataFromResponse.likedPost.length > 0) {
@@ -136,7 +143,7 @@ export default function BlogReadPage() {
         setSaved(false);
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, setLiked, setSaved]);
 
   // handling response
   useEffect(() => {
@@ -146,7 +153,7 @@ export default function BlogReadPage() {
     }
   }, [likePostResponse]);
   useEffect(() => {
-    if (unlikePostResponse.hasOwnProperty("liked")) {
+    if (unlikePostResponse.hasOwnProperty("unliked")) {
       // setLiked(false);
       dispatch(unLikePostSuccess({}));
     }
@@ -164,32 +171,6 @@ export default function BlogReadPage() {
     }
   }, [unsavePostResponse]);
 
-  // like or unlike
-  const [liked, setLiked] = useState(false);
-  const [likedCount, setLikedCount] = useState(0);
-  // save or unsave
-  const [saved, setSaved] = useState(false);
-
-  // comments
-  // post a comment
-  const [comment, setComment] = useState("");
-  const [emptyComment, setEmptyComment] = useState(false);
-
-  const post = (e) => {
-    e.preventDefault();
-    if (comment !== "") {
-      const jwToken = JSON.parse(localStorage.getItem("blogApp"));
-      const finalData = {
-        token: jwToken.token,
-        comment: comment,
-        postId: params.postId,
-      };
-      dispatch(postCommentStart(finalData));
-    } else {
-      setEmptyComment(true);
-    }
-  };
-
   // handling response
   useEffect(() => {
     if (postCommentResponse.hasOwnProperty("postComments")) {
@@ -197,7 +178,17 @@ export default function BlogReadPage() {
       setComment("");
       dispatch(postCommentSuccess({}));
     }
-  }, [postCommentResponse]);
+  }, [postCommentResponse, dispatch, setComment, setPostData]);
+  // handling response
+  useEffect(() => {
+    if (getPostDataResponse) {
+      if (getPostDataResponse.hasOwnProperty("userName")) {
+        setPostData(getPostDataResponse);
+        setLikedCount(getPostDataResponse.postLikes.length);
+        dispatch(getPostDataSuccess({}));
+      }
+    }
+  }, [getPostDataResponse, setPostData, setLikedCount, dispatch]);
 
   return (
     <>
@@ -207,7 +198,7 @@ export default function BlogReadPage() {
         style={{ position: "absolute", left: "1rem", top: "9rem" }}
       >
         <Link to={"/"} className="btn btn-outline-dark text-light">
-          <i class="bi bi-box-arrow-left"></i>
+          Back
         </Link>
       </div>
       <div className="container-fluid BlogPage">
@@ -256,13 +247,29 @@ export default function BlogReadPage() {
                       {postData.userName.split("").slice(0, 15).join("")}
                     </h4>
                   </div>
+
                   <div className="col-1 btnn">
-                    <button>
+                    <button
+                      className="dropdown"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
                       <i className="bi bi-justify"></i>
+                      <ul
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>
+                          <a className="dropdown-item" href="#">
+                            Report
+                          </a>
+                        </li>
+                      </ul>
                     </button>
                   </div>
                 </div>
-
                 <div className="row">
                   <div className="col-11">
                     <p>{postData.postCaption}</p>
@@ -270,7 +277,11 @@ export default function BlogReadPage() {
                   <div className="col-12">
                     {postData.postTags.length > 0 ? (
                       postData.postTags.map((item, index) => (
-                        <div className="tags" key={index}>
+                        <div
+                          className="tags"
+                          key={index}
+                          onClick={() => navigate(`/tagPage/${item}`)}
+                        >
                           <i className="bi bi-tags-fill"> </i>
                           {item}
                         </div>
@@ -395,24 +406,40 @@ export default function BlogReadPage() {
                     />
                   ))
                 ) : (
-                  <>No Comments</>
+                  <>
+                    <h4 className="h4 text-light text-center mt-5 pt-5">
+                      No comments
+                    </h4>
+                  </>
                 )}
               </div>
             </div>
           </>
         ) : (
           <>
-            {postDoesntExist && (
-              <>
-                <h1 className="text-center h1">
-                  Post doesn't exist or deleted!!
-                </h1>
-              </>
-            )}
+            <div className="container my-5 p-1 postDeleted">
+              <h1 className="text-center h1 text-light">
+                Post not found or may be deleted!
+              </h1>
+            </div>
           </>
         )}
       </div>
-      <Footer />
+
+      {(verifyUserLoading || getPostDataLoading) && (
+        <Loading message={"Fetching Data!"} />
+      )}
+      {postCommentLoading && <Loading message={"Posting your comment!"} />}
+      {deleteCommentLoading && <Loading message={"Deleting your comment!"} />}
+
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
+      {getPostDataError !== "" && <Error errorMessage={getPostDataError} />}
+      {/* {likePostError !== "" && <Error errorMessage={likePostError} />} */}
+      {/* {unlikePostError !== "" && <Error errorMessage={unlikePostError} />} */}
+      {/* {savePostError !== "" && <Error errorMessage={savePostError} />} */}
+      {/* {unsavePostError !== "" && <Error errorMessage={unsavePostError} />} */}
+      {postCommentError !== "" && <Error errorMessage={postCommentError} />}
+      {deleteCommentError !== "" && <Error errorMessage={deleteCommentError} />}
     </>
   );
 }

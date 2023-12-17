@@ -8,28 +8,37 @@ import {
   postCommentSuccess,
 } from "../Redux(Saga)/Actions/PostAction";
 import Comment from "../Components/Comment";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function HomePageBlog() {
   const dispatch = useDispatch();
-  const getAllPostsDataResponse = useSelector(
-    (state) => state.postReducer.getAllPostsDataResponse
-  );
-  const postCommentResponse = useSelector(
-    (state) => state.postReducer.postCommentResponse
-  );
+  const {
+    getAllPostsDataResponse,
+    getAllPostsDataLoading,
+    getAllPostsDataError,
+    postCommentResponse,
+    postCommentError,
+    postCommentLoading,
+    deleteCommentLoading,
+    deleteCommentError,
+  } = useSelector((state) => state.postReducer);
+
   useEffect(() => {
     const jwToken = JSON.parse(localStorage.getItem("blogApp"));
     if (jwToken) {
       dispatch(getAllPostsDataStart(jwToken.token));
     }
-  }, []);
+  }, [dispatch]);
   // handling response
   const [postsData, setPostsData] = useState([]);
   useEffect(() => {
     if (getAllPostsDataResponse.length > 0) {
-      setPostsData(getAllPostsDataResponse);
+      setPostsData(
+        [...getAllPostsDataResponse].sort(() => Math.random() - 0.5)
+      );
     }
-  }, [getAllPostsDataResponse]);
+  }, [getAllPostsDataResponse, setPostsData]);
 
   // comments
   const [allData, setAllData] = useState([]);
@@ -60,7 +69,7 @@ export default function HomePageBlog() {
       setComment("");
       dispatch(postCommentSuccess({}));
     }
-  }, [postCommentResponse]);
+  }, [postCommentResponse, setAllData, setComment, dispatch]);
   return (
     <>
       <div className="container-fluid HomePageBlogSection">
@@ -71,7 +80,11 @@ export default function HomePageBlog() {
                 <BlogCard data={item} key={index} setAllData={setAllData} />
               ))
             ) : (
-              <>no posts</>
+              <>
+                <div className="container my-5 p-1 postDeleted">
+                  <h1 className="text-center h1 text-light">No Posts Found!</h1>
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -102,10 +115,12 @@ export default function HomePageBlog() {
               {allData.hasOwnProperty("postComments") &&
               allData.postComments.length > 0 ? (
                 allData.postComments.map((item, index) => (
-                  <Comment key={index} data={item} postId={allData._id}/>
+                  <Comment key={index} data={item} postId={allData._id} />
                 ))
               ) : (
-                <> no comments</>
+                <>
+                  <h5 className="h5 text-center text-light">No Comments!</h5>
+                </>
               )}
             </div>
 
@@ -143,6 +158,16 @@ export default function HomePageBlog() {
           </div>
         </div>
       </div>
+
+      {getAllPostsDataLoading && <Loading message={"Fetching data!"} />}
+      {postCommentLoading && <Loading message={"Posting your comment!"} />}
+      {deleteCommentLoading && <Loading message={"Deleting your comment!"} />}
+
+      {deleteCommentError !== "" && <Error errorMessage={deleteCommentError} />}
+      {postCommentError !== "" && <Error errorMessage={postCommentError} />}
+      {getAllPostsDataError !== "" && (
+        <Error errorMessage={getAllPostsDataError} />
+      )}
     </>
   );
 }

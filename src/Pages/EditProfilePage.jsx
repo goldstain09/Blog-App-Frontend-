@@ -17,14 +17,32 @@ import PasswordChangeModal from "../Components/PasswordChangeModal";
 import ForgetPasswordModal from "../Components/ForgetPasswordModal";
 import DeleteAccountModal from "../Components/DeleteAccountModal";
 import LogoutConfirmationModal from "../Components/LogoutConfirmationModal";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function EditProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
+  const {
+    UserDataFromResponse,
+    editUserLoading,
+    editUserError,
+    verifyUserLoading,
+    verifyUserError,
+    addUserEmailLoading,
+    addUserEmailError,
+    removeUserEmailLoading,
+    removeUserEmailError,
+    changePasswordLoading,
+    changePasswordError,
+    forgetchangePasswordLoading,
+    forgetchangePasswordError,
+    checkPasswordForDeleteAccountLoading,
+    checkPasswordForDeleteAccountError,
+    deleteUserAccountLoading,
+    deleteUserAccountError,
+  } = useSelector((state) => state.userReducer);
 
   //if authorised then stay otherwise it will render user to login Page
   useEffect(() => {
@@ -39,7 +57,7 @@ export default function EditProfilePage() {
     } else {
       navigate("/myProfile");
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, navigate]);
   // -----------------------------------------------------------------------------
 
   //initialFormData
@@ -130,13 +148,13 @@ export default function EditProfilePage() {
       setFormData(UserDataFromResponse);
       navigate("/myProfile");
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, setFormData, navigate]);
 
   return (
     <>
       <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
         <Link className="btn btn-outline-dark" to={"/myProfile"}>
-          <i className="bi bi-box-arrow-left"></i>
+          Back
         </Link>
       </div>
       <div className="container-fluid editPage">
@@ -468,34 +486,64 @@ export default function EditProfilePage() {
       <ForgetPasswordModal />
       <DeleteAccountModal />
       <LogoutConfirmationModal />
+
+      {verifyUserLoading && <Loading message={"Fetching data!"} />}
+      {checkPasswordForDeleteAccountLoading && (
+        <Loading message={"Checking password!"} />
+      )}
+      {deleteUserAccountLoading && (
+        <Loading message={"Deleting your Account!"} />
+      )}
+      {editUserLoading && <Loading message={"Updating your personal info!"} />}
+      {addUserEmailLoading && <Loading message={"Adding your email!"} />}
+      {removeUserEmailLoading && <Loading message={"Removing your email!"} />}
+      {(forgetchangePasswordLoading || changePasswordLoading) && (
+        <Loading message={"Changing your password!"} />
+      )}
+
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
+      {editUserError !== "" && <Error errorMessage={editUserError} />}
+      {addUserEmailError !== "" && <Error errorMessage={addUserEmailError} />}
+      {removeUserEmailError !== "" && (
+        <Error errorMessage={removeUserEmailError} />
+      )}
+      {changePasswordError !== "" && (
+        <Error errorMessage={changePasswordError} />
+      )}
+      {forgetchangePasswordError !== "" && (
+        <Error errorMessage={forgetchangePasswordError} />
+      )}
+      {checkPasswordForDeleteAccountError !== "" && (
+        <Error errorMessage={checkPasswordForDeleteAccountError} />
+      )}
+      {deleteUserAccountError !== "" && (
+        <Error errorMessage={deleteUserAccountError} />
+      )}
     </>
   );
 }
 
-{
-  /* <div className="col-6">
-<textarea
-  type="text"
-  rows={4}
-  className=" form-control"
-  placeholder="Type your Biography"
-/>
-</div> */
-}
-{
-  /* <div className="col-6">
-              <label className="form-control-label">Profile Picture</label>
-              <input
-                type="file"
-                accept="image/*"
-                className=" form-control"
-                placeholder="Profile Picture"
-                // onChange={(event) => {
-                //   // setFile(event.target.files[0]);
-                // }}
-              />
-            </div> */
-}
+//  <div className="col-6">
+// <textarea
+//   type="text"
+//   rows={4}
+//   className=" form-control"
+//   placeholder="Type your Biography"
+// />
+// </div>
+
+//  <div className="col-6">
+//             <label className="form-control-label">Profile Picture</label>
+//             <input
+//               type="file"
+//               accept="image/*"
+//               className=" form-control"
+//               placeholder="Profile Picture"
+//               // onChange={(event) => {
+//               //   // setFile(event.target.files[0]);
+//               // }}
+//             />
+//           </div>
 
 //   <div className="col-6">
 //   <input

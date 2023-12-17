@@ -47,22 +47,31 @@ const initialState = {
   UserDataFromResponse: {},
   createUserLoading: false,
   createUserError: "",
+
   verifyUserLoading: false,
   verifyUserError: "",
+
   loginUserLoading: false,
   loginUserError: "",
+
   editUserLoading: false,
   editUserError: "",
+
   addUserEmailLoading: false,
   addUserEmailError: "",
+
   removeUserEmailLoading: false,
   removeUserEmailError: "",
+
   changePasswordLoading: false,
   changePasswordError: "",
+
   forgetchangePasswordLoading: false,
   forgetchangePasswordError: "",
+
   checkPasswordForDeleteAccountLoading: false,
   checkPasswordForDeleteAccountError: "",
+
   deleteUserAccountLoading: false,
   deleteUserAccountError: "",
 
@@ -76,6 +85,7 @@ const initialState = {
 
   followBloggerLoading: false,
   followBloggerError: "",
+
   unfollowBloggerLoading: false,
   unfollowBloggerError: "",
 
@@ -320,6 +330,8 @@ const userReducer = (state = initialState, action) => {
         bloggerDataError: "",
         bloggerDataLoading: false,
         bloggerDataResponse: action.payload,
+        followBloggerLoading: false,
+        unfollowBloggerLoading: false,
       };
     case GET_BLOGGER_DATA_ERROR:
       return {

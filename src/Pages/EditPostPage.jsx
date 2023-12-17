@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import {
   deleteBlogStart,
@@ -11,23 +11,26 @@ import {
 } from "../Redux(Saga)/Actions/PostAction";
 import storage from "../Utils/Firebase.Storage";
 import { deleteObject, ref } from "firebase/storage";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function EditPostPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
-  const getPostDataResponse = useSelector(
-    (state) => state.postReducer.getPostDataResponse
-  );
-  const updateBlogResponse = useSelector(
-    (state) => state.postReducer.updateBlogResponse
-  );
-  const deleteBlogResponse = useSelector(
-    (state) => state.postReducer.deleteBlogResponse
-  );
+  const { UserDataFromResponse, verifyUserLoading, verifyUserError } =
+    useSelector((state) => state.userReducer);
+  const {
+    getPostDataResponse,
+    getPostDataError,
+    getPostDataLoading,
+    updateBlogResponse,
+    updateBlogError,
+    updateBlogLoading,
+    deleteBlogResponse,
+    deleteBlogError,
+    deleteBlogLoading,
+  } = useSelector((state) => state.postReducer);
   // this useEffect is for authorization!
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -55,34 +58,17 @@ export default function EditPostPage() {
         navigate("/login");
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, navigate, dispatch]);
   // -----------------------------------------------------------------------------
-
   // to get post data!
   useEffect(() => {
     const jwToken = JSON.parse(localStorage.getItem("blogApp"));
-    dispatch(getPostDataStart({ postId: params.postId, token: jwToken.token }));
-  }, [params.postId]);
-
-  // handling response
-  useEffect(() => {
-    if (getPostDataResponse.hasOwnProperty("userName")) {
-      // setPostData(getPostDataResponse);
-      const tags = getPostDataResponse.postTags.join(" ");
-      const initialFormData = {
-        postTitle: getPostDataResponse.postTitle,
-        postCaption: getPostDataResponse.postCaption,
-        postCategory: getPostDataResponse.postCategory,
-        postImage: getPostDataResponse.postImage,
-        postImageAddress: getPostDataResponse.postImageAddress,
-        postTags: tags,
-        postBlogsPara: getPostDataResponse.postBlogsPara,
-        postId: params.postId,
-      };
-      setFormData(initialFormData);
-      setBlogParaInputsValues(getPostDataResponse.postBlogsPara);
+    if (jwToken) {
+      dispatch(
+        getPostDataStart({ postId: params.postId, token: jwToken.token })
+      );
     }
-  }, [getPostDataResponse]);
+  }, [params.postId, dispatch]);
 
   // blog post form related functions and state-
   const initialFormData = {
@@ -176,8 +162,13 @@ export default function EditPostPage() {
         navigate(`/myBlog/${params.postId}`);
       }
     }
-  }, [updateBlogResponse]);
+  }, [updateBlogResponse, dispatch, navigate]);
 
+  // to delete post image from storage
+  const deletePostImage = async () => {
+    const desertRef = ref(storage, postImageAddress);
+    await deleteObject(desertRef);
+  };
   //handling response of delete post
   useEffect(() => {
     if (deleteBlogResponse.hasOwnProperty("postDeleted")) {
@@ -187,15 +178,35 @@ export default function EditPostPage() {
         navigate("/myProfile");
       }
     }
-  }, [deleteBlogResponse]);
-  // to delete post image from storage
-  const deletePostImage = async () => {
-    const desertRef = ref(storage, postImageAddress);
-    await deleteObject(desertRef);
-  };
+  }, [deleteBlogResponse, deletePostImage, navigate, dispatch]);
+
+  // handling response [here are older values setted into the form to edit!!]
+  useEffect(() => {
+    if (getPostDataResponse.hasOwnProperty("userName")) {
+      // setPostData(getPostDataResponse);
+      const tags = getPostDataResponse.postTags.join(" ");
+      const initialFormData = {
+        postTitle: getPostDataResponse.postTitle,
+        postCaption: getPostDataResponse.postCaption,
+        postCategory: getPostDataResponse.postCategory,
+        postImage: getPostDataResponse.postImage,
+        postImageAddress: getPostDataResponse.postImageAddress,
+        postTags: tags,
+        postBlogsPara: getPostDataResponse.postBlogsPara,
+        postId: params.postId,
+      };
+      setFormData(initialFormData);
+      setBlogParaInputsValues(getPostDataResponse.postBlogsPara);
+    }
+  }, [getPostDataResponse, setFormData, setBlogParaInputsValues]);
 
   return (
     <>
+      <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+        <Link className="btn btn-outline-dark" to={`/myBlog/${params.postId}`}>
+          Back
+        </Link>
+      </div>
       <div className="container-fluid AddPostContainer">
         <form className="container" onSubmit={update}>
           {postCategory.length > 0 ? (
@@ -205,7 +216,9 @@ export default function EditPostPage() {
                   <h1 className="h1 text-light">Update your Blog</h1>
                 </div>
                 <div className="col-3 w-50 text-end postBtn">
-                  <button type="submit">Update</button>
+                  <button type="submit" className="text-light">
+                    Update
+                  </button>
                 </div>
                 <div className="col-6">
                   <label>Title [0 - 50 letters]</label>
@@ -313,6 +326,7 @@ export default function EditPostPage() {
                         minimum length of 1000 letters
                       </p>
                       <button
+                        className="text-light"
                         onClick={(e) => {
                           e.preventDefault();
                           const allInputsValues = [...blogParaInputsValues];
@@ -343,7 +357,9 @@ export default function EditPostPage() {
               </div>
             </>
           ) : (
-            <>no post</>
+            <>
+              <h3 className="h3 text-center text-light">No Posts!</h3>
+            </>
           )}
         </form>
         <div
@@ -378,6 +394,17 @@ export default function EditPostPage() {
           </div>
         </div>
       </div>
+
+      {(verifyUserLoading || getPostDataLoading) && (
+        <Loading message={"Fetching data!"} />
+      )}
+      {updateBlogLoading && <Loading message={"Updating your blog!"} />}
+      {deleteBlogLoading && <Loading message={"Deleting your blog!"} />}
+
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
+      {getPostDataError !== "" && <Error errorMessage={getPostDataError} />}
+      {updateBlogError !== "" && <Error errorMessage={updateBlogError} />}
+      {deleteBlogError !== "" && <Error errorMessage={deleteBlogError} />}
     </>
   );
 }

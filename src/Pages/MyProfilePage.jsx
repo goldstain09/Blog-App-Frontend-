@@ -12,12 +12,27 @@ import ProfileLikedAndSavedPostsCard from "../Components/ProfileLikedAndSavedPos
 import { getAllPostsDataStart } from "../Redux(Saga)/Actions/PostAction";
 import MyFollowersModal from "../Components/MyFollowersModal";
 import MyFollowingsModal from "../Components/MyFollowingsModal";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function MyProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
+  const {
+    UserDataFromResponse,
+    createUserLoading,
+    createUserError,
+    verifyUserLoading,
+    verifyUserError,
+    loginUserLoading,
+    loginUserError,
+    editUserLoading,
+    editUserError,
+    getAllBloggersDataLoading,
+    getAllBloggersDataError,
+  } = useSelector((state) => state.userReducer);
+  const { getAllPostsDataLoading, getAllPostsDataError } = useSelector(
+    (state) => state.postReducer
   );
   // setting user data
   const [datashow, setDatashow] = useState(false);
@@ -29,36 +44,9 @@ export default function MyProfilePage() {
         dispatch(notAuthorised(false));
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, dispatch]);
   // -----------------------------------------------------------------------------
 
-  useEffect(() => {
-    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
-      setUserData(UserDataFromResponse);
-      localStorage.setItem(
-        "blogApp",
-        JSON.stringify({
-          token: UserDataFromResponse.jwToken,
-          validity: "15 minutes",
-        })
-      );
-      setLikedPosts(UserDataFromResponse.likedPost);
-      setSavedPosts(UserDataFromResponse.savedPost);
-      setDatashow(true);
-      setWhatToShow("myPosts");
-    } else {
-      const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
-      if (tokenInfo) {
-        if (tokenInfo.hasOwnProperty("validity")) {
-          dispatch(verifyUserAuthStart(tokenInfo.token));
-          dispatch(getAllPostsDataStart(tokenInfo.token));
-          dispatch(getAllBloggersDataStart(tokenInfo.token));
-        }
-      } else {
-        navigate("/login");
-      }
-    }
-  }, [UserDataFromResponse]);
   // -----------------------------------------------------------------------------
   const [likedPosts, setLikedPosts] = useState([]);
   const [savedPosts, setSavedPosts] = useState([]);
@@ -108,11 +96,48 @@ export default function MyProfilePage() {
     }
   }, [WhatToShow]);
 
+  useEffect(() => {
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
+      setUserData(UserDataFromResponse);
+      localStorage.setItem(
+        "blogApp",
+        JSON.stringify({
+          token: UserDataFromResponse.jwToken,
+          validity: "15 minutes",
+        })
+      );
+      setLikedPosts(UserDataFromResponse.likedPost);
+      setSavedPosts(UserDataFromResponse.savedPost);
+      setDatashow(true);
+      setWhatToShow("myPosts");
+    } else {
+      const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
+      if (tokenInfo) {
+        if (tokenInfo.hasOwnProperty("validity")) {
+          dispatch(verifyUserAuthStart(tokenInfo.token));
+          dispatch(getAllPostsDataStart(tokenInfo.token));
+          dispatch(getAllBloggersDataStart(tokenInfo.token));
+        }
+      } else {
+        navigate("/login");
+      }
+    }
+  }, [
+    UserDataFromResponse,
+    navigate,
+    dispatch,
+    setUserData,
+    setLikedPosts,
+    setSavedPosts,
+    setDatashow,
+    setWhatToShow,
+  ]);
+
   return (
     <>
       <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
         <Link className="btn btn-outline-dark" to={"/"}>
-          <i className="bi bi-box-arrow-left"></i>
+          Back
         </Link>
       </div>
       <div className="container-fluid MyProfilePage">
@@ -243,11 +268,7 @@ export default function MyProfilePage() {
           </ul>
         </div>
 
-        {WhatToShow === "Loading" && (
-          <div className="container PostContainer">
-            <div className="row">Loading-------------------------------</div>
-          </div>
-        )}
+        {WhatToShow === "Loading" && <Loading />}
         {WhatToShow === "myPosts" && (
           <div className="container PostContainer">
             <div className="row">
@@ -257,7 +278,10 @@ export default function MyProfilePage() {
                   <ProfilePostCard key={index} data={item} />
                 ))
               ) : (
-                <>No Posts</>
+                <>
+                  {" "}
+                  <h3 className="h3 text-light text-center">No Posts</h3>
+                </>
               )}
             </div>
           </div>
@@ -276,7 +300,10 @@ export default function MyProfilePage() {
                   />
                 ))
               ) : (
-                <>No saved posts</>
+                <>
+                  {" "}
+                  <h3 className="h3 text-light text-center">No Posts</h3>
+                </>
               )}
             </div>
           </div>
@@ -293,7 +320,9 @@ export default function MyProfilePage() {
                   />
                 ))
               ) : (
-                <> no liked posts </>
+                <>
+                  <h3 className="h3 text-light text-center">No Posts</h3>
+                </>
               )}
             </div>
           </div>
@@ -301,6 +330,24 @@ export default function MyProfilePage() {
       </div>
       <MyFollowersModal followers={followers} />
       <MyFollowingsModal followings={followings} />
+
+      {(createUserLoading ||
+        verifyUserLoading ||
+        loginUserLoading ||
+        editUserLoading ||
+        getAllBloggersDataLoading ||
+        getAllPostsDataLoading) && <Loading message={"Fetching data!"} />}
+
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
+      {createUserError !== "" && <Error errorMessage={createUserError} />}
+      {loginUserError !== "" && <Error errorMessage={loginUserError} />}
+      {editUserError !== "" && <Error errorMessage={editUserError} />}
+      {getAllBloggersDataError !== "" && (
+        <Error errorMessage={getAllBloggersDataError} />
+      )}
+      {getAllPostsDataError !== "" && (
+        <Error errorMessage={getAllPostsDataError} />
+      )}
     </>
   );
 }

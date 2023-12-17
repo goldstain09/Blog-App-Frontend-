@@ -7,19 +7,25 @@ import {
   verifyUserAuthStart,
 } from "../Redux(Saga)/Actions/UserAction";
 import { getAllPostsDataStart } from "../Redux(Saga)/Actions/PostAction";
+import Loading from "../Components/Loading";
+import Error from "../Components/Error";
 
 export default function SearchPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
-  const getAllBloggersDataResponse = useSelector(
-    (state) => state.userReducer.getAllBloggersDataResponse
-  );
-  const getAllPostsDataResponse = useSelector(
-    (state) => state.postReducer.getAllPostsDataResponse
-  );
+  const {
+    UserDataFromResponse,
+    getAllBloggersDataResponse,
+    verifyUserLoading,
+    verifyUserError,
+    getAllBloggersDataLoading,
+    getAllBloggersDataError,
+  } = useSelector((state) => state.userReducer);
+  const {
+    getAllPostsDataResponse,
+    getAllPostsDataLoading,
+    getAllPostsDataError,
+  } = useSelector((state) => state.postReducer);
 
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -36,45 +42,13 @@ export default function SearchPage() {
         if (tokenInfo.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(tokenInfo.token));
           dispatch(getAllPostsDataStart(tokenInfo.token));
-          dispatch(getAllBloggersDataStart(tokenInfo.token));
         }
       } else {
         navigate("/login");
       }
     }
-  }, [UserDataFromResponse]);
+  }, [UserDataFromResponse, dispatch, navigate]);
 
-  // here I'm setting raw or without searching data which can be visible on visiting search page
-  useEffect(() => {
-    if (getAllPostsDataResponse) {
-      if (getAllPostsDataResponse.length > 0) {
-        setBlogs(getAllPostsDataResponse);
-
-        // setting up all tags
-        const allPostsTags = [];
-        getAllPostsDataResponse.map((item) => {
-          item.postTags.map((item) => {
-            allPostsTags.push(item);
-          });
-        });
-        let newTags = [...new Set(allPostsTags)];
-        setTags(newTags);
-
-        // setting up all categories
-        const allPostsCategories = [];
-        getAllPostsDataResponse.map((item) => {
-          allPostsCategories.push(`${item.postCategory}`);
-        });
-        let newCategories = [...new Set(allPostsCategories)];
-        setCategories(newCategories);
-      }
-    }
-  }, [getAllPostsDataResponse]);
-  useEffect(() => {
-    if (getAllBloggersDataResponse.length > 0) {
-      setBloggers(getAllBloggersDataResponse);
-    }
-  }, [getAllBloggersDataResponse]);
   //   -----------------------------------------------------
   const [whatToShow, setWhatToShow] = useState("Bloggers");
   const [blogs, setBlogs] = useState([]);
@@ -82,6 +56,7 @@ export default function SearchPage() {
   const [categories, setCategories] = useState([]);
   const [bloggers, setBloggers] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+
   // input change
   const inputChange = (e) => {
     e.preventDefault();
@@ -98,26 +73,27 @@ export default function SearchPage() {
             .includes(e.target.value.toLowerCase()) ||
           item.postTitle.toLowerCase().includes(e.target.value.toLowerCase())
       );
-      setBlogs(newBlogs);
+
+      setBlogs([...newBlogs].sort(() => Math.random() - 0.5));
 
       let newBloggers = bloggers.filter(
         (item) =>
           item.userName.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.Name.toLowerCase().includes(e.target.value.toLowerCase())
       );
-      setBloggers(newBloggers);
+      setBloggers([...newBloggers].sort(() => Math.random() - 0.5));
 
       let newTags = tags.filter((item) =>
         item.toLowerCase().includes(e.target.value.toLowerCase())
       );
-      setTags(newTags);
+      setTags([...newTags].sort(() => Math.random() - 0.5));
 
       let newCategories = categories.filter((item) =>
         item.toLowerCase().includes(e.target.value.toLowerCase())
       );
-      setCategories(newCategories);
+      setCategories([...newCategories].sort(() => Math.random() - 0.5));
     } else if (e.target.value === "") {
-      setBlogs(getAllPostsDataResponse);
+      setBlogs([...getAllPostsDataResponse].sort(() => Math.random() - 0.5));
       const allPostsTags = [];
       getAllPostsDataResponse.map((item) => {
         item.postTags.map((item) => {
@@ -125,16 +101,63 @@ export default function SearchPage() {
         });
       });
       let newTags = [...new Set(allPostsTags)];
-      setTags(newTags);
+      setTags([...newTags].sort(() => Math.random() - 0.5));
       const allPostsCategories = [];
       getAllPostsDataResponse.map((item) => {
         allPostsCategories.push(`${item.postCategory}`);
       });
       let newCategories = [...new Set(allPostsCategories)];
-      setCategories(newCategories);
-      setBloggers(getAllBloggersDataResponse);
+      setCategories([...newCategories].sort(() => Math.random() - 0.5));
+      setBloggers(
+        [...getAllBloggersDataResponse].sort(() => Math.random() - 0.5)
+      );
     }
   };
+
+  useEffect(() => {
+    if (getAllBloggersDataResponse) {
+      if (getAllBloggersDataResponse.length > 0) {
+        setBloggers(
+          [...getAllBloggersDataResponse].sort(() => Math.random() - 0.5)
+        );
+      } else {
+        const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
+        if (tokenInfo) {
+          if (tokenInfo.hasOwnProperty("validity")) {
+            dispatch(getAllBloggersDataStart(tokenInfo.token));
+          }
+        }
+      }
+    }
+  }, [getAllBloggersDataResponse, setBloggers, dispatch]);
+
+  // here I'm setting raw or without searching data which can be visible on visiting search page
+  useEffect(() => {
+    if (getAllPostsDataResponse) {
+      if (getAllPostsDataResponse.length > 0) {
+        setBlogs([...getAllPostsDataResponse].sort(() => Math.random() - 0.5));
+
+        // setting up all tags
+        const allPostsTags = [];
+        getAllPostsDataResponse.map((item) => {
+          item.postTags.map((item) => {
+            allPostsTags.push(item);
+          });
+        });
+        let newTags = [...new Set(allPostsTags)];
+        setTags([...newTags].sort(() => Math.random() - 0.5));
+
+        // setting up all categories
+        const allPostsCategories = [];
+        getAllPostsDataResponse.map((item) => {
+          allPostsCategories.push(`${item.postCategory}`);
+        });
+        let newCategories = [...new Set(allPostsCategories)];
+        setCategories([...newCategories].sort(() => Math.random() - 0.5));
+      }
+    }
+  }, [getAllPostsDataResponse, setBlogs, setCategories, setTags]);
+
   return (
     <>
       <div className="container-fluid searchPage">
@@ -242,7 +265,9 @@ export default function SearchPage() {
                   </div>
                 ))
               ) : (
-                <></>
+                <>
+                  <h5 className="h5 text-light text-center">No bloggers</h5>
+                </>
               )}
             </div>
           )}
@@ -254,15 +279,17 @@ export default function SearchPage() {
                   <div
                     key={index}
                     className="col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3"
-                    onClick={()=>{
-                      navigate(`/categoryPage/${item}`)
+                    onClick={() => {
+                      navigate(`/categoryPage/${item}`);
                     }}
                   >
                     <i className="bi bi-collection"></i> {`${item}`}
                   </div>
                 ))
               ) : (
-                <> no categories</>
+                <>
+                  <h5 className="h5 text-light text-center">No categories</h5>
+                </>
               )}
             </div>
           )}
@@ -275,12 +302,15 @@ export default function SearchPage() {
                   <div
                     key={index}
                     className="col col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                    onClick={() => navigate(`/tagPage/${item}`)}
                   >
                     <i className="bi bi-tags-fill"></i> {item}
                   </div>
                 ))
               ) : (
-                <>no tags</>
+                <>
+                  <h5 className="h5 text-light text-center">No tags</h5>
+                </>
               )}
             </div>
           )}
@@ -302,12 +332,26 @@ export default function SearchPage() {
                   </div>
                 ))
               ) : (
-                <>No posts</>
+                <>
+                  <h5 className="h5 text-light text-center">No posts</h5>
+                </>
               )}
             </div>
           )}
         </form>
       </div>
+
+      {(verifyUserLoading ||
+        getAllBloggersDataLoading ||
+        getAllPostsDataLoading) && <Loading message={"Fetching data!"} />}
+
+      {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
+      {getAllBloggersDataError !== "" && (
+        <Error errorMessage={getAllBloggersDataError} />
+      )}
+      {getAllPostsDataError !== "" && (
+        <Error errorMessage={getAllPostsDataError} />
+      )}
     </>
   );
 }

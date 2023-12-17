@@ -11,9 +11,6 @@ export default function ProfilePostCard({ data }) {
     postLikes: [],
     postComments: [],
   });
-  useEffect(() => {
-    Response(data.postId);
-  }, [data]);
 
   const Response = async (postId) => {
     try {
@@ -32,6 +29,9 @@ export default function ProfilePostCard({ data }) {
     }
   };
 
+  useEffect(() => {
+    Response(data.postId);
+  }, [data, Response, setPostInfo]);
   return (
     <>
       <div

@@ -10,20 +10,6 @@ export default function Comment({ data, postId, myBlog }) {
     (state) => state.userReducer.UserDataFromResponse
   );
 
-  const [showDeleteCommentBtn, setShowDeleteCommentBtn] = useState(false);
-  useEffect(() => {
-    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
-      if (UserDataFromResponse._id === data.userId) {
-        setShowDeleteCommentBtn(true);
-      }else{
-        setShowDeleteCommentBtn(false)
-      }
-      if(myBlog){
-        setShowDeleteCommentBtn(true)
-      }
-    }
-  }, [data]);
-
   const [userInfo, setUserInfo] = useState({
     userId: data.userId,
     profilePicture:
@@ -31,10 +17,19 @@ export default function Comment({ data, postId, myBlog }) {
     userName: "user__",
   });
 
-  // it's for showing updated data to user of commenter
+  const [showDeleteCommentBtn, setShowDeleteCommentBtn] = useState(false);
   useEffect(() => {
-    Response(data.userId);
-  }, [data]);
+    if (UserDataFromResponse.hasOwnProperty("jwToken")) {
+      if (UserDataFromResponse._id === data.userId) {
+        setShowDeleteCommentBtn(true);
+      } else {
+        setShowDeleteCommentBtn(false);
+      }
+      if (myBlog) {
+        setShowDeleteCommentBtn(true);
+      }
+    }
+  }, [data, setShowDeleteCommentBtn]);
 
   const Response = async (userId) => {
     try {
@@ -52,6 +47,10 @@ export default function Comment({ data, postId, myBlog }) {
       // nothing to do here if error occurs bcz initial value is visible if userdata is not getted
     }
   };
+  // it's for showing updated data to user of commenter
+  useEffect(() => {
+    Response(data.userId);
+  }, [data, Response, setUserInfo]);
 
   return (
     <>
