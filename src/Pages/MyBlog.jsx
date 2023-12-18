@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import {
+  getAllPostsDataStart,
   getPostDataStart,
   getPostDataSuccess,
   likePostStart,
@@ -70,6 +71,7 @@ export default function MyBlog() {
       if (jwToken) {
         if (jwToken.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(jwToken.token));
+          dispatch(getAllPostsDataStart(jwToken.token));
         }
       } else {
         navigate("/login");
@@ -164,25 +166,25 @@ export default function MyBlog() {
       // setLiked(true);
       dispatch(likePostSuccess({}));
     }
-  }, [likePostResponse]);
+  }, [likePostResponse, dispatch]);
   useEffect(() => {
     if (unlikePostResponse.hasOwnProperty("unliked")) {
       // setLiked(false);
       dispatch(unLikePostSuccess({}));
     }
-  }, [unlikePostResponse]);
+  }, [unlikePostResponse, dispatch]);
   useEffect(() => {
     if (savePostResponse.hasOwnProperty("saved")) {
       // setSaved(true);
       dispatch(savePostSuccess({}));
     }
-  }, [savePostResponse]);
+  }, [savePostResponse, dispatch]);
   useEffect(() => {
     if (unlikePostResponse.hasOwnProperty("unsaved")) {
       // setSaved(false);
       dispatch(unSavePostSuccess({}));
     }
-  }, [unsavePostResponse]);
+  }, [unsavePostResponse, dispatch]);
 
   // handling response
   useEffect(() => {
@@ -261,7 +263,11 @@ export default function MyBlog() {
                   <div className="col-12">
                     {postData.postTags.length > 0 ? (
                       postData.postTags.map((item, index) => (
-                        <div className="tags" key={index}>
+                        <div
+                          className="tags"
+                          key={index}
+                          onClick={() => navigate(`/tagPage/${item}`)}
+                        >
                           <i className="bi bi-tags-fill"> </i>
                           {item}
                         </div>

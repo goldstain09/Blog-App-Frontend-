@@ -196,6 +196,7 @@ export default function AddPostPage() {
                     onChange={async (e) => {
                       setShowPostBtn(false);
                       setDidntSelectAnyImageError(false);
+                      setSomeErrorWhileUploadingImage("");
                       try {
                         if (imageAddress === "") {
                           const folderPath = `/postImages/${UserDataFromResponse._id}`;
@@ -253,13 +254,18 @@ export default function AddPostPage() {
                     className="btn btn-outline-danger mt-2"
                     onClick={async (e) => {
                       e.preventDefault();
+                      setSomeErrorWhileUploadingImage("");
                       const desertRef = ref(storage, `${imageAddress}`);
-                      await deleteObject(desertRef);
-                      setFormData({
-                        ...formData,
-                        postImage: "",
-                        postImageAddress: "",
-                      });
+                      try {
+                        await deleteObject(desertRef);
+                        setFormData({
+                          ...formData,
+                          postImage: "",
+                          postImageAddress: "",
+                        });
+                      } catch (error) {
+                        setSomeErrorWhileUploadingImage(error.message);
+                      }
                     }}
                   >
                     <i className="bi bi-trash3"></i>
@@ -301,7 +307,7 @@ export default function AddPostPage() {
               </label>
               <input
                 type="text"
-                placeholder="eg; #Lifestyle #Shoot #Team #Chill..."
+                placeholder="eg; Lifestyle Shoot Team Chill..."
                 value={postTags}
                 name="postTags"
                 onChange={(e) => {

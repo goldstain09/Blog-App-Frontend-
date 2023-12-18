@@ -30,6 +30,7 @@ export default function CategoryPage() {
     deleteCommentError,
   } = useSelector((state) => state.postReducer);
 
+  const [categoryPosts, setCatgoryPosts] = useState([]);
   // this useEffect is for authorization!
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
@@ -67,7 +68,6 @@ export default function CategoryPage() {
   ]);
   // -----------------------------------------------------------------------------
 
-  const [categoryPosts, setCatgoryPosts] = useState([]);
   // comments
   const [allData, setAllData] = useState([]);
   // post a comment

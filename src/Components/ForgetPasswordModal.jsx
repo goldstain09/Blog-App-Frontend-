@@ -77,7 +77,7 @@ export default function ForgetPasswordModal() {
     try {
       document.getElementById("sendOtpBtn").setAttribute("disabled", "");
       const Response = await axios.get(
-        `http://localhost:8080/v1/UserApi/changePasswordOtpVerification/${UserDataFromResponse.Email}`,
+        `/v1/UserApi/changePasswordOtpVerification/${UserDataFromResponse.Email}`,
         {
           headers: {
             Authorization: `Bearer ${jwToken.token}`,

@@ -273,7 +273,7 @@ export default function EditPostPage() {
                   </label>
                   <input
                     type="text"
-                    placeholder="eg; #Lifestyle #Shoot #Team #Chill..."
+                    placeholder="eg; Lifestyle Shoot Team Chill..."
                     value={postTags}
                     name="postTags"
                     onChange={(e) => {

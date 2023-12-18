@@ -116,7 +116,8 @@ export default function EditProfilePage() {
                 formData.token = UserDataFromResponse.jwToken;
                 dispatch(editUserAccountStart(formData));
               } else {
-                alert(error);
+                alert(error.message);
+                navigate("/myProfile");
               }
             }
           } else {
@@ -218,13 +219,16 @@ export default function EditProfilePage() {
                       if (userName !== "") {
                         try {
                           const response = await axios.get(
-                            `http://localhost:8080/v1/UserApi/checkUserNameAvailableOrNOT/${userName}`
+                            `/v1/UserApi/checkUserNameAvailableOrNOT/${userName}`
                           );
                           if (response) {
                             if (
                               response.data.hasOwnProperty("someErrorOccured")
                             ) {
-                              alert("someError");
+                              alert(
+                                "Something went wrong! Please try again later!"
+                              );
+                              navigate("/myProfile");
                             } else if (response.data === true) {
                               setUserNameAvailable(true);
                               setUserNameNotAvailable(false);
@@ -236,11 +240,13 @@ export default function EditProfilePage() {
                             }
                           } else {
                             alert("Network Issue! Please try again later!");
+                            navigate("/myProfile");
                           }
                         } catch (error) {
                           alert(
                             "Something went wrong! Please try again later!"
                           );
+                          navigate("/myProfile");
                         }
                       } else {
                         setEmptyUserNameError(true);
@@ -291,6 +297,7 @@ export default function EditProfilePage() {
                         alert(
                           "Something went wrong, while uploading your profile picture! Please try again!"
                         );
+                        navigate("/myProfile");
                       }
                     } else {
                       // its for uploading a new profile picture
@@ -307,6 +314,7 @@ export default function EditProfilePage() {
                         alert(
                           "Something went wrong, while uploading your profile picture! Please try again!"
                         );
+                        navigate("/myProfile");
                       }
                     }
                   }}

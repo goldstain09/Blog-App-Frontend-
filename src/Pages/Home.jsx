@@ -43,7 +43,6 @@ export default function Home() {
       if (jwToken) {
         if (jwToken.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(jwToken.token));
-          dispatch(getAllBloggersDataStart(jwToken.token));
         }
       } else {
         setNottAuthorised(true);
@@ -51,7 +50,14 @@ export default function Home() {
     }
   }, [UserDataFromResponse, setNottAuthorised, dispatch]);
   // -----------------------------------------------------------------------------
-
+  useEffect(() => {
+    const jwToken = JSON.parse(localStorage.getItem("blogApp"));
+    if (jwToken) {
+      if (jwToken.hasOwnProperty("validity")) {
+        dispatch(getAllBloggersDataStart(jwToken.token));
+      }
+    }
+  }, [dispatch]);
   return (
     <>
       <Header />

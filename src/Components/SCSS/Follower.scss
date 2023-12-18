@@ -2,7 +2,8 @@
   .col-2 {
     img {
       border-radius: 50px;
-      width: 2rem !important;
+      width: 2rem!important;
+      height: 2rem!important;
     }
     button {
       border: 1px solid red;
@@ -31,6 +32,7 @@
         .col-2{
             img{
                 width: 1.3rem!important;
+                height:1.3rem!important;
             }
             button{
                 padding: .1rem .2rem;

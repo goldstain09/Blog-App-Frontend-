@@ -69,7 +69,7 @@ export default function Header() {
                     <img
                       src={UserDataFromResponse.profilePicture}
                       alt="dp"
-                      style={{ borderRadius: "50px", width: "1.5rem" }}
+                      style={{ borderRadius: "50px", width: "1.5rem", height:'1.5rem' }}
                     />
                   </button>
                 </>
@@ -122,7 +122,7 @@ export default function Header() {
                   className="btn btn-primary"
                   onClick={() => navigate("/myProfile")}
                 >
-                  <img src={UserDataFromResponse.profilePicture} alt="" />
+                  <img src={UserDataFromResponse.profilePicture} />
                 </button>
               ) : (
                 <button

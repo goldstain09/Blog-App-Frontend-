@@ -12,7 +12,7 @@ export default function HomeTop() {
             You can <span>POST</span> your
           </h2>
           <h3>
-            <font>Blogs</font> for <span>free</span> here!!
+            <font>Blogs</font> here for <span>free</span> !!
           </h3>
           <Link to={"/signup"}>Get Started!</Link>
         </div>

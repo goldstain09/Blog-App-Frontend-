@@ -27,6 +27,9 @@ export default function SearchPage() {
     getAllPostsDataError,
   } = useSelector((state) => state.postReducer);
 
+  // console.log(getAllPostsDataLoading+'post');
+  // console.log(verifyUserLoading+'userdata');
+  // console.log(getAllBloggersDataLoading+'bloggers');
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
       localStorage.setItem(
@@ -41,7 +44,6 @@ export default function SearchPage() {
       if (tokenInfo) {
         if (tokenInfo.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(tokenInfo.token));
-          dispatch(getAllPostsDataStart(tokenInfo.token));
         }
       } else {
         navigate("/login");
@@ -114,46 +116,50 @@ export default function SearchPage() {
     }
   };
 
+  // here I'm setting raw or without searching data which can be visible on visiting search page
   useEffect(() => {
-    if (getAllBloggersDataResponse) {
-      if (getAllBloggersDataResponse.length > 0) {
-        setBloggers(
-          [...getAllBloggersDataResponse].sort(() => Math.random() - 0.5)
-        );
-      } else {
-        const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
-        if (tokenInfo) {
-          if (tokenInfo.hasOwnProperty("validity")) {
-            dispatch(getAllBloggersDataStart(tokenInfo.token));
-          }
+    // for bloggers
+    if (getAllBloggersDataResponse.length > 0) {
+      setBloggers(
+        [...getAllBloggersDataResponse].sort(() => Math.random() - 0.5)
+      );
+    } else {
+      const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
+      if (tokenInfo) {
+        if (tokenInfo.hasOwnProperty("validity")) {
+          dispatch(getAllBloggersDataStart(tokenInfo.token));
         }
       }
     }
-  }, [getAllBloggersDataResponse, setBloggers, dispatch]);
-
-  // here I'm setting raw or without searching data which can be visible on visiting search page
+  }, [getAllPostsDataResponse, setBloggers, dispatch]);
   useEffect(() => {
-    if (getAllPostsDataResponse) {
-      if (getAllPostsDataResponse.length > 0) {
-        setBlogs([...getAllPostsDataResponse].sort(() => Math.random() - 0.5));
+    // for categories, tags, and posts
+    if (getAllPostsDataResponse.length > 0) {
+      setBlogs([...getAllPostsDataResponse].sort(() => Math.random() - 0.5));
 
-        // setting up all tags
-        const allPostsTags = [];
-        getAllPostsDataResponse.map((item) => {
-          item.postTags.map((item) => {
-            allPostsTags.push(item);
-          });
+      // setting up all tags
+      const allPostsTags = [];
+      getAllPostsDataResponse.map((item) => {
+        item.postTags.map((item) => {
+          allPostsTags.push(item);
         });
-        let newTags = [...new Set(allPostsTags)];
-        setTags([...newTags].sort(() => Math.random() - 0.5));
+      });
+      let newTags = [...new Set(allPostsTags)];
+      setTags([...newTags].sort(() => Math.random() - 0.5));
 
-        // setting up all categories
-        const allPostsCategories = [];
-        getAllPostsDataResponse.map((item) => {
-          allPostsCategories.push(`${item.postCategory}`);
-        });
-        let newCategories = [...new Set(allPostsCategories)];
-        setCategories([...newCategories].sort(() => Math.random() - 0.5));
+      // setting up all categories
+      const allPostsCategories = [];
+      getAllPostsDataResponse.map((item) => {
+        allPostsCategories.push(`${item.postCategory}`);
+      });
+      let newCategories = [...new Set(allPostsCategories)];
+      setCategories([...newCategories].sort(() => Math.random() - 0.5));
+    } else {
+      const tokenInfo = JSON.parse(localStorage.getItem("blogApp"));
+      if (tokenInfo) {
+        if (tokenInfo.hasOwnProperty("validity")) {
+          dispatch(getAllPostsDataStart(tokenInfo.token));
+        }
       }
     }
   }, [getAllPostsDataResponse, setBlogs, setCategories, setTags]);

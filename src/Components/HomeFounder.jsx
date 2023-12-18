@@ -16,24 +16,25 @@ export default function HomeFounder() {
               <h2 className="h2">Sujal Rajput</h2>
               <h4 className="h4">MERN Stack Developer (Student)</h4>
               <div>
-                <a href="">
+                <a href="https://github.com/goldstain09" target="_new">
                   <p>
                     <i className="bi bi-github"></i>
                   </p>
                 </a>
-                <a href="">
+                <a
+                  href="https://www.linkedin.com/in/sujalrajput/"
+                  target="_new"
+                >
                   <p>
                     <i className="bi bi-linkedin"></i>
                   </p>
                 </a>
-                <a href="">
+                <a
+                  href="mailto:rajputsujal992@gmail.com?subject=Your%20Subject&body=Hello..."
+                  target="_new"
+                >
                   <p>
                     <i className="bi bi-envelope-at"></i>
-                  </p>
-                </a>
-                <a href="">
-                  <p>
-                    <i className="bi bi-instagram"></i>
                   </p>
                 </a>
               </div>

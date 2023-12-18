@@ -40,7 +40,7 @@ export default function AddEmailModal() {
         document.getElementById("otpSendBtn").style.display = "none";
         document.getElementById("emailInput").setAttribute("disabled", "");
         const response = await axios.get(
-          `http://localhost:8080/v1/UserApi/AddEmailOtpVerification/${email}`,
+          `/v1/UserApi/AddEmailOtpVerification/${email}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

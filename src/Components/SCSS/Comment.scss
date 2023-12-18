@@ -34,7 +34,8 @@
   .commenterDp {
     img {
       border-radius: 50px;
-      width: 100%;
+      width: 1.6rem!important;
+      height: 1.6rem!important;
     }
   }
   .commenterName {
@@ -82,26 +83,26 @@
 
 @media (max-width: 992px) {
   .comment {
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 100%!important;
     .commenterDp {
       width: 2rem;
       margin-right: 1rem;
-      img {
-        width: 2rem;
-      }
+      position: relative;
+      top: .6rem;
     }
     .commenterName {
       width: 70%!important;
       h5 {
-        margin-top: -1rem;
         color: white;
+
       }
     }
     .col-12 {
-      margin: 0;
+      margin: 0.6;
       p {
         font-size: 0.8rem;
+        margin-left: 4rem;
       }
     }
   }
@@ -121,31 +122,37 @@
     .commenterDp {
       width: 1.5rem!important;
       margin-right: .2rem;
+      position: relative;
+      top: -1rem;
       img {
-        width: 1.3rem;
+        width: 1.7rem!important;
+        height: 1.7rem!important;
       }
     }
     .commenterName {
       width: 78%!important;
       h5 {
         position: relative;
-        top: -.9rem;
+        top: -1.4rem;
+        margin-left:1rem ;
         margin-top: 0rem;
+        padding-top: 0;
       }
     }
     .col-12 {
       p {
         margin-left: 0.5rem;
         position: relative;
-        top: -3rem;
+        top: -1rem;
         font-size: 0.9rem;
+        margin-left: 3rem;
       }
     }
   }
   .delete___{
     .deleteBtn{
       position: relative;
-      top: -4rem!important;
+      top: -1rem!important;
     }
   }
 }

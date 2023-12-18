@@ -1,0 +1,23 @@
+
+.REPORTMODAL{
+    .row{
+        .col-12{
+            textarea{
+                background: none;
+                margin-top: 2rem;
+                width: 90%;
+                padding: .3rem .4rem;
+                border: none;
+                outline: none;
+                box-shadow: none;
+                border-bottom: 1px solid red;
+                resize: none;
+                color: white;
+            }
+            button{
+                margin-top: 3rem;
+                color: white;
+            }
+        }
+    }
+}

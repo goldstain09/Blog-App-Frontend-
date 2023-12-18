@@ -193,9 +193,9 @@ export default function LoginPage() {
           </div>
         </form>
       </div>
-      {(loginUserLoading || verifyUserLoading) && (
-        <Loading message={"Loggining into your account!"} />
-      )}
+      {verifyUserLoading && <Loading message={"Fetching data!"} />}
+      {loginUserLoading && <Loading message={"Loggining into your account!"} />}
+      
       {loginUserError !== "" && <Error errorMessage={loginUserError} />}
       {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
     </>

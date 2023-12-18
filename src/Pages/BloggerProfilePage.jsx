@@ -26,9 +26,7 @@ export default function BloggerProfilePage() {
     bloggerDataResponse,
     bloggerDataLoading,
     bloggerDataError,
-    followBloggerLoading,
     followBloggerError,
-    unfollowBloggerLoading,
     unfollowBloggerError,
   } = useSelector((state) => state.userReducer);
 

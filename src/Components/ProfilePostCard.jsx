@@ -15,7 +15,7 @@ export default function ProfilePostCard({ data }) {
   const Response = async (postId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/v1/PostApi/getPostDataForCardOnly/${postId}`
+        `/v1/PostApi/getPostDataForCardOnly/${postId}`
       );
       if (response.data.hasOwnProperty("postId")) {
         setPostInfo({

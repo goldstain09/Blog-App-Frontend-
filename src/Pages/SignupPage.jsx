@@ -243,7 +243,8 @@ export default function SignupPage() {
         </form>
       </div>
 
-      {(verifyUserLoading || createUserLoading) && (
+      {verifyUserLoading && <Loading message={"Fetching data!"} />}
+      {createUserLoading && (
         <Loading message={"Creating your blogger account!"} />
       )}
 

@@ -16,29 +16,29 @@ import {
 export default function BlogCard({ data, setAllData }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const UserDataFromResponse = useSelector(
-    (state) => state.userReducer.UserDataFromResponse
-  );
-  const likePostResponse = useSelector(
-    (state) => state.postReducer.likePostResponse
-  );
-  const unlikePostResponse = useSelector(
-    (state) => state.postReducer.unlikePostResponse
-  );
-  const savePostResponse = useSelector(
-    (state) => state.postReducer.savePostResponse
-  );
-  const unsavePostResponse = useSelector(
-    (state) => state.postReducer.unsavePostResponse
-  );
-
+  const { UserDataFromResponse } = useSelector((state) => state.userReducer);
+  const {
+    likePostResponse,
+    unlikePostResponse,
+    savePostResponse,
+    unsavePostResponse,
+  } = useSelector((state) => state.postReducer);
   // like or unlike
   const [liked, setLiked] = useState(false);
   // save or unsave
   const [saved, setSaved] = useState(false);
+  // my post or not
+  const [myPost, setMyPost] = useState(false);
 
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("jwToken")) {
+      if (
+        UserDataFromResponse.myPosts.every((item) => item.postId !== data._id)
+      ) {
+        setMyPost(false);
+      } else {
+        setMyPost(true);
+      }
       if (UserDataFromResponse.likedPost.length > 0) {
         if (
           UserDataFromResponse.likedPost.every(
@@ -66,7 +66,7 @@ export default function BlogCard({ data, setAllData }) {
         setSaved(false);
       }
     }
-  }, [UserDataFromResponse, setSaved, setLiked]);
+  }, [UserDataFromResponse, setSaved, setLiked, data]);
 
   useEffect(() => {
     if (likePostResponse.hasOwnProperty("liked")) {
@@ -112,26 +112,74 @@ export default function BlogCard({ data, setAllData }) {
             </h5>
           </div>
           <div className="col-1 dropdown">
-            <button
-              type="button"
-              id="dropdownCardMenu"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i className="bi h5 bi-three-dots-vertical"></i>
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownCardMenu">
-              <li>
-                <a className="dropdown-item" href="#">
-                  Report
-                </a>
-              </li>
-            </ul>
+            {myPost ? (
+              <>
+                <button
+                  type="button"
+                  id="dropdownCardMenu"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i className="bi h5 bi-three-dots-vertical"></i>
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownCardMenu"
+                >
+                  <li>
+                    <a
+                      className="dropdown-item"
+                      onClick={() => navigate(`/editPost/${data._id}`)}
+                    >
+                      Edit
+                    </a>
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  id="dropdownCardMenu"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i className="bi h5 bi-three-dots-vertical"></i>
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownCardMenu"
+                >
+                  <li>
+                    <a
+                      className="dropdown-item"
+                      onClick={() => navigate(`/blog/${data._id}`)}
+                    >
+                      Read
+                    </a>
+                  </li>
+                </ul>
+              </>
+            )}
           </div>
         </div>
 
         {/* ----------------------------------------------------- */}
-        <img src={data.postImage} className="card-img-top" alt="..." />
+        <img
+          src={data.postImage}
+          className="card-img-top"
+          alt="..."
+          onDoubleClick={(e) => {
+            e.preventDefault();
+            const jwToken = JSON.parse(localStorage.getItem("blogApp"));
+            const finalData = {
+              token: jwToken.token,
+              postId: data._id,
+            };
+            setLiked(true);
+            dispatch(likePostStart(finalData));
+          }}
+        />
         <div className="card-body">
           <div className="row d-flex">
             <div className="col-6">

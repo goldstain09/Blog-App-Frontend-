@@ -20,7 +20,7 @@ export default function Following({ data }) {
   const Response = async (bloggerId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/v1/UserApi/getUserUserNameAndDp/${bloggerId}`
+        `/v1/UserApi/getUserUserNameAndDp/${bloggerId}`
       );
       if (response.data.hasOwnProperty("userName")) {
         setUserInfo({

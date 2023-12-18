@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { verifyUserAuthStart } from "../Redux(Saga)/Actions/UserAction";
 import {
+  getAllPostsDataStart,
   getPostDataStart,
   getPostDataSuccess,
   likePostStart,
@@ -67,6 +68,7 @@ export default function BlogReadPage() {
       if (jwToken) {
         if (jwToken.hasOwnProperty("validity")) {
           dispatch(verifyUserAuthStart(jwToken.token));
+          dispatch(getAllPostsDataStart(jwToken.token));
         }
       } else {
         navigate("/login");
@@ -151,25 +153,25 @@ export default function BlogReadPage() {
       // setLiked(true);
       dispatch(likePostSuccess({}));
     }
-  }, [likePostResponse]);
+  }, [likePostResponse, dispatch]);
   useEffect(() => {
     if (unlikePostResponse.hasOwnProperty("unliked")) {
       // setLiked(false);
       dispatch(unLikePostSuccess({}));
     }
-  }, [unlikePostResponse]);
+  }, [unlikePostResponse, dispatch]);
   useEffect(() => {
     if (savePostResponse.hasOwnProperty("saved")) {
       // setSaved(true);
       dispatch(savePostSuccess({}));
     }
-  }, [savePostResponse]);
+  }, [savePostResponse, dispatch]);
   useEffect(() => {
     if (unlikePostResponse.hasOwnProperty("unsaved")) {
       // setSaved(false);
       dispatch(unSavePostSuccess({}));
     }
-  }, [unsavePostResponse]);
+  }, [unsavePostResponse, dispatch]);
 
   // handling response
   useEffect(() => {

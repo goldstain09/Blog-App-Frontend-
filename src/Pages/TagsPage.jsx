@@ -64,8 +64,8 @@ export default function TagsPage() {
       const jwToken = JSON.parse(localStorage.getItem("blogApp"));
       if (jwToken) {
         if (jwToken.hasOwnProperty("validity")) {
-          dispatch(verifyUserAuthStart(jwToken.token));
           dispatch(getAllPostsDataStart(jwToken.token));
+          dispatch(verifyUserAuthStart(jwToken.token));
         }
       } else {
         navigate("/login");
