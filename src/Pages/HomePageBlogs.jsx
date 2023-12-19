@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BlogCard from "../Components/BlogCard";
+import cardimg from '../Media/Logo.png';
 import "./SCSS/HomePageBlog.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -81,8 +82,185 @@ export default function HomePageBlog() {
               ))
             ) : (
               <>
-                <div className="container my-5 p-1 postDeleted">
-                  <h1 className="text-center h1 text-light">No Posts Found!</h1>
+                <div className="container">
+                  <div className="row">
+                    <div
+                      className="card bg-dark col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                      aria-hidden="true"
+                    >
+                      <img src={cardimg} alt="" className="card-img-top bg-dark" />
+                      <div className="card-body bg-dark">
+                        <h5 className="card-title placeholder-glow">
+                          <span className="placeholder col-6"></span>
+                        </h5>
+                        <p className="card-text placeholder-glow">
+                          <span className="placeholder col-7"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-6"></span>
+                          <span className="placeholder col-8"></span>
+                        </p>
+                        <a href="#"
+                          className="btn btn-primary disabled placeholder col-6"
+                          aria-disabled="true"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      className="card bg-dark col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                      aria-hidden="true"
+                    >
+                      <img src={cardimg} alt="" className="card-img-top bg-dark" />
+                      <div className="card-body bg-dark">
+                        <h5 className="card-title placeholder-glow">
+                          <span className="placeholder col-6"></span>
+                        </h5>
+                        <p className="card-text placeholder-glow">
+                          <span className="placeholder col-7"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-6"></span>
+                          <span className="placeholder col-8"></span>
+                        </p>
+                        <a href="#"
+                          className="btn btn-primary disabled placeholder col-6"
+                          aria-disabled="true"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      className="card bg-dark col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                      aria-hidden="true"
+                    >
+                      <img src={cardimg} alt="" className="card-img-top bg-dark" />
+                      <div className="card-body bg-dark">
+                        <h5 className="card-title placeholder-glow">
+                          <span className="placeholder col-6"></span>
+                        </h5>
+                        <p className="card-text placeholder-glow">
+                          <span className="placeholder col-7"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-6"></span>
+                          <span className="placeholder col-8"></span>
+                        </p>
+                        <a href="#"
+                          className="btn btn-primary disabled placeholder col-6"
+                          aria-disabled="true"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      className="card bg-dark col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                      aria-hidden="true"
+                    >
+                      <img src={cardimg} alt="" className="card-img-top bg-dark" />
+                      <div className="card-body bg-dark">
+                        <h5 className="card-title placeholder-glow">
+                          <span className="placeholder col-6"></span>
+                        </h5>
+                        <p className="card-text placeholder-glow">
+                          <span className="placeholder col-7"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-6"></span>
+                          <span className="placeholder col-8"></span>
+                        </p>
+                        <a href="#"
+                          className="btn btn-primary disabled placeholder col-6"
+                          aria-disabled="true"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      className="card bg-dark col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                      aria-hidden="true"
+                    >
+                      <img src={cardimg} alt="" className="card-img-top bg-dark" />
+                      <div className="card-body bg-dark">
+                        <h5 className="card-title placeholder-glow">
+                          <span className="placeholder col-6"></span>
+                        </h5>
+                        <p className="card-text placeholder-glow">
+                          <span className="placeholder col-7"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-6"></span>
+                          <span className="placeholder col-8"></span>
+                        </p>
+                        <a href="#"
+                          className="btn btn-primary disabled placeholder col-6"
+                          aria-disabled="true"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      className="card bg-dark col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                      aria-hidden="true"
+                    >
+                      <img src={cardimg} alt="" className="card-img-top bg-dark" />
+                      <div className="card-body bg-dark">
+                        <h5 className="card-title placeholder-glow">
+                          <span className="placeholder col-6"></span>
+                        </h5>
+                        <p className="card-text placeholder-glow">
+                          <span className="placeholder col-7"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-6"></span>
+                          <span className="placeholder col-8"></span>
+                        </p>
+                        <a href="#"
+                          className="btn btn-primary disabled placeholder col-6"
+                          aria-disabled="true"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      className="card bg-dark col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                      aria-hidden="true"
+                    >
+                      <img src={cardimg} alt="" className="card-img-top bg-dark" />
+                      <div className="card-body bg-dark">
+                        <h5 className="card-title placeholder-glow">
+                          <span className="placeholder col-6"></span>
+                        </h5>
+                        <p className="card-text placeholder-glow">
+                          <span className="placeholder col-7"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-6"></span>
+                          <span className="placeholder col-8"></span>
+                        </p>
+                        <a href="#"
+                          className="btn btn-primary disabled placeholder col-6"
+                          aria-disabled="true"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      className="card bg-dark col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                      aria-hidden="true"
+                    >
+                      <img src={cardimg} alt="" className="card-img-top bg-dark" />
+                      <div className="card-body bg-dark">
+                        <h5 className="card-title placeholder-glow">
+                          <span className="placeholder col-6"></span>
+                        </h5>
+                        <p className="card-text placeholder-glow">
+                          <span className="placeholder col-7"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-4"></span>
+                          <span className="placeholder col-6"></span>
+                          <span className="placeholder col-8"></span>
+                        </p>
+                        <a href="#"
+                          className="btn btn-primary disabled placeholder col-6"
+                          aria-disabled="true"
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </>
             )}

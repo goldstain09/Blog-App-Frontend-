@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./SCSS/Follower.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -17,23 +17,26 @@ export default function Following({ data }) {
     userName: "user__",
   });
 
-  const Response = async (bloggerId) => {
-    try {
-      const response = await axios.get(
-        `/v1/UserApi/getUserUserNameAndDp/${bloggerId}`
-      );
-      if (response.data.hasOwnProperty("userName")) {
-        setUserInfo({
-          ...userInfo,
-          profilePicture: response.data.profilePicture,
-          userName: response.data.userName,
-        });
-      }
-    } catch (error) {}
-  };
+  const Response = useCallback(
+    async (bloggerId) => {
+      try {
+        const response = await axios.get(
+          `/v1/UserApi/getUserUserNameAndDp/${bloggerId}`
+        );
+        if (response.data.hasOwnProperty("userName")) {
+          setUserInfo({
+            ...userInfo,
+            profilePicture: response.data.profilePicture,
+            userName: response.data.userName,
+          });
+        }
+      } catch (error) {}
+    },
+    [setUserInfo, userInfo]
+  );
   useEffect(() => {
     Response(data.bloggerId);
-  }, [data, Response, setUserInfo]);
+  }, [data, Response]);
   return (
     <>
       <div className="row d-flex" id="Followd">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./SCSS/Comment.scss";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,40 +33,37 @@ export default function Comment({ data, postId, myBlog }) {
     }
   }, [data, setShowDeleteCommentBtn]);
 
-  const Response = async (userId) => {
-    try {
-      const response = await axios.get(
-        `/v1/UserApi/getUserUserNameAndDp/${userId}`
-      );
-      if (response.data.hasOwnProperty("userName")) {
-        setUserInfo({
-          ...userInfo,
-          profilePicture: response.data.profilePicture,
-          userName: response.data.userName,
-        });
+  const Response = useCallback(
+    async (userId) => {
+      try {
+        const response = await axios.get(
+          `/v1/UserApi/getUserUserNameAndDp/${userId}`
+        );
+        if (response.data.hasOwnProperty("userName")) {
+          setUserInfo({
+            ...userInfo,
+            profilePicture: response.data.profilePicture,
+            userName: response.data.userName,
+          });
+        }
+      } catch (error) {
+        // nothing to do here if error occurs bcz initial value is visible if userdata is not getted
       }
-    } catch (error) {
-      // nothing to do here if error occurs bcz initial value is visible if userdata is not getted
-    }
-  };
+    },
+    [setUserInfo, userInfo]
+  );
   // it's for showing updated data to user of commenter
   useEffect(() => {
     Response(data.userId);
-  }, [data, Response, setUserInfo]);
+  }, [data, Response]);
 
   return (
     <>
       <div className="row d-flex comment">
-        <div
-          className="col-1 commenterDp"
-          onClick={() => navigate(`/bloggerProfile/${userInfo.userId}`)}
-        >
+        <div className="col-1 commenterDp">
           <img src={userInfo.profilePicture} alt="" />
         </div>
-        <div
-          className="col-11 commenterName"
-          onClick={() => navigate(`/bloggerProfile/${userInfo.userId}`)}
-        >
+        <div className="col-11 commenterName">
           <h5 className="h5">
             {userInfo.userName.split("").slice(0, 13).join("")}
           </h5>

@@ -2,7 +2,7 @@
   background: url("./Media/HomePageBGImageTop.jpg");
   background-size: 100% 100%;
   height: fit-content;
-  padding-top: 3rem;
+  padding-top: 5rem;
   padding-bottom: 5rem;
   .container {
     h1 {
@@ -90,7 +90,7 @@
     }
   }
   .PasswordSetting,
-  .DeleteAccountSetting {
+  .DeleteAccountSetting,.LogoutAccountSetting {
     .col-2 {
       width: 40%;
       button {
@@ -130,7 +130,7 @@
     }
   }
   .PasswordSetting,
-  .DeleteAccountSetting {
+  .DeleteAccountSetting,.LogoutAccountSetting {
     .col-2 {
       width: 40%;
     }
@@ -155,7 +155,7 @@
     }
   }
   .PasswordSetting,
-  .DeleteAccountSetting {
+  .DeleteAccountSetting ,.LogoutAccountSetting{
     .col-2 {
       width: 70%!important;
     }
@@ -163,7 +163,7 @@
 }
 @media (max-width: 768px) {
   .editPage {
-    padding-top: 3rem;
+    padding-top: 5rem;
     padding-bottom: 5rem;
     .container {
       h1 {
@@ -208,12 +208,12 @@
         h3 {
           font-size: 1.2rem !important;
         }
-        .btn {
-        }
+        // .btn {
+        // }
       }
     }
     .PasswordSetting,
-    .DeleteAccountSetting {
+    .DeleteAccountSetting,.LogoutAccountSetting {
       .col-2 {
         width: 90%;
         button {
@@ -230,7 +230,7 @@
     text-align: center !important;
   }
   .editPage {
-    padding-top: 2rem;
+    padding-top: 4rem;
     padding-bottom: 5rem;
     .container {
       h1 {
@@ -267,7 +267,7 @@
           }
         }
         .col-12 {
-          margin-top: 3rem;
+          margin-top: 4rem;
           button {
             padding: 0.4rem 0.5rem;
           }
@@ -290,7 +290,7 @@
       }
     }
     .PasswordSetting,
-    .DeleteAccountSetting {
+    .DeleteAccountSetting ,.LogoutAccountSetting{
       .col-2 {
         width: 100%!important;
         text-align: center;

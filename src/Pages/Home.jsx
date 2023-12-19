@@ -19,9 +19,8 @@ export default function Home() {
   const dispatch = useDispatch();
   const {
     UserDataFromResponse,
-    verifyUserLoading,
+    getAllPostsDataLoading,
     verifyUserError,
-    getAllBloggersDataLoading,
     getAllBloggersDataError,
   } = useSelector((state) => state.userReducer);
 
@@ -74,9 +73,7 @@ export default function Home() {
       )}
 
       <Footer />
-      {(verifyUserLoading || getAllBloggersDataLoading) && (
-        <Loading message={"Fetching data!"} />
-      )}
+      {getAllPostsDataLoading && <Loading message={"Fetching data!"} />}
 
       {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
       {getAllBloggersDataError !== "" && (
@@ -90,10 +87,8 @@ export default function Home() {
 
 // const [progress, setProgress] = useState(0)
 
-{
-  /* <LoadingBar
-color='#f11946'
-progress={progress}
-onLoaderFinished={() => setProgress(0)}
-/> */
-}
+//  <LoadingBar
+// color='#f11946'
+// progress={progress}
+// onLoaderFinished={() => setProgress(0)}
+// />
