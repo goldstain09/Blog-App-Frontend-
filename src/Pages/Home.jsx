@@ -74,8 +74,8 @@ export default function Home() {
       )}
 
       <Footer />
-      {getAllBloggersDataLoading && <Loading message={"Fetching Data!"} />}
-      {verifyUserLoading && <Loading message={"Fetching data!"} />}
+      {/* {getAllBloggersDataLoading && <Loading message={"Fetching Data!"} />} */}
+      {/* {verifyUserLoading && <Loading message={"Fetching data!"} />} */}
 
       {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
       {getAllBloggersDataError !== "" && (
