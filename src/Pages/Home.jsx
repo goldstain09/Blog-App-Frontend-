@@ -19,8 +19,9 @@ export default function Home() {
   const dispatch = useDispatch();
   const {
     UserDataFromResponse,
-    getAllPostsDataLoading,
+    getAllBloggersDataLoading,
     verifyUserError,
+    verifyUserLoading,
     getAllBloggersDataError,
   } = useSelector((state) => state.userReducer);
 
@@ -73,7 +74,8 @@ export default function Home() {
       )}
 
       <Footer />
-      {getAllPostsDataLoading && <Loading message={"Fetching data!"} />}
+      {getAllBloggersDataLoading && <Loading message={"Fetching Data!"} />}
+      {verifyUserLoading && <Loading message={"Fetching data!"} />}
 
       {verifyUserError !== "" && <Error errorMessage={verifyUserError} />}
       {getAllBloggersDataError !== "" && (

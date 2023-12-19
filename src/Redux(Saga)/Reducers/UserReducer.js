@@ -99,12 +99,14 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         authorised: { authorised: true },
+        verifyUserLoading:false
       };
     case NOT_AUTHORISED:
       return {
         ...state,
         authorised: { authorised: false },
         UserDataFromResponse: {},
+        verifyUserLoading:false
       };
 
     // creating user
