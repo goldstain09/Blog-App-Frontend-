@@ -2,14 +2,9 @@ $main: rgb(174, 48, 48);
 // fornt-family: 'Griffy';
 .home-top {
   height: 58rem;
-  background: url("./Media/HomePageBGImageTop.jpg");
+  background: black;
   background-size: 100% 100%;
   font-family: "Edu TAS Beginner", cursive;
-  animation: homePageAnime 0.5s;
-  animation-iteration-count: infinite;
-  animation-duration: 3s;
-  animation-fill-mode: both;
-  transition: background 4s ease;
 
   .container {
     padding-top: 13rem;
@@ -56,41 +51,6 @@ $main: rgb(174, 48, 48);
   }
 }
 
-@keyframes homePageAnime {
-  0% {
-    background: url("./Media/HomePageBGImageTop.jpg");
-  }
-  10% {
-    background: url("./Media/HomePageBGImageTop1.jpg");
-  }
-  20% {
-    background: url("./Media/HomePageBGImageTop2.jpg");
-  }
-  30% {
-    background: url("./Media/HomePageBGImageTop3.jpg");
-  }
-  40% {
-    background: url("./Media/HomePageBGImageTop4.jpg");
-  }
-  50% {
-    background: url("./Media/HomePageBGImageTop5.jpg");
-  }
-  60% {
-    background: url("./Media/HomePageBGImageTop6.jpg");
-  }
-  70% {
-    background: url("./Media/HomePageBGImageTop7.jpg");
-  }
-  80% {
-    background: url("./Media/HomePageBGImageTop8.jpg");
-  }
-  90% {
-    background: url("./Media/HomePageBGImageTop9.jpg");
-  }
-  100% {
-    background: url("./Media/HomePageBGImageTop.jpg");
-  }
-}
 
 @media (max-width: 992px) {
   .home-top {

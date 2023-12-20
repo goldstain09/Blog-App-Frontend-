@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./SCSS/DeleteAccountModal.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -54,7 +54,7 @@ export default function DeleteAccountModal() {
 
   const [deletedSuccessfully, setDeletedSuccessfully] = useState(false);
   // delete dp and post images
-  const deleteImagesFromStorage = async (UserDataFromResponse) => {
+  const deleteImagesFromStorage = useCallback(async (UserDataFromResponse) => {
     try {
       // post images delete from storage
       const AllPostsImageFolder = ref(
@@ -77,7 +77,7 @@ export default function DeleteAccountModal() {
         setDeletedSuccessfully(true);
       } catch (error) {
         if (
-          error.message ==
+          error.message ===
           `Firebase Storage: Object 'profilePictures/${UserDataFromResponse._id}'s_DP' does not exist. (storage/object-not-found)`
         ) {
           setDeletedSuccessfully(true);
@@ -87,7 +87,7 @@ export default function DeleteAccountModal() {
       }
     } catch (error) {
       if (
-        error.message ==
+        error.message ===
         `Firebase Storage: Object 'postImages/${UserDataFromResponse._id}' does not exist. (storage/object-not-found)`
       ) {
         try {
@@ -100,7 +100,7 @@ export default function DeleteAccountModal() {
           setDeletedSuccessfully(true);
         } catch (error) {
           if (
-            error.message ==
+            error.message ===
             `Firebase Storage: Object 'profilePictures/${UserDataFromResponse._id}'s_DP' does not exist. (storage/object-not-found)`
           ) {
             setDeletedSuccessfully(true);
@@ -112,7 +112,7 @@ export default function DeleteAccountModal() {
         setDeletedSuccessfully(true);
       }
     }
-  };
+  },[setDeletedSuccessfully])
   // handling response of account deleted successfully
   useEffect(() => {
     if (UserDataFromResponse.hasOwnProperty("accountDeleted")) {
@@ -120,7 +120,7 @@ export default function DeleteAccountModal() {
         deleteImagesFromStorage(UserDataFromResponse);
       }
     }
-  }, [UserDataFromResponse, deleteImagesFromStorage, setDeletedSuccessfully]);
+  }, [UserDataFromResponse, deleteImagesFromStorage]);
   return (
     <>
       <div
@@ -209,7 +209,7 @@ export default function DeleteAccountModal() {
                             <div className="col-12">
                               <h5
                                 className="h5 text-secondary"
-                                style={{ fontWeight: "100" }}
+                                style={{ fontWeight: "300" }}
                               >
                                 Okay! If you really want to delete your account
                                 then enter your password to continue!
