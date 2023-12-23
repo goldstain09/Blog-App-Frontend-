@@ -1,5 +1,19 @@
 Project Name - "BLOG APP"
 
+
+Live Demo - https://blog-app-p6j0.onrender.com/
+
+Test Users - [
+    userName - itz__sam__09
+    Password - sujal2004
+
+    username - goldstain09
+    Password - sujal2004
+]
+
+
+
+
 Frontend (ReactJS):
 
 Description:
