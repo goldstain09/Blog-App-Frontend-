@@ -226,7 +226,7 @@ export default function BloggerProfilePage() {
         ) : (
           <>
             <h1 className="h1 text-light text-center mt-5 pt-5">
-              No User Found!
+              Please Wait...
             </h1>
           </>
         )}
